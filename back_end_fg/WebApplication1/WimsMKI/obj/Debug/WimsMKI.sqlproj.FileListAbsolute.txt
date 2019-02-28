@@ -1,0 +1,16 @@
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\bin\Debug\WimsMKI.dacpac
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\bin\Debug\WimsMKI.dll
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\bin\Debug\WimsMKI.pdb
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\WimsMKI.sqlprojAssemblyReference.cache
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\WimsMKI.dll
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\WimsMKI.pdb
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\Model.xml
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\refactor.xml
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\postdeploy.sql
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Debug\predeploy.sql
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end_fg\WebApplication1\WimsMKI\bin\Debug\WimsMKI.dacpac
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end_fg\WebApplication1\WimsMKI\bin\Debug\WimsMKI.dll
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end_fg\WebApplication1\WimsMKI\bin\Debug\WimsMKI.pdb
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end_fg\WebApplication1\WimsMKI\obj\Debug\WimsMKI.sqlprojAssemblyReference.cache
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end_fg\WebApplication1\WimsMKI\obj\Debug\WimsMKI.dll
+C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end_fg\WebApplication1\WimsMKI\obj\Debug\WimsMKI.pdb
