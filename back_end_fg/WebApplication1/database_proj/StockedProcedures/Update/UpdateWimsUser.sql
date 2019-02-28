@@ -1,16 +1,20 @@
-﻿CREATE PROCEDURE [dbo].[UpdateWimsUser]
+CREATE PROCEDURE [dbo].[UpdateWimsUser]
 	@Id int,
-	@Name varchar(50),
+	@FirstName varchar(50),
 	@LastName varchar(50),
-	@NickName varchar(50),
+	@Pseudo varchar(50),
+	@Pswd varchar(50),
 	@Email varchar(50),
-	@IsTwitcher bit,
+	@TwitchLink varchar(200),
+  @PseudoTwitch varchar(50),
 	@ConditionAccepted bit,
 	@CurrencyId int,
-	@Avatar image,
-	@Pswd varchar(50),
+	@Avatar varchar(250),
+  @Active bit,
 	@Role int
+
 AS
-	UPDATE WimsUser SET Name = @Name, LastName = @LastName, NickName = @NickName, Email = @Email, IsTwitcher = @IsTwitcher,
-	ConditionAccepted = @ConditionAccepted, CurrencyId = @CurrencyId, Avatar =@Avatar, Pswd = @Pswd, RoleId = @Role WHERE Id = @Id;
+	UPDATE WimsUser SET FirstName = @FirstName, LastName = @LastName, Pseudo = @Pseudo, Pswd = @Pswd, Email = @Email,
+  TwitchLink = @TwitchLink, PseudoTwitch = @PseudoTwitch, ConditionAccepted = @ConditionAccepted, CurrencyId = @CurrencyId,
+  Avatar = @Avatar, RoleId = @Role WHERE Id = @Id;
 RETURN 0

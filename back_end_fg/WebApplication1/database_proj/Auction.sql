@@ -8,7 +8,7 @@ CREATE TABLE [dbo].[Auction]
     [CurrentAuction] INT NOT NULL, 
     [AuctionDate] DATE NULL, 
     [AuctionValidation] BIT NOT NULL DEFAULT 0, 
-    [PriceId] INT NOT NULL, 
+    [PriceId] INT NULL, 
     [Active] BIT NOT NULL DEFAULT 1, 
     CONSTRAINT [FK_Auction_ToTable_PriceToWin] FOREIGN KEY ([PriceId]) REFERENCES [PriceToWin]([Id]), 
     

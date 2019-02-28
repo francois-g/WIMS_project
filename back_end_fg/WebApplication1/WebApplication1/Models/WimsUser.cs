@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,21 +11,40 @@ namespace WimsApiMKI.Models
         private int _id;
         private string _firstname;
         private string _lastname;
+        private string _pseudo;
+        private string _pswd;
         private string _email;
-        private bool _isTwitcher;
+        private string _twitchLink;
+        private string _pseudoTwitch;
         private bool _conditionAccepted;
         private Currency _currency;
-        private byte _avatar;
+        private string _avatar;
         private bool _active;
-        private string _pswd;
         private Role _role;
 
-        #region GetSet
-
-        public Role Role
+        public WimsUser()
         {
-            get { return _role; }
-            set { _role = value; }
+            Active = true;
+        }
+
+        #region GetSet
+        
+        public string Firstname
+        {
+            get { return _firstname; }
+            set { _firstname = value; }
+        }
+
+        public string Lastname
+        {
+            get { return _lastname; }
+            set { _lastname = value; }
+        }
+        
+        public string Pseudo
+        {
+            get { return _pseudo; }
+            set { _pseudo = value; }
         }
 
         public string Pswd
@@ -34,22 +53,22 @@ namespace WimsApiMKI.Models
             set { _pswd = value; }
         }
 
-        public bool Active
+        public string Email
         {
-            get { return _active; }
-            set { _active = value; }
+            get { return _email; }
+            set { _email = value; }
         }
 
-        public byte Avatar
+        public string TwitchLink
         {
-            get { return _avatar; }
-            set { _avatar = value; }
+            get { return _twitchLink; }
+            set { _twitchLink = value; }
         }
 
-        public Currency Currency
+        public string PseudoTwitch
         {
-            get { return _currency; }
-            set { _currency = value; }
+            get { return _pseudoTwitch; }
+            set { _pseudoTwitch = value; }
         }
 
         public bool ConditionAccepted
@@ -58,29 +77,38 @@ namespace WimsApiMKI.Models
             set { _conditionAccepted = value; }
         }
 
-        public bool IsTwitcher
+        public Currency Currency
         {
-            get { return _isTwitcher; }
-            set { _isTwitcher = value; }
+            get { return _currency; }
+            set { _currency = value; }
         }
 
-        public string Email
+        public string Avatar
         {
-            get { return _email; }
-            set { _email = value; }
+            get { return _avatar; }
+            set { _avatar = value; }
         }
 
-        public string Lastname
+        public bool Active
         {
-            get { return _lastname; }
-            set { _lastname = value; }
+            get { return _active; }
+            set { _active = value; }
         }
 
-        public string Firstname
+        public Role Role
         {
-            get { return _firstname; }
-            set { _firstname = value; }
+            get { return _role; }
+            set { _role = value; }
         }
+
+
+
+        
+
+
+
+        
+
 
         public int Id
         {
