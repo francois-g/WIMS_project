@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>WimsMKI</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{ee7b9e4b-e83d-4646-869a-25b707854ac1}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>WimsMKI</RootNamespace>
+    <AssemblyName>WimsMKI</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="StockedProcedures" />
+    <Folder Include="StockedProcedures\Add" />
+    <Folder Include="StockedProcedures\Select" />
+    <Folder Include="StockedProcedures\SelectById" />
+    <Folder Include="StockedProcedures\Delete" />
+    <Folder Include="StockedProcedures\Update" />
+    <Folder Include="Scripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Game.sql" />
+    <Build Include="Auction.sql" />
+    <Build Include="PriceToWin.sql" />
+    <Build Include="Currency.sql" />
+    <Build Include="WimsUser.sql" />
+    <Build Include="StockedProcedures\Add\AddGame.sql" />
+    <Build Include="StockedProcedures\Add\AddWimsUser.sql" />
+    <Build Include="StockedProcedures\Delete\DeleteGame.sql" />
+    <Build Include="StockedProcedures\Delete\DeleteWimsUser.sql" />
+    <Build Include="StockedProcedures\Select\SelectGame.sql" />
+    <Build Include="StockedProcedures\SelectById\SelectGameById.sql" />
+    <Build Include="StockedProcedures\SelectById\SelectWimsUerById.sql" />
+    <Build Include="StockedProcedures\Select\SelectWimsUser.sql" />
+    <Build Include="StockedProcedures\Update\UpdateGame.sql" />
+    <Build Include="StockedProcedures\Update\UpdateWimsUser.sql" />
+    <Build Include="StockedProcedures\Add\AddCurrency.sql" />
+    <Build Include="StockedProcedures\Delete\DeleteCurrency.sql" />
+    <Build Include="StockedProcedures\Update\UpdateCurrency.sql" />
+    <Build Include="StockedProcedures\Select\SelectCurrency.sql" />
+    <Build Include="StockedProcedures\SelectById\SelectCurrencyById.sql" />
+    <Build Include="StockedProcedures\Select\SelectPriceToWin.sql" />
+    <Build Include="StockedProcedures\SelectById\SelectPriceToWinById.sql" />
+    <Build Include="StockedProcedures\Update\UpdatePriceToWin.sql" />
+    <Build Include="StockedProcedures\Delete\DeletePriceToWin.sql" />
+    <Build Include="StockedProcedures\Add\AddPriceToWin.sql" />
+    <Build Include="StockedProcedures\Add\AddAuction.sql" />
+    <Build Include="StockedProcedures\Delete\DeleteAuction.sql" />
+    <Build Include="StockedProcedures\Update\UpdateAuction.sql" />
+    <Build Include="StockedProcedures\SelectById\SelectAuctionById.sql" />
+    <Build Include="StockedProcedures\Select\SelectAuction.sql" />
+    <Build Include="Role.sql" />
+    <None Include="Scripts\ScriptPostDeploymentCurrencies.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="WimsMKI.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\ScriptPostDeploymentRoles.sql" />
+  </ItemGroup>
+</Project>

@@ -1,5 +1,0 @@
-C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\bin\Release\WimsMKI.dacpac
-C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\bin\Release\WimsMKI.dll
-C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\bin\Release\WimsMKI.pdb
-C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Release\WimsMKI.dll
-C:\Users\studentsc07\Documents\WIMS\WIMS_project\back_end\WimsMKI\obj\Release\WimsMKI.pdb

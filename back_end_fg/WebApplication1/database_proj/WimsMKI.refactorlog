@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="ee267ec1-a6bc-4b04-bb59-bcdc6aca5145" ChangeDateTime="02/08/2019 08:12:31">
+    <Property Name="ElementName" Value="[dbo].[User].[Pseudo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NickName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bfcacc27-7964-4625-8c89-4329bb778bd8" ChangeDateTime="02/08/2019 08:12:38">
+    <Property Name="ElementName" Value="[dbo].[User].[N]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5125eb0d-f334-45fe-bcce-123719878f12" ChangeDateTime="02/08/2019 09:08:47">
+    <Property Name="ElementName" Value="[dbo].[PriceToWin].[UserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PriceToWin]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CurrentWinner" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="26f83778-c86e-47c4-acc3-882bb06ab593" ChangeDateTime="02/08/2019 12:59:47">
+    <Property Name="ElementName" Value="[dbo].[WimsUser].[Currency]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[WimsUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CurrencyId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c73d8f48-5ad8-47eb-ae9c-f436453bd5bd" ChangeDateTime="02/08/2019 17:42:45">
+    <Property Name="ElementName" Value="[dbo].[WimsUser].[Password]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[WimsUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Pswd" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a5299c9e-14f5-4a0b-9903-04bfc40f5e75" ChangeDateTime="02/08/2019 18:52:16">
+    <Property Name="ElementName" Value="[dbo].[PriceToWin].[AuctionStart]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PriceToWin]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AuctionStartValue" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ed1d8819-a77f-4dcc-aac0-d46df46fd436" ChangeDateTime="02/08/2019 19:05:23">
+    <Property Name="ElementName" Value="[dbo].[Auction].[AuctionPrice]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Auction]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AuctionPriceId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6a2e2538-134b-4cb7-b951-0272ccabcd24" ChangeDateTime="02/08/2019 19:07:04">
+    <Property Name="ElementName" Value="[dbo].[FK_Auction_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Auction]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Auction_ToTable_PriceToWin]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ef2d0a8a-8959-4dd3-acf2-eaca82560c32" ChangeDateTime="02/11/2019 08:29:12">
+    <Property Name="ElementName" Value="[dbo].[WimsUser].[Role]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[WimsUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RoleId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6ccead7d-ebad-4d3d-9aaf-ff61caff2da5" ChangeDateTime="02/28/2019 12:01:09">
+    <Property Name="ElementName" Value="[dbo].[PriceToWin].[CurrentWinner]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PriceToWin]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CurrentBestAuction" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fffad90f-cc17-43e9-89c1-2f1cb2c0993f" ChangeDateTime="02/28/2019 12:17:46">
+    <Property Name="ElementName" Value="[dbo].[Auction].[AuctionPriceId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Auction]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PriceId" />
+  </Operation>
+</Operations>

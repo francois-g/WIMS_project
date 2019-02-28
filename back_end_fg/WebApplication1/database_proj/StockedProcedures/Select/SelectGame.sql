@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE [dbo].[SelectGame]
+	
+	
+AS
+	SELECT * FROM Game
+RETURN 0
