@@ -30,16 +30,16 @@ namespace WebApplication1.Controllers
                         {
                             WimsUser user = new WimsUser();
                             user.Id = (int)reader[0];
-                            user.Firstname = (string)reader[1];
-                            user.Lastname = (string)reader[2];
-                            user.Pseudo = (string)reader[3];
-                            user.Pswd = (string)reader[4];
-                            user.Email = (string)reader[5];
-                            user.TwitchLink = (string)reader[6];
-                            user.PseudoTwitch = (string)reader[7];
+                            user.Firstname = (string)reader[1].ToString().Trim();
+                            user.Lastname = (string)reader[2].ToString().Trim();
+                            user.Pseudo = (string)reader[3].ToString().Trim();
+                            user.Pswd = (string)reader[4].ToString().Trim();
+                            user.Email = (string)reader[5].ToString().Trim();
+                            user.TwitchLink = (reader[6] is DBNull) ? null : (string)reader[6];
+                            user.PseudoTwitch = (reader[7] is DBNull) ? null : (string)reader[7];
                             user.ConditionAccepted = (bool)reader[8];
-                            user.Currency.Id = (int)reader[9];
-                            user.Avatar = (string)reader[10];
+                            user.CurrencyId = (reader[9] is DBNull) ? null : (int?)reader[9];
+                            user.Avatar = (reader[10] is DBNull) ? null : (string)reader[10];
                             user.Active = (bool)reader[11];
                             user.Role.Id = (int)reader[12];
                             listFromDB.Add(user);
@@ -70,16 +70,17 @@ namespace WebApplication1.Controllers
                     while (reader.Read())
                     {
                         user.Id = (int)reader[0];
-                        user.Firstname = (string)reader[1];
-                        user.Lastname = (string)reader[2];
-                        user.Pseudo = (string)reader[3];
-                        user.Pswd = (string)reader[4];
-                        user.Email = (string)reader[5];
-                        user.TwitchLink = (string)reader[6];
-                        user.PseudoTwitch = (string)reader[7];
+                        user.Firstname = (string)reader[1].ToString().Trim();
+                        user.Lastname = (string)reader[2].ToString().Trim();
+                        user.Pseudo = (string)reader[3].ToString().Trim();
+                        user.Pswd = (string)reader[4].ToString().Trim();
+                        user.Email = (string)reader[5].ToString().Trim();
+                        user.TwitchLink = (reader[6] is DBNull) ? null : (string)reader[6];
+                        user.PseudoTwitch = (reader[7] is DBNull) ? null : (string)reader[7];
                         user.ConditionAccepted = (bool)reader[8];
-                        user.Currency.Id = (int)reader[9];
-                        user.Avatar = (string)reader[10];
+                        user.CurrencyId = (reader[9] is DBNull) ? null : (int?)reader[9];
+                        if (user.CurrencyId != null) { user.Currency.Id = (int)user.CurrencyId; }
+                        user.Avatar = (reader[10] is DBNull) ? null : (string)reader[10];
                         user.Active = (bool)reader[11];
                         user.Role.Id = (int)reader[12];
                     }
@@ -89,93 +90,123 @@ namespace WebApplication1.Controllers
             return user;
         }
 
-        //public void Post([FromBody]WimsUser p)
-        //{
-        //    using (SqlConnection c = new SqlConnection())
-        //    {
-        //        c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-        //        SqlCommand cmd = new SqlCommand("AddWimsUser", c);
-        //        cmd.CommandType = CommandType.StoredProcedure;
+        public void Post([FromBody]WimsUser u)
+        {
+            using (SqlConnection c = new SqlConnection())
+            {
+                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                SqlCommand cmd = new SqlCommand("AddWimsUser", c);
+                cmd.CommandType = CommandType.StoredProcedure;
 
+                #region paramètres add user avec objet posté
 
-        //        cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
-        //        cmd.Parameters["@TwitcherId"].Value = (int)p.Twitcher.Id;
+                cmd.Parameters.Add("@FirstName", SqlDbType.Text);
+                cmd.Parameters["@FirstName"].Value = (string)u.Firstname;
+                
+                cmd.Parameters.Add("@LastName", SqlDbType.Text);
+                cmd.Parameters["@LastName"].Value = (string)u.Lastname;
 
-        //        Auction StartAuction = new Auction(p.AuctionStartValue);
-        //        SqlCommand insertFalseAuction = new SqlCommand("INSERT INTO Auction (CurrentAuction, TwitcherId, UserId) VALUES (" + p.AuctionStartValue + ", " + p.Twitcher.Id + ", " + p.Twitcher.Id + ")", c);
-        //        c.Open();
-        //        int applyInsert = insertFalseAuction.ExecuteNonQuery();
-        //        c.Close();
+                cmd.Parameters.Add("@Pseudo", SqlDbType.Text);
+                cmd.Parameters["@Pseudo"].Value = (string)u.Pseudo;
 
-        //        SqlCommand getIdFalseAuction = new SqlCommand("Select MAX(Id) FROM Auction WHERE UserId = " + p.Twitcher.Id, c);
-        //        c.Open();
-        //        int idJustInserted = (int)getIdFalseAuction.ExecuteScalar();
-        //        c.Close();
+                cmd.Parameters.Add("@Pswd", SqlDbType.Text);
+                cmd.Parameters["@Pswd"].Value = (string)u.Pswd;
 
-        //        cmd.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
-        //        cmd.Parameters["@CurrentBestAuction"].Value = idJustInserted;
+                cmd.Parameters.Add("@Email", SqlDbType.Text);
+                cmd.Parameters["@Email"].Value = (string)u.Email;
 
-        //        cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
-        //        cmd.Parameters["@OfferEnd"].Value = (DateTime)p.OfferEnd;
+                cmd.Parameters.Add("@TwitchLink", SqlDbType.Text);
+                cmd.Parameters["@TwitchLink"].Value = (string)u.TwitchLink;
 
-        //        cmd.Parameters.Add("@GameId", SqlDbType.Int);
-        //        cmd.Parameters["@GameId"].Value = (int)p.Game.Id;
+                cmd.Parameters.Add("@PseudoTwitch", SqlDbType.Text);
+                cmd.Parameters["@PseudoTwitch"].Value = (string)u.PseudoTwitch;
 
-        //        cmd.Parameters.Add("@AuctionStartValue", SqlDbType.Int);
-        //        cmd.Parameters["@AuctionStartValue"].Value = (int)p.AuctionStartValue;
+                cmd.Parameters.Add("@ConditionAccepted", SqlDbType.Bit);
+                cmd.Parameters["@ConditionAccepted"].Value = (bool)u.ConditionAccepted;
+                
+                cmd.Parameters.Add("@CurrencyId", SqlDbType.Int);
+                cmd.Parameters["@CurrencyId"].Value = (int)u.Currency.Id;
 
-        //        cmd.Parameters.Add("@Active", SqlDbType.Bit);
-        //        p.Active = true;
-        //        cmd.Parameters["@Active"].Value = (bool)p.Active;
+                cmd.Parameters.Add("@Avatar", SqlDbType.Text);
+                cmd.Parameters["@Avatar"].Value = (string)u.Avatar;
 
-        //        c.Open();
-        //        int rowsAffected = cmd.ExecuteNonQuery();
-        //        c.Close();
-        //    }
+                cmd.Parameters.Add("@Active", SqlDbType.Bit);
+                u.Active = true;
+                cmd.Parameters["@Active"].Value = (bool)u.Active;
 
-        //    listFromDB.Add(p);
-        //}
+                cmd.Parameters.Add("@Role", SqlDbType.Int);
+                cmd.Parameters["@Role"].Value = (int)u.Role.Id;
 
-        //public void Put(int id, [FromBody]PriceToWin p)
-        //{
-        //    PriceToWin priceToModify = this.Get(id);
-        //    int index = listFromDB.FindIndex(x => x.Id == priceToModify.Id);
+                #endregion
 
-        //    listFromDB.Remove(priceToModify);
+                c.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                c.Close();
+            }
 
-        //    using (SqlConnection c = new SqlConnection())
-        //    {
-        //        c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-        //        SqlCommand cmd = new SqlCommand("UpdatePriceToWin", c);
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Parameters.Add("@Id", SqlDbType.Int);
-        //        cmd.Parameters["@Id"].Value = id;
+            listFromDB.Add(u);
+        }
 
-        //        //cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
-        //        //cmd.Parameters["@TwitcherId"].Value = (int)p.Twitcher.Id;
+        public void Put(int id, [FromBody]WimsUser u)
+        {
+            WimsUser userToModify = this.Get(id);
+            int index = listFromDB.FindIndex(x => x.Id == userToModify.Id);
 
-        //        cmd.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
-        //        cmd.Parameters["@CurrentBestAuction"].Value = (int)p.CurrentBestAuction.Id;
+            listFromDB.Remove(userToModify);
 
-        //        //cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
-        //        //cmd.Parameters["@OfferEnd"].Value = (DateTime)p.OfferEnd;
+            using (SqlConnection c = new SqlConnection())
+            {
+                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                SqlCommand cmd = new SqlCommand("UpdateWimsUser", c);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", SqlDbType.Int);
+                cmd.Parameters["@Id"].Value = id;
+                u.Id = id;
 
-        //        //cmd.Parameters.Add("@GameId", SqlDbType.Int);
-        //        //cmd.Parameters["@GameId"].Value = (int)p.Game.Id;
+                cmd.Parameters.Add("@FirstName", SqlDbType.Text);
+                cmd.Parameters["@FirstName"].Value = (string)u.Firstname;
 
-        //        //cmd.Parameters.Add("@AuctionStartValue", SqlDbType.Int);
-        //        //cmd.Parameters["@AuctionStartValue"].Value = (int)p.AuctionStartValue;
+                cmd.Parameters.Add("@LastName", SqlDbType.Text);
+                cmd.Parameters["@LastName"].Value = (string)u.Lastname;
 
-        //        cmd.Parameters.Add("@Active", SqlDbType.Bit);
-        //        cmd.Parameters["@Active"].Value = (bool)p.Active;
+                cmd.Parameters.Add("@Pseudo", SqlDbType.Text);
+                cmd.Parameters["@Pseudo"].Value = (string)u.Pseudo;
 
-        //        c.Open();
-        //        int rowsAffected = cmd.ExecuteNonQuery();
-        //        c.Close();
-        //    }
+                cmd.Parameters.Add("@Pswd", SqlDbType.Text);
+                cmd.Parameters["@Pswd"].Value = (string)u.Pswd;
 
-        //    listFromDB.Add(p);
-        //}
+                cmd.Parameters.Add("@Email", SqlDbType.Text);
+                cmd.Parameters["@Email"].Value = (string)u.Email;
+
+                cmd.Parameters.Add("@TwitchLink", SqlDbType.Text);
+                cmd.Parameters["@TwitchLink"].Value = (string)u.TwitchLink;
+
+                cmd.Parameters.Add("@PseudoTwitch", SqlDbType.Text);
+                cmd.Parameters["@PseudoTwitch"].Value = (string)u.PseudoTwitch;
+
+                cmd.Parameters.Add("@ConditionAccepted", SqlDbType.Bit);
+                cmd.Parameters["@ConditionAccepted"].Value = (bool)u.ConditionAccepted;
+
+                cmd.Parameters.Add("@CurrencyId", SqlDbType.Int);
+                cmd.Parameters["@CurrencyId"].Value = (int)u.Currency.Id;
+
+                cmd.Parameters.Add("@Avatar", SqlDbType.Text);
+                cmd.Parameters["@Avatar"].Value = (string)u.Avatar;
+
+                cmd.Parameters.Add("@Active", SqlDbType.Bit);
+                u.Active = true;
+                cmd.Parameters["@Active"].Value = (bool)u.Active;
+
+                cmd.Parameters.Add("@Role", SqlDbType.Int);
+                cmd.Parameters["@Role"].Value = (int)u.Role.Id;
+
+                c.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                c.Close();
+            }
+
+            listFromDB.Add(u);
+        }
 
         public void Delete(int id)
         {

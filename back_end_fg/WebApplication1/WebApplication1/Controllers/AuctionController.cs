@@ -33,11 +33,11 @@ namespace WebApplication1.Controllers
                             auction.Twitcher.Id = (int)reader[1];
                             auction.User.Id = (int)reader[2];
                             auction.MinAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
-                            auction.MaxAuction = (reader[3] is DBNull) ? null : (int?)reader[4];
+                            auction.MaxAuction = (reader[4] is DBNull) ? null : (int?)reader[4];
                             auction.CurrentAuction = (int)reader[5];
-                            auction.AuctionDate = (DateTime)reader[6];
+                            auction.AuctionDate = (reader[6] is DBNull) ? null : (DateTime?)reader[6];
                             auction.AuctionValidation = (bool)reader[7];
-                            auction.IdPrice = (int)reader[8];
+                            auction.IdPrice = (reader[8] is DBNull) ? 0 : (int)reader[8];
                             auction.Active = (bool)reader[9];
                             listFromDB.Add(auction);
                         }
@@ -223,18 +223,20 @@ namespace WebApplication1.Controllers
                 c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("UpdateAuction", c);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", SqlDbType.Int);
+                cmd.Parameters["@Id"].Value = id;
 
-                cmd.Parameters.Add("@TwitchedId", SqlDbType.Int);
+                cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
                 cmd.Parameters["@TwitcherId"].Value = (int)auc.Twitcher.Id;
 
                 cmd.Parameters.Add("@UserId", SqlDbType.Int);
                 cmd.Parameters["@UserId"].Value = (int)auc.User.Id;
 
                 cmd.Parameters.Add("@MinAuction", SqlDbType.Int);
-                cmd.Parameters["@MinAuction"].Value = (int)auc.MinAuction;
+                cmd.Parameters["@MinAuction"].Value = (int?)auc.MinAuction;
 
                 cmd.Parameters.Add("@MaxAuction", SqlDbType.Int);
-                cmd.Parameters["@MaxAuction"].Value = (int)auc.MaxAuction;
+                cmd.Parameters["@MaxAuction"].Value = (int?)auc.MaxAuction;
 
                 cmd.Parameters.Add("@CurrentAuction", SqlDbType.Int);
                 cmd.Parameters["@CurrentAuction"].Value = (int)auc.CurrentAuction;
@@ -245,9 +247,6 @@ namespace WebApplication1.Controllers
 
                 cmd.Parameters.Add("@AuctionValidation", SqlDbType.Bit);
                 cmd.Parameters["@AuctionValidation"].Value = (bool)auc.AuctionValidation;
-
-                cmd.Parameters.Add("@AuctionPrice", SqlDbType.Int);
-                cmd.Parameters["@AuctionPrice"].Value = (int)auc.CurrentAuction;
 
                 cmd.Parameters.Add("@Active", SqlDbType.Bit);
                 cmd.Parameters["@Active"].Value = (bool)auc.Active;

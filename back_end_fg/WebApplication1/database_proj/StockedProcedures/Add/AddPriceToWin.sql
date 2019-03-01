@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddPriceToWin]
+CREATE PROCEDURE [dbo].[AddPriceToWin]
 	@TwitcherId int,
 	@CurrentBestAuction int,
 	@OfferEnd datetime,

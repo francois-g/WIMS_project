@@ -89,7 +89,6 @@ namespace WebApplication1.Controllers
                 c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("AddPriceToWin", c);
                 cmd.CommandType = CommandType.StoredProcedure;
-                
 
                 cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
                 cmd.Parameters["@TwitcherId"].Value = (int)p.Twitcher.Id;
@@ -144,20 +143,11 @@ namespace WebApplication1.Controllers
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
                 cmd.Parameters["@Id"].Value = id;
 
-                //cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
-                //cmd.Parameters["@TwitcherId"].Value = (int)p.Twitcher.Id;
+                cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
+                cmd.Parameters["@OfferEnd"].Value = (DateTime)p.OfferEnd;
 
-                cmd.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
-                cmd.Parameters["@CurrentBestAuction"].Value = (int)p.CurrentBestAuction.Id;
-
-                //cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
-                //cmd.Parameters["@OfferEnd"].Value = (DateTime)p.OfferEnd;
-
-                //cmd.Parameters.Add("@GameId", SqlDbType.Int);
-                //cmd.Parameters["@GameId"].Value = (int)p.Game.Id;
-
-                //cmd.Parameters.Add("@AuctionStartValue", SqlDbType.Int);
-                //cmd.Parameters["@AuctionStartValue"].Value = (int)p.AuctionStartValue;
+                //cmd.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
+                //cmd.Parameters["@CurrentBestAuction"].Value = (int)p.CurrentBestAuction.Id;
 
                 cmd.Parameters.Add("@Active", SqlDbType.Bit);
                 cmd.Parameters["@Active"].Value = (bool)p.Active;

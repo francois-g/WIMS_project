@@ -6,7 +6,7 @@ CREATE PROCEDURE [dbo].[AddAuction]
 	@CurrentAuction int,
 	@AuctionDate datetime,
 	@AuctionValidation bit,
-	@PriceId int,
+	@PriceId int = 0,
 	@Active bit
 AS
 	INSERT INTO Auction(TwitcherId, UserId, MinAuction, MaxAuction, CurrentAuction, AuctionDate, AuctionValidation, PriceId, Active)

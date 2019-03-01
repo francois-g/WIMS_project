@@ -1,15 +1,14 @@
-﻿CREATE PROCEDURE [dbo].[UpdateAuction]
+CREATE PROCEDURE [dbo].[UpdateAuction]
 	@TwitcherId int,
 	@UserId int,
-	@MinAuction int,
-	@MaxAuction int,
+	@MinAuction int = null,
+	@MaxAuction int = null,
 	@CurrentAuction int,
-	@AuctionDate datetime,
+	@AuctionDate datetime = null,
 	@AuctionValidation bit,
-	@PriceId int,
 	@Active bit,
 	@Id int
 AS
 	UPDATE Auction SET TwitcherId = @TwitcherId, UserId = @UserId, MinAuction = @MinAuction, MaxAuction = @MaxAuction, CurrentAuction = @CurrentAuction,
-	AuctionDate = @AuctionDate, PriceId = @PriceId, Active = @Active WHERE Id = @Id;
+	AuctionDate = @AuctionDate, Active = @Active WHERE Id = @Id;
 RETURN 0

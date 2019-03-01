@@ -17,6 +17,7 @@ namespace WimsApiMKI.Models
         private string _twitchLink;
         private string _pseudoTwitch;
         private bool _conditionAccepted;
+        private int? _currencyId;
         private Currency _currency;
         private string _avatar;
         private bool _active;
@@ -24,7 +25,8 @@ namespace WimsApiMKI.Models
 
         public WimsUser()
         {
-            Active = true;
+            Currency = new Currency();
+            Role = new Role();
         }
 
         #region GetSet
@@ -75,6 +77,12 @@ namespace WimsApiMKI.Models
         {
             get { return _conditionAccepted; }
             set { _conditionAccepted = value; }
+        }
+
+        public int? CurrencyId
+        {
+            get { return _currencyId; }
+            set { _currencyId = value; }
         }
 
         public Currency Currency

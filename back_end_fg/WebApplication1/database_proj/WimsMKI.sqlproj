@@ -77,7 +77,7 @@
     <Build Include="StockedProcedures\Delete\DeleteWimsUser.sql" />
     <Build Include="StockedProcedures\Select\SelectGame.sql" />
     <Build Include="StockedProcedures\SelectById\SelectGameById.sql" />
-    <Build Include="StockedProcedures\SelectById\SelectWimsUerById.sql" />
+    <Build Include="StockedProcedures\SelectById\SelectWimsUserById.sql" />
     <Build Include="StockedProcedures\Select\SelectWimsUser.sql" />
     <Build Include="StockedProcedures\Update\UpdateGame.sql" />
     <Build Include="StockedProcedures\Update\UpdateWimsUser.sql" />
@@ -97,12 +97,9 @@
     <Build Include="StockedProcedures\SelectById\SelectAuctionById.sql" />
     <Build Include="StockedProcedures\Select\SelectAuction.sql" />
     <Build Include="Role.sql" />
-    <None Include="Scripts\ScriptPostDeploymentCurrencies.sql" />
+    <PostDeploy Include="Scripts\ScriptPostDeploymentCurrencies.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="WimsMKI.refactorlog" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Scripts\ScriptPostDeploymentRoles.sql" />
   </ItemGroup>
 </Project>

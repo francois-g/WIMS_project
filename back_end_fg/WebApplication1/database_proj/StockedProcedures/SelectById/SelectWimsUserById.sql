@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[SelectWimsUerById]
+CREATE PROCEDURE [dbo].[SelectWimsUserById]
 	@Id int
 AS
 	SELECT * FROM WimsUser WHERE Id = @Id;

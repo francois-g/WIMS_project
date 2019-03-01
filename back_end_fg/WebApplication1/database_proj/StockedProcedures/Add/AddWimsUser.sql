@@ -4,11 +4,11 @@ CREATE PROCEDURE [dbo].[AddWimsUser]
 	@Pseudo varchar(50),
 	@Pswd varchar(50),
 	@Email varchar(50),
-	@TwitchLink varchar(200),
-  @PseudoTwitch varchar(50),
+	@TwitchLink varchar(200) = null,
+  @PseudoTwitch varchar(50) = null,
 	@ConditionAccepted bit,
-	@CurrencyId int,
-	@Avatar varchar(250),
+	@CurrencyId int = 1,
+	@Avatar varchar(250) = null,
   @Active bit,
 	@Role int
 
@@ -17,7 +17,7 @@ CREATE PROCEDURE [dbo].[AddWimsUser]
 
 
 AS
-	INSERT INTO WimsUser ( FirstName, LastName, Pseudo, Pswd, Email, TwitchLink, PseudoTwitch, ConditionAccepted, CurrencyId,
+	INSERT INTO WimsUser (FirstName, LastName, Pseudo, Pswd, Email, TwitchLink, PseudoTwitch, ConditionAccepted, CurrencyId,
   Avatar, Active, RoleId) 
 	VALUES (@FirstName, @LastName, @Pseudo, @Pswd, @Email, @TwitchLink, @PseudoTwitch, @ConditionAccepted, @CurrencyId,
   @Avatar, @Active, @Role);
