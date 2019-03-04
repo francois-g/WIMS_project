@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {PriceToWin} from '../Observables/PriceToWin';
 import {User} from '../Observables/User';
 import {PricetowinService} from '../Services/pricetowin.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -134,7 +135,7 @@ export class ChoixComponent implements OnInit {
     this.users = this.Users.getAll();
   }
 
-  constructor(private builder: FormBuilder, private Users: UserService) {
+  constructor(private builder: FormBuilder, private Users: UserService, private router: Router) {
     this.formConnexionStreamer = this.builder.group({
       'pseudoStreamer': ['', [
         Validators.required,
@@ -230,14 +231,29 @@ export class ChoixComponent implements OnInit {
   submittedConnectionViewer;
   submittedInscriptionViewer;
   onSubmitConnexionStreamer() {
-    if(this.formConnexionStreamer.valid){
-      this.submittedConnectionStreamer = true;
-      console.log(this.formConnexionStreamer.value.pseudoStreamer);
-    }
-    // stop here if form is invalid
-    else{
-      this.submittedConnectionStreamer = false;
-    }
+      for (let i = 0; i < this.user.length; i++) {
+          if (this.formConnexionStreamer.valid) {
+              if (this.user[i].Pseudo === this.formConnexionStreamer.value.pseudoStreamer) {
+                  console.log('Pseudo correct');
+                  var ident = i;
+                  i = this.user.length;
+                  if(this.user[ident].Pswd === this.formConnexionStreamer.value.mdpStreamer){
+                      console.log('mdp correct, Connexion ok');
+                      this.submittedConnectionStreamer = true;
+                      this.router.navigate(['AllOffers']);
+                  }
+                  else {
+                      console.log('Mauvais mot de passe');
+                  }
+              } else {
+                  console.log('Pseudo faux');
+              }
+          }
+          // stop here if form is invalid
+          else {
+              this.submittedConnectionStreamer = false;
+          }
+      }
   }
   onSubmitInscriptionStreamer() {
 
@@ -251,13 +267,29 @@ export class ChoixComponent implements OnInit {
   }
   onSubmitConnexionViewer() {
 
-    if(this.formConnexionViewer.valid){
-      this.submittedConnectionViewer = true;
-  }
-    // stop here if form is invalid
-    else{
-      this.submittedConnectionViewer = false;
-    }
+      for (let i = 0; i < this.user.length; i++) {
+          if (this.formConnexionViewer.valid) {
+              if (this.user[i].Pseudo === this.formConnexionViewer.value.pseudoViewer) {
+                  console.log('Pseudo correct');
+                  var ident = i;
+                  i = this.user.length;
+                  if(this.user[ident].Pswd === this.formConnexionViewer.value.mdpViewer){
+                      console.log('mdp correct, Connexion ok');
+                      this.submittedConnectionViewer = true;
+                      this.router.navigate(['AllOffers']);
+                  }
+                  else {
+                      console.log('Mauvais mot de passe');
+                  }
+              } else {
+                  console.log('Pseudo faux');
+              }
+          }
+          // stop here if form is invalid
+          else {
+              this.submittedConnectionStreamer = false;
+          }
+      }
   }
   onSubmitInscriptionViewer() {
 
@@ -273,7 +305,6 @@ export class ChoixComponent implements OnInit {
     this._user$ = this.Users.getAll();
     this._user$.subscribe(
       u => {
-        console.log(u + 'FG');
         this.user = u;
       },
       (err) => {

@@ -7,7 +7,7 @@ import {User} from '../Observables/User';
   providedIn: 'root'
 })
 export class UserService {
-  private _url = 'http://localhost:50946/api/WimsUser';
+  private _url = 'http://localhost:50946/api/user';
   // private _url = 'http://mini.techni.local/badges';
 
   get url(): string {
