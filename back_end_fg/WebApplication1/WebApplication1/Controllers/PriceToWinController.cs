@@ -101,6 +101,7 @@ namespace WebApplication1.Controllers
                 cmd.Parameters["@TwitcherId"].Value = (int)p.Twitcher.Id;
 
                 Auction StartAuction = new Auction(p.AuctionStartValue);
+                //on crée une fausse enchère à la valeur de l'offre initiale du streamer
                 SqlCommand insertFalseAuction = new SqlCommand("INSERT INTO Auction (CurrentAuction, TwitcherId, UserId) VALUES (" + p.AuctionStartValue + ", " + p.Twitcher.Id + ", " + p.Twitcher.Id + ")", c);
                 c.Open();
                 int applyInsert = insertFalseAuction.ExecuteNonQuery();
