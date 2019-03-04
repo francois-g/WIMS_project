@@ -1,0 +1,11 @@
+<app-nav></app-nav>
+<div class="container all">
+  <form class="mt-5 d-flex flex-column justify-content-center align-items-center" [formGroup]="formContact" (ngSubmit)="onSubmitContact()">
+    <label for="sujet">Objet:</label>
+    <input class="col-lg-3" type="text" id="sujet" [formControl]="formContact.controls['sujet']">
+    <label for="message">Message:</label>
+    <textarea class="col-lg-7" name="message" id="message" cols="20" rows="10" [formControl]="formContact.controls['message']"></textarea>
+    <input type="submit" value="Envoyer" class="btn btn-warning mt-3">
+  </form>
+</div>
+<app-footer></app-footer>

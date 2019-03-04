@@ -1,0 +1,257 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- streamer -->
+    <div id="blue" (mouseover)="blueOver()" (mouseout)="blueOut()" class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+      <div *ngIf="streamer !== 2">
+        <button class="btn d-flex flex-column align-items-center" (click)="formStreamer(1)">
+          <div id="orangeblue" class="d-flex justify-content-center align-items-center">
+            <img class="logo" src="../../assets/images/manette.png">
+          </div>
+          <p class="streamerViewer mt-2" id="streamer">STREAMER</p>
+        </button>
+      </div>
+      <!--Formulaire de Connexion-->
+      <div *ngIf="streamer === 1">
+        <form [formGroup]="formConnexionStreamer" (ngSubmit)="onSubmitConnexionStreamer()">
+          <div class="alert alert-danger col-lg-12" *ngIf="formConnexionStreamer.controls['pseudoStreamer'].invalid && (formConnexionStreamer.controls['pseudoStreamer'].errors
+            && submittedConnectionStreamer === false) || formConnexionStreamer.controls['mdpStreamer'].invalid && (formConnexionStreamer.controls['mdpStreamer'].errors
+            && submittedConnectionStreamer === false)">
+            Le pseudo ou le mot de passe n'est pas correct
+          </div>
+          <div class="d-flex flex-column form-group">
+            <input type="text" id="pseudoStreamer" placeholder="Votre pseudo" class="mb-3 form-control"
+                   [formControl]="formConnexionStreamer.controls['pseudoStreamer']">
+            <input type="password" id="mdpStreamer" placeholder="Votre mot de passe" class="mb-3 form-control"
+                   [formControl]="formConnexionStreamer.controls['mdpStreamer']">
+            <div class="d-flex flex-column align-items-center">
+              <input type="submit" class="btn btn-light" [routerLink]="['/AllOffers']" value="Connexion">
+              <button class="btn" (click)="streamerInscription(2)">
+                <p>Pas encore  inscrit?</p>
+              </button>
+
+
+            </div>
+          </div>
+        </form>
+      </div><button class="btn btn-warning" (click)="getUsers()">Afficher</button>
+      <!--Formulaire d'inscription-->
+      <div *ngIf="streamer === 2">
+        <p class="mb-3 inscriptionText">Inscription</p>
+        <form [formGroup]="formInscriptionStreamer" (ngSubmit)="onSubmitInscriptionStreamer()">
+          <div *ngIf="(formInscriptionStreamer.controls['prenom'].invalid || formInscriptionStreamer.controls['nom'].invalid || formInscriptionStreamer.controls['mail'].invalid ||
+formInscriptionStreamer.controls['pseudo'].invalid || formInscriptionStreamer.controls['mdp'].invalid || formInscriptionStreamer.controls['mdpValidation'].invalid ||
+formInscriptionStreamer.controls['pseudoTwitch'].invalid || formInscriptionStreamer.controls['lienTwitch'].invalid)
+&& submittedInscriptionStreamer===false " class="alert alert-danger d-flex flex-column align-items-center">
+            Vérifier les champs suivants:
+          </div>
+            <div *ngIf="(formInscriptionStreamer.controls['prenom'].invalid && submittedInscriptionStreamer === false)" class="alert alert-danger">
+              <p>Prénom</p>
+            </div>
+            <div *ngIf="formInscriptionStreamer.controls['nom'].invalid && submittedInscriptionStreamer===false" class="alert alert-danger">
+              <p>Nom</p>
+            </div>
+          <div *ngIf="formInscriptionStreamer.controls['mail'].invalid && submittedInscriptionStreamer===false" class="alert alert-danger">
+            <p>Mail</p>
+          </div>
+          <div *ngIf="formInscriptionStreamer.controls['pseudo'].invalid && submittedInscriptionStreamer===false" class="alert alert-danger">
+            <p>Pseudo</p>
+          </div>
+          <div *ngIf="formInscriptionStreamer.controls['mdp'].invalid && submittedInscriptionStreamer===false" class="alert alert-danger">
+            <p>Mot de passe</p>
+          </div>
+          <div *ngIf="formInscriptionStreamer.controls['pseudoTwitch'].invalid && submittedInscriptionStreamer===false" class="alert alert-danger">
+            <p>Pseudo Twitch</p>
+          </div>
+          <div *ngIf="formInscriptionStreamer.controls['lienTwitch'].invalid && submittedInscriptionStreamer===false" class="alert alert-danger">
+            <p>Lien vers votre compte Twitch</p>
+          </div>
+
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Données personelles
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="d-flex flex-column">
+              <label for="prenom">Prénom:*</label>
+              <input type="text" id="prenom" class="form-control" placeholder="Prénom"
+                     [formControl]="formInscriptionStreamer.controls['prenom']">
+            </div>
+            <div class="d-flex flex-column">
+              <label for="nom">Nom:*</label>
+              <input type="text" id="nom" class="form-control" placeholder="Nom"
+                     [formControl]="formInscriptionStreamer.controls['nom']">
+            </div>
+            <label for="mail">Mail:*</label>
+            <input type="email" id="mail" class="form-control" placeholder="Mail"
+                   [formControl]="formInscriptionStreamer.controls['mail']">
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Données de connexion</mat-panel-title>
+          </mat-expansion-panel-header>
+          <label for="pseudo">Pseudo:*</label>
+          <input type="text" id="pseudo" class="form-control" placeholder="Pseudo"
+                 [formControl]="formInscriptionStreamer.controls['pseudo']">
+          <label for="mdp">Mot de passe:*</label>
+          <input type="password" id="mdp" class="form-control" placeholder="Mot de passe"
+                 [formControl]="formInscriptionStreamer.controls['mdp']">
+          <label for="mdpValidation">Valider le mot de passe:*</label>
+          <input type="password" id="mdpValidation" class="form-control" placeholder="Retapper le mot de passe"
+                 [formControl]="formInscriptionStreamer.controls['mdpValidation']">
+        </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Lien vers Twitch</mat-panel-title>
+            </mat-expansion-panel-header>
+            <label for="pseudoTwitch">Votre pseudo Twitch:*</label>
+            <input type="text" id="pseudoTwitch" class="form-control" placeholder="Pseudo Twitch"
+                   [formControl]="formInscriptionStreamer.controls['pseudoTwitch']">
+            <label for="lienTwitch">Lien de votre chaine twitch</label>
+            <input type="text" id="lienTwitch" class="form-control" placeholder="Lien vers votre compte Twitch"
+                   [formControl]="formInscriptionStreamer.controls['lienTwitch']">
+          </mat-expansion-panel>
+        </mat-accordion>
+          <div class="d-flex justify-content-center mt-3">
+            <input type="submit" class="btn btn-light" value="Valider">
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- viewer -->
+    <div id="orange" (mouseover)="orangeOver()" (mouseout)="orangeOut()" class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+      <div *ngIf="viewer !== 2">
+        <button class="btn d-flex flex-column align-items-center" (click)="formViewer(1)">
+          <div id="blueorange" class="d-flex justify-content-center align-items-center">
+            <img class="logo" src="../../assets/images/screen.png">
+          </div>
+          <p class="streamerViewer mt-2" id="viewer">VIEWER</p>
+        </button>
+      </div>
+
+      <!--Formulaire de connexion-->
+      <div *ngIf="viewer === 1">
+        <form [formGroup]="formConnexionViewer" (ngSubmit)="onSubmitConnexionViewer()">
+          <div class="alert alert-danger col-lg-12" *ngIf="formConnexionViewer.controls['pseudoViewer'].invalid && (formConnexionViewer.controls['pseudoViewer'].errors
+            && submittedConnectionViewer === false) || formConnexionViewer.controls['mdpViewer'].invalid && (formConnexionViewer.controls['mdpViewer'].errors
+            && submittedConnectionViewer === false)">
+            Le pseudo ou le mot de passe n'est pas correct
+          </div>
+          <div class="d-flex flex-column form-group">
+            <input type="text" id="pseudoViewer" placeholder="Votre pseudo" class="mb-3 form-control"
+                   [formControl]="formConnexionViewer.controls['pseudoViewer']">
+            <input type="password" id="mdpViewer" placeholder="Votre mot de passe" class="mb-3 form-control"
+                   [formControl]="formConnexionViewer.controls['mdpViewer']">
+            <div class="d-flex flex-column align-items-center">
+              <input type="submit" class="btn btn-light" [routerLink]="['/AllOffers']" value="Connexion">
+              <button class="btn" (click)="viewerInscription(2)">
+                <p>Pas encore  inscrit?</p>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--Formulaire d'inscription-->
+      <div *ngIf="viewer === 2">
+        <form [formGroup]="formInscriptionViewer" (ngSubmit)="onSubmitInscriptionViewer()">
+          <p class="mb-3 inscriptionText">Inscription</p>
+
+          <div *ngIf="(formInscriptionViewer.controls['prenomViewer'].invalid || formInscriptionViewer.controls['nomViewer'].invalid || formInscriptionViewer.controls['mailViewer'].invalid ||
+formInscriptionViewer.controls['adresse'].invalid || formInscriptionViewer.controls['ville'].invalid || formInscriptionViewer.controls['cdp'].invalid ||
+formInscriptionViewer.controls['pays'].invalid || formInscriptionViewer.controls['pseudoVew'].invalid || formInscriptionViewer.controls['mdpVew'])
+&& submittedInscriptionViewer===false " class="alert alert-danger d-flex flex-column align-items-center">
+            Vérifier les champs suivants:
+          </div>
+
+          <div *ngIf="formInscriptionViewer.controls['prenomViewer'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Prenom</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['nomViewer'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Nom</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['mailViewer'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Mail</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['adresse'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Adresse</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['ville'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Ville</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['cdp'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Code postal</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['pays'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Pays</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['pseudoVew'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Pseudo</p>
+          </div>
+          <div *ngIf="formInscriptionViewer.controls['mdpVew'].invalid && submittedInscriptionViewer===false" class="alert alert-danger">
+            <p>Mot de passe</p>
+          </div>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Données personelles
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="d-flex flex-column">
+                <label for="prenomViewer">Prénom:*</label>
+                <input type="text" id="prenomViewer" class="form-control" placeholder="Prénom"
+                       [formControl]="formInscriptionViewer.controls['prenomViewer']">
+              </div>
+              <div class="d-flex flex-column">
+                <label for="nomViewer">Nom:*</label>
+                <input type="text" id="nomViewer" class="form-control" placeholder="Nom"
+                       [formControl]="formInscriptionViewer.controls['nomViewer']">
+              </div>
+              <label for="mailViewer">Mail:*</label>
+              <input type="email" id="mailViewer" class="form-control" placeholder="Mail"
+                     [formControl]="formInscriptionViewer.controls['mailViewer']">
+              <label for="adresse">Adresse:*</label>
+              <input type="text" id="adresse" class="form-control" placeholder="Adresse"
+                     [formControl]="formInscriptionViewer.controls['adresse']">
+              <label for="ville">Ville:*</label>
+              <input type="text" id="ville" class="form-control" placeholder="ville"
+                     [formControl]="formInscriptionViewer.controls['ville']">
+              <label for="cdp">Code Postal:*</label>
+              <input type="text" id="cdp" class="form-control" placeholder="4367"
+                     [formControl]="formInscriptionViewer.controls['cdp']">
+              <label for="pays">Pays:*</label>
+              <select id="pays" class="form-control" [formControl]="formInscriptionViewer.controls['pays']">
+                <option value="belgique">Belgique</option>
+                <option value="france">France</option>
+              </select>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Données de connexion</mat-panel-title>
+              </mat-expansion-panel-header>
+              <label for="pseudoVew">Pseudo:*</label>
+              <input type="text" id="pseudoVew" class="form-control" placeholder="Pseudo"
+                     [formControl]="formInscriptionViewer.controls['pseudoVew']">
+              <label for="mdpVew">Mot de passe:*</label>
+              <input type="password" id="mdpVew" class="form-control" placeholder="Mot de passe"
+                     [formControl]="formInscriptionViewer.controls['mdpVew']">
+              <label for="mdpValidationVew">Valider le mot de passe:*</label>
+              <input type="password" id="mdpValidationVew" class="form-control" placeholder="Retapper le mot de passe"
+                     [formControl]="formInscriptionViewer.controls['mdpValidationVew']">
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div class="d-flex justify-content-center mt-3">
+            <input type="submit" class="btn btn-light" value="Valider">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+

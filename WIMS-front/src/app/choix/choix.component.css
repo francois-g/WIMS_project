@@ -1,0 +1,44 @@
+#orange{
+    min-height: 100vh;
+    background-color: orange;
+    opacity: 1;
+}
+#blue{
+    min-height: 100vh;
+    background-color: blue;
+    opacity: 1;
+}
+#orangeblue{
+    height: 200px;
+    width: 200px;
+    background-color: orange;
+    border-radius: 100%;
+}
+#blueorange{
+    height: 200px;
+    width: 200px;
+    background-color: blue;
+    border-radius: 100%;
+}
+.logo{
+    max-width: 150px;
+}
+.streamerViewer{
+    font-size: 4em;
+    font-weight: bold;
+}
+#streamer{
+    color: orange;
+}
+#viewer{
+    color: blue;
+}
+.btn{
+  box-shadow: none;
+}
+.inscriptionText{
+  color:white;
+  font-size: 2em;
+  text-align: center;
+  font-weight: bold;
+}
