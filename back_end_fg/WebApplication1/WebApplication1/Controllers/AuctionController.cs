@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,12 +14,16 @@ namespace WebApplication1.Controllers
     public class AuctionController : ApiController
     {
         List<Auction> listFromDB = new List<Auction>();
+        static string ServerName = System.Net.Dns.GetHostName();
+        static string ConnectionStringID =
+                (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
 
         public IEnumerable<Auction> Get()
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 using (SqlCommand cmd = c.CreateCommand())
                 {
                     cmd.CommandText = "SelectAuction";
@@ -55,7 +60,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("SelectAuctionById", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -88,7 +94,9 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+
                 //SqlCommand cmd = new SqlCommand("AddAuction", c);
                 //cmd.CommandType = CommandType.StoredProcedure;
 
@@ -105,7 +113,7 @@ namespace WebApplication1.Controllers
 
                 //cmd.Parameters.Add("@MaxAuction", SqlDbType.Int);
                 //cmd.Parameters["@MaxAuction"].Value = (int)auc.MaxAuction;
-                
+
                 //cmd.Parameters.Add("@CurrentAuction", SqlDbType.Int);
 
                 SqlCommand cmd2 = new SqlCommand ("SELECT CurrentBestAuction FROM PriceToWin WHERE Id = @PriceIdFromAuctionTable", c);
@@ -220,7 +228,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("UpdateAuction", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -263,7 +272,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("DeleteAuction", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -275,5 +285,4 @@ namespace WebApplication1.Controllers
             }
         }
     }
-    //CACA
 }

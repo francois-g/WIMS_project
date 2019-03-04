@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -14,12 +15,16 @@ namespace WebApplication1.Controllers
     public class GameController : ApiController
     {
         List<Game> listFromDB = new List<Game>();
+        static string ServerName = System.Net.Dns.GetHostName();
+        static string ConnectionStringID =
+                (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
 
         public IEnumerable<Game> Get()
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 using (SqlCommand cmd = c.CreateCommand())
                 {
                     //cmd.CommandText = "SELECT * FROM currency";
@@ -50,7 +55,8 @@ namespace WebApplication1.Controllers
             Game g = new Game();
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("SelectGameById", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@GameId", SqlDbType.Int);
@@ -76,7 +82,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("AddGame", c);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -101,7 +108,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("UpdateGame", c);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -134,7 +142,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("DELETE FROM Game WHERE Id = @id", c);
                 cmd.Parameters.Add("@id", SqlDbType.Int);
                 cmd.Parameters["@id"].Value = id;

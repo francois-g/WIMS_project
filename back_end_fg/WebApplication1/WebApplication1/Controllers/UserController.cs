@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,12 +14,16 @@ namespace WebApplication1.Controllers
     public class UserController : ApiController
     {
         List<WimsUser> listFromDB = new List<WimsUser>();
+        static string ServerName = System.Net.Dns.GetHostName();
+        static string ConnectionStringID =
+                (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
 
         public IEnumerable<WimsUser> Get()
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 using (SqlCommand cmd = c.CreateCommand())
                 {
                     cmd.CommandText = "SelectWimsUser";
@@ -58,7 +63,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("SelectWimsUserById", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -94,7 +100,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("AddWimsUser", c);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -156,7 +163,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("UpdateWimsUser", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -212,7 +220,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("DELETE FROM WimsUser WHERE Id = @id", c);
                 cmd.Parameters.Add("@id", SqlDbType.Int);
                 cmd.Parameters["@id"].Value = id;

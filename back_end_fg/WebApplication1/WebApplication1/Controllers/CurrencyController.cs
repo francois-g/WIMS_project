@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,12 +15,16 @@ namespace WebApplication1.Controllers
     public class CurrencyController : ApiController
     {        
         List<Currency> listFromDB = new List<Currency>();
+        static string ServerName = System.Net.Dns.GetHostName();
+        static string ConnectionStringID =
+                (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
 
         public IEnumerable<Currency> Get()
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 using (SqlCommand cmd = c.CreateCommand())
                 {
                     //cmd.CommandText = "SELECT * FROM currency";
@@ -50,7 +55,8 @@ namespace WebApplication1.Controllers
             Currency cur = new Currency();
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("SelectCurrencyById", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -80,7 +86,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("AddCurrency", c);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -108,7 +115,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("UpdateCurrency", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
@@ -135,7 +143,8 @@ namespace WebApplication1.Controllers
         {
             using (SqlConnection c = new SqlConnection())
             {
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("DELETE FROM Currency WHERE Id = @id", c);
                 cmd.Parameters.Add("@id", SqlDbType.Int);
                 cmd.Parameters["@id"].Value = id;
