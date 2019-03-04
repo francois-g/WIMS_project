@@ -1,32 +1,22 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {User} from '../Observables/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private user = [{
-      id: 1,
-      firstName: 'François',
-      lastName: 'Genot',
-      mail: 'genot.françois@gmail.com',
-      pseudo: 'FrançoisDu18',
-      mdp: '123456',
-      active: 0,
-      role: 0,
-    },
-    {
-      id: 2,
-      firstName: 'Robin',
-      lastName: 'Heinz',
-      mail: 'heinz.robin@gmail.com',
-      pseudo: 'RobinDesBois',
-      mdp: '123456789',
-      active: 0,
-      role: 1,
-    }];
-    getUsers() {
-      return this.user;
-    }
+  private _url = 'http://localhost:50946/api/WimsUser';
+  // private _url = 'http://mini.techni.local/badges';
 
-  constructor() { }
+  get url(): string {
+    return this._url;
+  }
+
+  constructor(private _httpClient: HttpClient) {
+  }
+  getAll(): Observable<User[]> {
+    return this._httpClient.get<User[]>(this.url);
+  }
 }

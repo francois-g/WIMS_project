@@ -21,11 +21,11 @@
           </div>
           <div class="d-flex flex-column form-group">
             <input type="text" id="pseudoStreamer" placeholder="Votre pseudo" class="mb-3 form-control"
-                   [formControl]="formConnexionStreamer.controls['pseudoStreamer']">
+                   [formControl]="formConnexionStreamer.controls['pseudoStreamer']" >
             <input type="password" id="mdpStreamer" placeholder="Votre mot de passe" class="mb-3 form-control"
                    [formControl]="formConnexionStreamer.controls['mdpStreamer']">
             <div class="d-flex flex-column align-items-center">
-              <input type="submit" class="btn btn-light" [routerLink]="['/AllOffers']" value="Connexion">
+              <input type="submit" class="btn btn-light"  value="Connexion">
               <button class="btn" (click)="streamerInscription(2)">
                 <p>Pas encore  inscrit?</p>
               </button>
@@ -34,7 +34,7 @@
             </div>
           </div>
         </form>
-      </div><button class="btn btn-warning" (click)="getUsers()">Afficher</button>
+      </div>
       <!--Formulaire d'inscription-->
       <div *ngIf="streamer === 2">
         <p class="mb-3 inscriptionText">Inscription</p>

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../Services/user.service';
+import {Observable} from 'rxjs';
+import {PriceToWin} from '../Observables/PriceToWin';
+import {User} from '../Observables/User';
+import {PricetowinService} from '../Services/pricetowin.service';
 
 
 @Component({
@@ -9,9 +13,28 @@ import {UserService} from '../Services/user.service';
   styleUrls: ['./choix.component.css']
 })
 export class ChoixComponent implements OnInit {
+  private _user$: Observable<User[]>;
+  private _user: User[];
+
+  get user$(): Observable<User[]> {
+    return this._user$;
+  }
+
+  set user$(value: Observable<User[]>) {
+    this._user$ = value;
+  }
+
+  get user(): User[] {
+    return this._user;
+  }
+
+  set user(value: User[]) {
+    this._user = value;
+  }
   panelOpenState = false;
   streamer;
   viewer;
+
   //Form Connexion Streamer
   private _formConnexionStreamer: FormGroup;
   get formConnexionStreamer(): FormGroup{
@@ -108,10 +131,10 @@ export class ChoixComponent implements OnInit {
 
   users;
   getUsers(): void {
-    this.users = this.userService.getUsers();
+    this.users = this.Users.getAll();
   }
 
-  constructor(private builder: FormBuilder, private userService: UserService) {
+  constructor(private builder: FormBuilder, private Users: UserService) {
     this.formConnexionStreamer = this.builder.group({
       'pseudoStreamer': ['', [
         Validators.required,
@@ -207,9 +230,9 @@ export class ChoixComponent implements OnInit {
   submittedConnectionViewer;
   submittedInscriptionViewer;
   onSubmitConnexionStreamer() {
-
     if(this.formConnexionStreamer.valid){
       this.submittedConnectionStreamer = true;
+      console.log(this.formConnexionStreamer.value.pseudoStreamer);
     }
     // stop here if form is invalid
     else{
@@ -247,6 +270,16 @@ export class ChoixComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this._user$ = this.Users.getAll();
+    this._user$.subscribe(
+      u => {
+        console.log(u + 'FG');
+        this.user = u;
+      },
+      (err) => {
+        console.log('erreur' + err);
+      }
+    );
   }
 
   blueOver() {
@@ -281,4 +314,5 @@ export class ChoixComponent implements OnInit {
   viewerInscription(value){
     this.viewer = value;
   }
+
 }
