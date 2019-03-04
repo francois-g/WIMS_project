@@ -21,4 +21,8 @@ export class PricetowinService {
   getAll(): Observable<PriceToWin[]> {
     return this._httpClient.get<PriceToWin[]>(this.url);
   }
+
+  getById(value: number): Observable<PriceToWin[]> {
+      return this._httpClient.get<PriceToWin[]>(this.url + '/' + value);
+  }
 }

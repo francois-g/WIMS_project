@@ -7,10 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class UserController : ApiController
     {
         List<WimsUser> listFromDB = new List<WimsUser>();
