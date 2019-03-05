@@ -27,7 +27,8 @@ namespace WimsApiMKI.Models
         public WimsUser()
         {
             Currency = new Currency();
-            Role = new Role();
+            //Role = new Role();
+            Role = 1;
         }
 
         #region GetSet
