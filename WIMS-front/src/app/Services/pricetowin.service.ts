@@ -22,7 +22,7 @@ export class PricetowinService {
     return this._httpClient.get<PriceToWin[]>(this.url);
   }
 
-  getById(value: number): Observable<PriceToWin[]> {
-      return this._httpClient.get<PriceToWin[]>(this.url + '/' + value);
+  getById(value: object): Observable<PriceToWin> {
+      return this._httpClient.get<PriceToWin>(this.url + '/' + value);
   }
 }
