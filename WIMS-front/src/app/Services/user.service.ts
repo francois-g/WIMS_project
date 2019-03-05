@@ -6,15 +6,17 @@ import {User} from '../Observables/User';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserService {
+
   private _url = 'http://localhost:50946/api/user';
   // private _url = 'http://mini.techni.local/badges';
 
-  get url(): string {
-    return this._url;
-  }
+
+    get url(): string {
+        return this._url;
+    }
 
   constructor(private _httpClient: HttpClient) {
   }
@@ -24,4 +26,5 @@ export class UserService {
   insert(value: object): Observable<User> {
       return this._httpClient.post<User>(this.url, value);
   }
+
 }
