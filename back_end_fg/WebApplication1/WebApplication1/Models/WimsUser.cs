@@ -21,7 +21,8 @@ namespace WimsApiMKI.Models
         private Currency _currency;
         private string _avatar;
         private bool _active;
-        private Role _role;
+        //private Role _role;
+        private int _role;
 
         public WimsUser()
         {
@@ -103,7 +104,7 @@ namespace WimsApiMKI.Models
             set { _active = value; }
         }
 
-        public Role Role
+        public int Role
         {
             get { return _role; }
             set { _role = value; }
