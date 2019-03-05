@@ -1,120 +1,143 @@
+import {Currency} from './Currency';
+import {Role} from './Role';
+
 export class User {
-  get id(): number {
-    return this._id;
-  }
 
-  set id(value: number) {
-    this._id = value;
-  }
+    private id: number;
+    private twitchLink: string = '';
+    private pseudoTwitch: string = '';
+    private conditionAccepted: number;
+    private currencyId: number;
+    private currency: Currency;
+    private avatar: string = '';
+    private active: boolean = true;
+    private role: number;
 
-  get FirstName(): string {
-    return this._FirstName;
-  }
+    get Id(): number {
+        return this.id;
+    }
 
-  set FirstName(value: string) {
-    this._FirstName = value;
-  }
+    set Id(value: number) {
+        this.id = value;
+    }
 
-  get LastName(): string {
-    return this._LastName;
-  }
+    get FirstName(): string {
+        return this.firstName;
+    }
 
-  set LastName(value: string) {
-    this._LastName = value;
-  }
+    set FirstName(value: string) {
+        this.firstName = value;
+    }
 
-  get Pseudo(): string {
-    return this._Pseudo;
-  }
+    get LastName(): string {
+        return this.lastName;
+    }
 
-  set Pseudo(value: string) {
-    this._Pseudo = value;
-  }
+    set LastName(value: string) {
+        this.lastName = value;
+    }
 
-  get Pswd(): string {
-    return this._Pswd;
-  }
+    get Pseudo(): string {
+        return this.pseudo;
+    }
 
-  set Pswd(value: string) {
-    this._Pswd = value;
-  }
+    set Pseudo(value: string) {
+        this.pseudo = value;
+    }
 
-  get Email(): string {
-    return this._Email;
-  }
+    get Pswd(): string {
+        return this.pswd;
+    }
 
-  set Email(value: string) {
-    this._Email = value;
-  }
+    set Pswd(value: string) {
+        this.pswd = value;
+    }
 
-  get TwitchLink(): string {
-    return this._TwitchLink;
-  }
+    get Email(): string {
+        return this.email;
+    }
 
-  set TwitchLink(value: string) {
-    this._TwitchLink = value;
-  }
+    set Email(value: string) {
+        this.email = value;
+    }
 
-  get PseudoTwitch(): string {
-    return this._PseudoTwitch;
-  }
+    get TwitchLink(): string {
+        return this.twitchLink;
+    }
 
-  set PseudoTwitch(value: string) {
-    this._PseudoTwitch = value;
-  }
+    set TwitchLink(value: string) {
+        this.twitchLink = value;
+    }
 
-  get ConditionAccepted(): number {
-    return this._ConditionAccepted;
-  }
+    get PseudoTwitch(): string {
+        return this.pseudoTwitch;
+    }
 
-  set ConditionAccepted(value: number) {
-    this._ConditionAccepted = value;
-  }
+    set PseudoTwitch(value: string) {
+        this.pseudoTwitch = value;
+    }
 
-  get CurrencyId(): number {
-    return this._CurrencyId;
-  }
+    get ConditionAccepted(): number {
+        return this.conditionAccepted;
+    }
 
-  set CurrencyId(value: number) {
-    this._CurrencyId = value;
-  }
+    set CnditionAccepted(value: number) {
+        this.conditionAccepted = value;
+    }
 
-  get Avatar(): string {
-    return this._Avatar;
-  }
+    get CurrencyId(): number {
+        return this.currencyId;
+    }
 
-  set Avatar(value: string) {
-    this._Avatar = value;
-  }
+    set CurrencyId(value: number) {
+        this.currencyId = value;
+    }
+    get Currency(): Currency {
+        return this.currency;
+    }
 
-  get Active(): number {
-    return this._Active;
-  }
+    set Currency(value: Currency) {
+        this.currency = value;
+    }
 
-  set Active(value: number) {
-    this._Active = value;
-  }
+    get Avatar(): string {
+        return this.avatar;
+    }
 
-  get RoleId(): number {
-    return this._RoleId;
-  }
+    set Avatar(value: string) {
+        this.avatar = value;
+    }
 
-  set RoleId(value: number) {
-    this._RoleId = value;
-  }
-  constructor (
-    private _id: number,
-    private _FirstName: string,
-    private _LastName: string,
-    private _Pseudo: string,
-    private _Pswd: string,
-    private _Email: string,
-    private _TwitchLink: string,
-    private _PseudoTwitch: string,
-    private _ConditionAccepted: number,
-    private _CurrencyId: number,
-    private _Avatar: string,
-    private _Active: number,
-    private _RoleId: number,
-  ) {}
+    get Active(): boolean {
+        return this.active;
+    }
+
+    set Active(value: boolean) {
+        this.active = value;
+    }
+
+    get Role(): number {
+        return this.role;
+    }
+
+    set Role(value: number) {
+        this.role = value;
+    }
+
+    // get Role(): Role {
+    //     return this._role;
+    // }
+    //
+    // set Role(value: Role) {
+    //     this._role = value;
+    // }
+
+
+    constructor (
+        private firstName: string,
+        private lastName: string,
+        private pseudo: string,
+        private pswd: string,
+        private email: string,
+    ) {}
 }

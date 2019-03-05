@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../Observables/User';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,8 @@ export class UserService {
   }
   getAll(): Observable<User[]> {
     return this._httpClient.get<User[]>(this.url);
+  }
+  insert(value: object): Observable<User> {
+      return this._httpClient.post<User>(this.url, value);
   }
 }
