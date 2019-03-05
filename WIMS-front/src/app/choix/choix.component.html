@@ -15,10 +15,13 @@
       <div *ngIf="streamer === 1">
         <form [formGroup]="formConnexionStreamer" (ngSubmit)="onSubmitConnexionStreamer()">
           <div class="alert alert-danger col-lg-12" *ngIf="formConnexionStreamer.controls['pseudoStreamer'].invalid && (formConnexionStreamer.controls['pseudoStreamer'].errors
-            && submittedConnectionStreamer === false) || formConnexionStreamer.controls['mdpStreamer'].invalid && (formConnexionStreamer.controls['mdpStreamer'].errors
             && submittedConnectionStreamer === false)">
-            Le pseudo ou le mot de passe n'est pas correct
+            Le pseudo n'est pas correct
           </div>
+            <div class="alert alert-danger col-lg-12" *ngIf="formConnexionStreamer.controls['mdpStreamer'].invalid && (formConnexionStreamer.controls['mdpStreamer'].errors
+            && submittedConnectionStreamer === false) || IsMdpStreamer === false">
+                Le mot de passe n'est pas correct
+            </div>
           <div class="d-flex flex-column form-group">
             <input type="text" id="pseudoStreamer" placeholder="Votre pseudo" class="mb-3 form-control"
                    [formControl]="formConnexionStreamer.controls['pseudoStreamer']" >
@@ -29,8 +32,6 @@
               <button class="btn" (click)="streamerInscription(2)">
                 <p>Pas encore  inscrit?</p>
               </button>
-
-
             </div>
           </div>
         </form>
