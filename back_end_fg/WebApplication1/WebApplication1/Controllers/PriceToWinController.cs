@@ -39,8 +39,8 @@ namespace WebApplication1.Controllers
                             price.Id = (int)reader[0];
                             price.Twitcher.Id = (int)reader[1];
                             price.IdBestAuction = (reader[2] is DBNull) ? null : (int?)reader[2];
-                            price.CurrentBestAuction = price.CurrentBestAuction;
-                            //price.CurrentBestAuction.Id = (reader[2] is DBNull) ? null : (int)reader[2];
+                            //price.CurrentBestAuction = price.CurrentBestAuction;
+                            if (price.IdBestAuction != 0) { price.CurrentBestAuction.Id = (int)reader[2]; }
                             price.OfferEnd = (DateTime)reader[3];
                             price.Game.Id = (int)reader[4];
                             price.AuctionStartValue = (int)reader[5];
@@ -100,6 +100,11 @@ namespace WebApplication1.Controllers
                 cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
                 cmd.Parameters["@TwitcherId"].Value = (int)p.Twitcher.Id;
 
+                //SqlCommand getIfOfInsertingPrice = new SqlCommand("SELECT MAX(Id) FROM PriceToWIn", c);
+                //c.Open();
+                //int insertingId = (int)getIfOfInsertingPrice.ExecuteScalar() + 1;
+                //c.Close();
+
                 Auction StartAuction = new Auction(p.AuctionStartValue);
                 //on crée une fausse enchère à la valeur de l'offre initiale du streamer
                 SqlCommand insertFalseAuction = new SqlCommand("INSERT INTO Auction (CurrentAuction, TwitcherId, UserId) VALUES (" + p.AuctionStartValue + ", " + p.Twitcher.Id + ", " + p.Twitcher.Id + ")", c);
@@ -107,7 +112,7 @@ namespace WebApplication1.Controllers
                 int applyInsert = insertFalseAuction.ExecuteNonQuery();
                 c.Close();
 
-                SqlCommand getIdFalseAuction = new SqlCommand("Select MAX(Id) FROM Auction WHERE UserId = " + p.Twitcher.Id, c);
+                SqlCommand getIdFalseAuction = new SqlCommand("Select MAX(Id) FROM Auction WHERE UserId = TwitcherId AND UserId = " + p.Twitcher.Id, c);
                 c.Open();
                 int idJustInserted = (int)getIdFalseAuction.ExecuteScalar();
                 c.Close();

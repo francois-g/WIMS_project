@@ -13,15 +13,15 @@ CREATE TABLE [dbo].[PriceToWin] (
 
 
 
-GO
+--GO
 
-CREATE TRIGGER [dbo].[Trigger_PriceToWin]
-    ON [dbo].[PriceToWin]
-    INSTEAD OF DELETE
-    AS
-    BEGIN
-        SET NoCount ON
-		UPDATE PriceToWin SET Active = 0
-		WHERE Id in (SELECT Id
-                    FROM deleted)
-    END
+--CREATE TRIGGER [dbo].[Trigger_PriceToWin]
+--    ON [dbo].[PriceToWin]
+--    INSTEAD OF DELETE
+--    AS
+--    BEGIN
+--        SET NoCount ON
+--		UPDATE PriceToWin SET Active = 0
+--		WHERE Id in (SELECT Id
+--                    FROM deleted)
+--    END
