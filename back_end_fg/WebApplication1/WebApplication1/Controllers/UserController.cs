@@ -48,7 +48,8 @@ namespace WebApplication1.Controllers
                             user.CurrencyId = (reader[9] is DBNull) ? null : (int?)reader[9];
                             user.Avatar = (reader[10] is DBNull) ? null : (string)reader[10];
                             user.Active = (bool)reader[11];
-                            user.Role.Id = (int)reader[12];
+                            //user.Role.Id = (int)reader[12];
+                            user.Role = (int)reader[12];
                             listFromDB.Add(user);
                         }
                     }
@@ -90,7 +91,8 @@ namespace WebApplication1.Controllers
                         if (user.CurrencyId != null) { user.Currency.Id = (int)user.CurrencyId; }
                         user.Avatar = (reader[10] is DBNull) ? null : (string)reader[10];
                         user.Active = (bool)reader[11];
-                        user.Role.Id = (int)reader[12];
+                        //user.Role.Id = (int)reader[12];
+                        user.Role = (int)reader[12];
                     }
                 }
                 c.Close();
@@ -144,7 +146,7 @@ namespace WebApplication1.Controllers
                 cmd.Parameters["@Active"].Value = (bool)u.Active;
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
-                cmd.Parameters["@Role"].Value = (int)u.Role.Id;
+                cmd.Parameters["@Role"].Value = (int)u.Role;
 
                 #endregion
 
@@ -208,7 +210,8 @@ namespace WebApplication1.Controllers
                 cmd.Parameters["@Active"].Value = (bool)u.Active;
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
-                cmd.Parameters["@Role"].Value = (int)u.Role.Id;
+                //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
+                cmd.Parameters["@Role"].Value = (int)u.Role;
 
                 c.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
