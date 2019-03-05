@@ -97,28 +97,9 @@ namespace WebApplication1.Controllers
                 c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
                 //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
 
-                //SqlCommand cmd = new SqlCommand("AddAuction", c);
-                //cmd.CommandType = CommandType.StoredProcedure;
-
-                //#region paramètres de l'enchère ajoutée
-
-                //cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
-                //cmd.Parameters["@TwitcherId"].Value = (int)auc.Twitcher.Id;
-
-                //cmd.Parameters.Add("@UserId", SqlDbType.Int);
-                //cmd.Parameters["@UserId"].Value = (int)auc.User.Id;
-
-                //cmd.Parameters.Add("@MinAuction", SqlDbType.Int);
-                //cmd.Parameters["@MinAuction"].Value = (int)auc.MinAuction;
-
-                //cmd.Parameters.Add("@MaxAuction", SqlDbType.Int);
-                //cmd.Parameters["@MaxAuction"].Value = (int)auc.MaxAuction;
-
-                //cmd.Parameters.Add("@CurrentAuction", SqlDbType.Int);
-
-                SqlCommand cmd2 = new SqlCommand ("SELECT CurrentBestAuction FROM PriceToWin WHERE Id = @PriceIdFromAuctionTable", c);
+                SqlCommand cmd2 = new SqlCommand("SELECT MAX(CurrentAuction) FROM Auction WHERE PriceId = @PriceIdFromAuctionTable", c);
                 cmd2.Parameters.Add("@PriceIdFromAuctionTable", SqlDbType.Int);
-                cmd2.Parameters["@PriceIdFromAuctionTable"].Value = auc.IdPrice;
+                cmd2.Parameters["@PriceIdFromAuctionTable"].Value = auc.AuctionPrice.Id;
                 int best = new int();
                 c.Open();
                 using (SqlDataReader reader = cmd2.ExecuteReader())
@@ -176,6 +157,7 @@ namespace WebApplication1.Controllers
                     updateCurrentInOffer.CommandType = CommandType.StoredProcedure;
                     updateCurrentInOffer.Parameters.Add("@Id", SqlDbType.Int);
                     updateCurrentInOffer.Parameters["@Id"].Value = (int)auc.AuctionPrice.Id;
+
                     SqlCommand findInsertedAuctionId = new SqlCommand("Select MAX(Id) FROM Auction WHERE PriceId = " + auc.AuctionPrice.Id, c);
                     int found = new int();
                     c.Open();
