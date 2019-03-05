@@ -1,67 +1,67 @@
 export class PriceToWin {
     constructor (
         private _id: number,
-        private _TwitcherId: number,
-        private _CurrentBestAuction: number,
-        private _OfferEnd: string,
-        private _GameId: number,
-        private _AuctionStartValue: number,
-        private _Active: number
+        private _twitcherId: number,
+        private _currentBestAuction: number,
+        private _offerEnd: string,
+        private _gameId: number,
+        private _auctionStartValue: number,
+        private _active: boolean
     ) {}
 
-    get id(): number {
+    get Id(): number {
         return this._id;
     }
 
-    set id(value: number) {
+    set Id(value: number) {
         this._id = value;
     }
 
     get TwitcherId(): number {
-        return this._TwitcherId;
+        return this._twitcherId;
     }
 
     set TwitcherId(value: number) {
-        this._TwitcherId = value;
+        this._twitcherId = value;
     }
 
     get CurrentBestAuction(): number {
-        return this._CurrentBestAuction;
+        return this._currentBestAuction;
     }
 
     set CurrentBestAuction(value: number) {
-        this._CurrentBestAuction = value;
+        this._currentBestAuction = value;
     }
 
     get OfferEnd(): string {
-        return this._OfferEnd;
+        return this._offerEnd;
     }
 
     set OfferEnd(value: string) {
-        this._OfferEnd = value;
+        this._offerEnd = value;
     }
 
     get GameId(): number {
-        return this._GameId;
+        return this._gameId;
     }
 
     set GameId(value: number) {
-        this._GameId = value;
+        this._gameId = value;
     }
 
     get AuctionStartValue(): number {
-        return this._AuctionStartValue;
+        return this._auctionStartValue;
     }
 
     set AuctionStartValue(value: number) {
-        this._AuctionStartValue = value;
+        this._auctionStartValue = value;
     }
 
-    get Active(): number {
-        return this._Active;
+    get Active(): boolean {
+        return this._active;
     }
 
-    set Active(value: number) {
-        this._Active = value;
+    set Active(value: boolean) {
+        this._active = value;
     }
 }

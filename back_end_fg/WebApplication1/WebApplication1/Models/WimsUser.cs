@@ -24,6 +24,7 @@ namespace WimsApiMKI.Models
         private int _role;
         //private Role _role;
 
+
         public WimsUser()
         {
             Currency = new Currency();

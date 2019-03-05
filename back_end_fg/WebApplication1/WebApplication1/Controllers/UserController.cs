@@ -146,6 +146,10 @@ namespace WebApplication1.Controllers
                 cmd.Parameters["@Active"].Value = (bool)u.Active;
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
+<<<<<<< HEAD
+=======
+                //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
+>>>>>>> 9b3cf5a77c757ff942d653b3a41098890bb3d0d3
                 cmd.Parameters["@Role"].Value = (int)u.Role;
 
                 #endregion
