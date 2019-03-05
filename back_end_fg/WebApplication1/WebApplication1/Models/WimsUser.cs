@@ -29,7 +29,11 @@ namespace WimsApiMKI.Models
         {
             Currency = new Currency();
             //Role = new Role();
+<<<<<<< HEAD
             Role = 2;
+=======
+            Role = 1;
+>>>>>>> 0b2a35c742958a6187cef42269e483e385693401
         }
 
         #region GetSet
