@@ -100,22 +100,22 @@ export class AllOffersComponent implements OnInit {
     //     );
     // }
 
-    getOffer(value) {
-        this._price$ = this.pricesToWin.getById(value);
-        console.log(value);
-        this._price$.subscribe(
-            pp => {
-                console.log(pp);
-                // this.price = p;
-            },
-            (err) => {
-                console.log(err + ' error');
-            }
-        );
-        // this.price.forEach(prop => {
-        //     console.log(prop);
-        // });
-    }
+    // getOffer(value) {
+    //     this._price$ = this.pricesToWin.getById(value);
+    //     console.log(value);
+    //     this._price$.subscribe(
+    //         pp => {
+    //             console.log(pp);
+    //             // this.price = p;
+    //         },
+    //         (err) => {
+    //             console.log(err + ' error');
+    //         }
+    //     );
+    //     // this.price.forEach(prop => {
+    //     //     console.log(prop);
+    //     // });
+    // }
 
     Encherir(value) {
         this.enchereId = value;

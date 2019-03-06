@@ -10,8 +10,7 @@ CREATE TABLE [dbo].[Auction]
     [AuctionValidation] BIT NOT NULL DEFAULT 0, 
     [PriceId] INT NULL, 
     [Active] BIT NOT NULL DEFAULT 1, 
-    CONSTRAINT [FK_Auction_ToTable_PriceToWin] FOREIGN KEY ([PriceId]) REFERENCES [PriceToWin]([Id]) ON DELETE CASCADE, 
-    
+    CONSTRAINT [FK_Auction_ToTable_PriceToWin] FOREIGN KEY ([PriceId]) REFERENCES [PriceToWin]([Id]),
 )
 
 --GO
