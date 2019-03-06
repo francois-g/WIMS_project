@@ -26,5 +26,4 @@ export class UserService {
   insert(value: object): Observable<User> {
       return this._httpClient.post<User>(this.url, value);
   }
-
 }
