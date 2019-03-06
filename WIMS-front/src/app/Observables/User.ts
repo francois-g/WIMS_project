@@ -2,6 +2,13 @@ import {Currency} from './Currency';
 import {Role} from './Role';
 
 export class User {
+    constructor (
+        private firstName: string,
+        private lastName: string,
+        private pseudo: string,
+        private pswd: string,
+        private email: string,
+    ) {}
 
     private id: number;
     private twitchLink: string = '';
@@ -124,20 +131,4 @@ export class User {
         this.role = value;
     }
 
-    // get Role(): Role {
-    //     return this._role;
-    // }
-    //
-    // set Role(value: Role) {
-    //     this._role = value;
-    // }
-
-
-    constructor (
-        private firstName: string,
-        private lastName: string,
-        private pseudo: string,
-        private pswd: string,
-        private email: string,
-    ) {}
 }
