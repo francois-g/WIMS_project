@@ -6,6 +6,6 @@ CREATE PROCEDURE [dbo].[AddPriceToWin]
 	@AuctionStartValue int,
 	@Active bit
 AS
-	INSERT INTO PriceToWin(TwitcherId, CurrentBestAuction, OfferEnd, GameId, AuctionStartValue, Active) 
-	VALUES (@TwitcherId, @CurrentBestAuction, @OfferEnd, @GameId, @AuctionStartValue, @Active);
+	INSERT INTO PriceToWin(TwitcherId, OfferEnd, GameId, AuctionStartValue, Active) 
+	VALUES (@TwitcherId, @OfferEnd, @GameId, @AuctionStartValue, @Active);
 RETURN 0

@@ -34,15 +34,13 @@ namespace WebApplication1.Repositories
                         {
                             Auction auction = new Auction();
                             auction.Id = (int)reader[0];
-                            auction.Twitcher.Id = (int)reader[1];
-                            auction.User.Id = (int)reader[2];
-                            auction.MinAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
-                            auction.MaxAuction = (reader[4] is DBNull) ? null : (int?)reader[4];
-                            auction.CurrentAuction = (int)reader[5];
-                            auction.AuctionDate = (reader[6] is DBNull) ? null : (DateTime?)reader[6];
-                            auction.AuctionValidation = (bool)reader[7];
-                            auction.IdPrice = (reader[8] is DBNull) ? 0 : (int)reader[8];
-                            auction.Active = (bool)reader[9];
+                            auction.User.Id = (int)reader[1];
+                            auction.MinAuction = (reader[2] is DBNull) ? null : (int?)reader[2];
+                            auction.MaxAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
+                            auction.CurrentAuction = (int)reader[4];
+                            auction.AuctionDate = (reader[5] is DBNull) ? null : (DateTime?)reader[5];
+                            auction.AuctionValidation = (bool)reader[6];
+                            auction.IdPrice = (reader[7] is DBNull) ? 0 : (int)reader[7];
                             listFromDB.Add(auction);
                         }
                     }
@@ -72,15 +70,13 @@ namespace WebApplication1.Repositories
                     while (reader.Read())
                     {
                         auc.Id = (int)reader[0];
-                        auc.Twitcher.Id = (int)reader[1];
-                        auc.User.Id = (int)reader[2];
-                        auc.MinAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
-                        auc.MaxAuction = (reader[4] is DBNull) ? null : (int?)reader[4];
-                        auc.CurrentAuction = (int)reader[5];
-                        auc.AuctionDate = (reader[6] is DBNull) ? null : (DateTime?)reader[6];
-                        auc.AuctionValidation = (bool)reader[7];
-                        auc.AuctionPrice.Id = (int)reader[8];
-                        auc.Active = (bool)reader[9];
+                        auc.User.Id = (int)reader[1];
+                        auc.MinAuction = (reader[2] is DBNull) ? null : (int?)reader[2];
+                        auc.MaxAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
+                        auc.CurrentAuction = (int)reader[4];
+                        auc.AuctionDate = (reader[5] is DBNull) ? null : (DateTime?)reader[5];
+                        auc.AuctionValidation = (bool)reader[6];
+                        auc.AuctionPrice.Id = (int)reader[7];
                     }
                 }
                 c.Close();
@@ -96,7 +92,7 @@ namespace WebApplication1.Repositories
                 c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
                 //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
 
-                SqlCommand cmd2 = new SqlCommand("SELECT MAX(CurrentAuction) FROM Auction WHERE PriceId = @PriceIdFromAuctionTable", c);
+                SqlCommand cmd2 = new SqlCommand("SELECT MAX(CurrentAuction) FROM Auction WHERE OfferId = @PriceIdFromAuctionTable", c);
                 cmd2.Parameters.Add("@PriceIdFromAuctionTable", SqlDbType.Int);
                 cmd2.Parameters["@PriceIdFromAuctionTable"].Value = auc.AuctionPrice.Id;
                 int best = new int();
@@ -116,9 +112,6 @@ namespace WebApplication1.Repositories
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     #region paramètres de l'enchère ajoutée
-
-                    cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
-                    cmd.Parameters["@TwitcherId"].Value = (int)auc.Twitcher.Id;
 
                     cmd.Parameters.Add("@UserId", SqlDbType.Int);
                     cmd.Parameters["@UserId"].Value = (int)auc.User.Id;
@@ -142,9 +135,9 @@ namespace WebApplication1.Repositories
                     cmd.Parameters.Add("@PriceId", SqlDbType.Int);
                     cmd.Parameters["@PriceId"].Value = (int)auc.AuctionPrice.Id;
 
-                    cmd.Parameters.Add("@Active", SqlDbType.Bit);
-                    auc.Active = true;
-                    cmd.Parameters["@Active"].Value = (bool)auc.Active;
+                    //cmd.Parameters.Add("@Active", SqlDbType.Bit);
+                    //auc.Active = true;
+                    //cmd.Parameters["@Active"].Value = (bool)auc.Active;
 
                     #endregion
 
@@ -157,7 +150,7 @@ namespace WebApplication1.Repositories
                     updateCurrentInOffer.Parameters.Add("@Id", SqlDbType.Int);
                     updateCurrentInOffer.Parameters["@Id"].Value = (int)auc.AuctionPrice.Id;
 
-                    SqlCommand findInsertedAuctionId = new SqlCommand("Select MAX(Id) FROM Auction WHERE PriceId = " + auc.AuctionPrice.Id, c);
+                    SqlCommand findInsertedAuctionId = new SqlCommand("Select MAX(Id) FROM Auction WHERE OfferId = " + auc.AuctionPrice.Id, c);
                     int found = new int();
                     c.Open();
                     using (SqlDataReader reader = findInsertedAuctionId.ExecuteReader())
@@ -170,8 +163,8 @@ namespace WebApplication1.Repositories
                     c.Close();
                     updateCurrentInOffer.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
                     updateCurrentInOffer.Parameters["@CurrentBestAuction"].Value = (int)found;
-                    updateCurrentInOffer.Parameters.Add("@Active", SqlDbType.Bit);
-                    updateCurrentInOffer.Parameters["@Active"].Value = (bool)auc.Active;
+                    //updateCurrentInOffer.Parameters.Add("@Active", SqlDbType.Bit);
+                    //updateCurrentInOffer.Parameters["@Active"].Value = (bool)auc.Active;
                     c.Open();
                     int exec = updateCurrentInOffer.ExecuteNonQuery();
                     c.Close();
@@ -195,9 +188,6 @@ namespace WebApplication1.Repositories
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
                 cmd.Parameters["@Id"].Value = id;
 
-                cmd.Parameters.Add("@TwitcherId", SqlDbType.Int);
-                cmd.Parameters["@TwitcherId"].Value = (int)auc.Twitcher.Id;
-
                 cmd.Parameters.Add("@UserId", SqlDbType.Int);
                 cmd.Parameters["@UserId"].Value = (int)auc.User.Id;
 
@@ -217,8 +207,8 @@ namespace WebApplication1.Repositories
                 cmd.Parameters.Add("@AuctionValidation", SqlDbType.Bit);
                 cmd.Parameters["@AuctionValidation"].Value = (bool)auc.AuctionValidation;
 
-                cmd.Parameters.Add("@Active", SqlDbType.Bit);
-                cmd.Parameters["@Active"].Value = (bool)auc.Active;
+                //cmd.Parameters.Add("@Active", SqlDbType.Bit);
+                //cmd.Parameters["@Active"].Value = (bool)auc.Active;
 
                 c.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();

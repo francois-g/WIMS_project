@@ -9,8 +9,6 @@ namespace WimsApiMKI.Models
     {
         private int _id;
         private WimsUser _twitcher;
-        private int? _idBestAuction;
-        private Auction _currentBestAuction;
         private DateTime _offerEnd;
         private Game _game;
         private int _auctionStartValue;
@@ -24,7 +22,6 @@ namespace WimsApiMKI.Models
         public PriceToWin()
         {
             Twitcher = new WimsUser();
-            CurrentBestAuction = new Auction();
             OfferEnd = new DateTime();
             Game = new Game();
         }
@@ -40,18 +37,6 @@ namespace WimsApiMKI.Models
         {
             get { return _twitcher; }
             set { _twitcher = value; }
-        }
-
-        public int? IdBestAuction
-        {
-            get { return _idBestAuction; }
-            set { _idBestAuction = value; }
-        }
-
-        public Auction CurrentBestAuction
-        {
-            get { return _currentBestAuction; }
-            set { _currentBestAuction = value; }
         }
 
         public DateTime OfferEnd

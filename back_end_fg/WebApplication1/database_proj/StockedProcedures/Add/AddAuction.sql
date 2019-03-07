@@ -1,14 +1,12 @@
 CREATE PROCEDURE [dbo].[AddAuction]
-	@TwitcherId int,
 	@UserId int,
 	@MinAuction int = null,
 	@MaxAuction int = null,
 	@CurrentAuction int,
 	@AuctionDate datetime,
 	@AuctionValidation bit,
-	@PriceId int = 0,
-	@Active bit
+	@OfferId int = 0
 AS
-	INSERT INTO Auction(TwitcherId, UserId, MinAuction, MaxAuction, CurrentAuction, AuctionDate, AuctionValidation, PriceId, Active)
-	VALUES (@TwitcherId, @UserId, @MinAuction, @MaxAuction, @CurrentAuction, @AuctionDate, @AuctionValidation, @PriceId, @Active);
+	INSERT INTO Auction(UserId, MinAuction, MaxAuction, CurrentAuction, AuctionDate, AuctionValidation, OfferId)
+	VALUES (@UserId, @MinAuction, @MaxAuction, @CurrentAuction, @AuctionDate, @AuctionValidation, @OfferId);
 RETURN 0
