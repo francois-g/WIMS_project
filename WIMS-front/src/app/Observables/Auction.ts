@@ -1,95 +1,76 @@
 export class Auction {
+    get Id(): number {
+        return this._Id;
+    }
 
+    set Id(value: number) {
+        this._Id = value;
+    }
+
+    get UserId(): number {
+        return this._UserId;
+    }
+
+    set UserId(value: number) {
+        this._UserId = value;
+    }
+
+    get MinAuction(): number {
+        return this._MinAuction;
+    }
+
+    set MinAuction(value: number) {
+        this._MinAuction = value;
+    }
+
+    get MaxAuction(): number {
+        return this._MaxAuction;
+    }
+
+    set MaxAuction(value: number) {
+        this._MaxAuction = value;
+    }
+
+    get CurrentAuction(): number {
+        return this._CurrentAuction;
+    }
+
+    set CurrentAuction(value: number) {
+        this._CurrentAuction = value;
+    }
+
+    get AuctionDate(): string {
+        return this._AuctionDate;
+    }
+
+    set AuctionDate(value: string) {
+        this._AuctionDate = value;
+    }
+
+    get AuctionValidation(): boolean {
+        return this._AuctionValidation;
+    }
+
+    set AuctionValidation(value: boolean) {
+        this._AuctionValidation = value;
+    }
+
+    get OfferId(): number {
+        return this._OfferId;
+    }
+
+    set OfferId(value: number) {
+        this._OfferId = value;
+    }
+    private _MinAuction: number;
+    private _MaxAuction: number;
     constructor(
-        private _id,
-        private _twitcherId,
-        private _userId,
-        private _minAuction,
-        private _maxAuction,
-        private _currentAuction,
-        private _auctionDate,
-        private _auctionValidation,
-        private _idPrice,
-        private _active
+        private _Id: number,
+        private _UserId: number,
+        private _CurrentAuction: number,
+        private _AuctionDate: string,
+        private _AuctionValidation: boolean,
+        private _OfferId: number,
     ) {}
 
-    get id() {
-        return this._id;
-    }
-
-    set id(value) {
-        this._id = value;
-    }
-
-    get twitcherId() {
-        return this._twitcherId;
-    }
-
-    set twitcherId(value) {
-        this._twitcherId = value;
-    }
-
-    get userId() {
-        return this._userId;
-    }
-
-    set userId(value) {
-        this._userId = value;
-    }
-
-    get minAuction() {
-        return this._minAuction;
-    }
-
-    set minAuction(value) {
-        this._minAuction = value;
-    }
-
-    get maxAuction() {
-        return this._maxAuction;
-    }
-
-    set maxAuction(value) {
-        this._maxAuction = value;
-    }
-
-    get currentAuction() {
-        return this._currentAuction;
-    }
-
-    set currentAuction(value) {
-        this._currentAuction = value;
-    }
-
-    get auctionDate() {
-        return this._auctionDate;
-    }
-
-    set auctionDate(value) {
-        this._auctionDate = value;
-    }
-
-    get auctionValidation() {
-        return this._auctionValidation;
-    }
-
-    set auctionValidation(value) {
-        this._auctionValidation = value;
-    }
-
-    get idPrice() {
-        return this._idPrice;
-    }
-
-    set idPrice(value) {
-        this._idPrice = value;
-    }
-
-    get active() {
-        return this._active;
-    }
-
-    set active(value) {
-        this._active = value;
-    }
 }

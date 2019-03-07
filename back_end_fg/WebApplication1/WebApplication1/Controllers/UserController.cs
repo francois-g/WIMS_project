@@ -144,8 +144,17 @@ namespace WebApplication1.Controllers
             //        cmd.Parameters.Add("@ConditionAccepted", SqlDbType.Bit);
             //        cmd.Parameters["@ConditionAccepted"].Value = (bool)u.ConditionAccepted;
 
+<<<<<<< HEAD
+                cmd.Parameters.Add("@Role", SqlDbType.Int);
+<<<<<<< HEAD
+=======
+                //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
+>>>>>>> 9b3cf5a77c757ff942d653b3a41098890bb3d0d3
+                cmd.Parameters["@Role"].Value = (int)u.Role;
+=======
             //        cmd.Parameters.Add("@CurrencyId", SqlDbType.Int);
             //        cmd.Parameters["@CurrencyId"].Value = (int)u.Currency.Id;
+>>>>>>> 465fe86137d413104dd0624302ad13a04a0655d8
 
             //        cmd.Parameters.Add("@Avatar", SqlDbType.Text);
             //        cmd.Parameters["@Avatar"].Value = (string)u.Avatar;
