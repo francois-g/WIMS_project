@@ -29,4 +29,7 @@ export class GameService {
     getGames() {
         return this.Games;
     }
+    getById(Id: number) {
+        return this.Games[Id].GameImg;
+    }
 }

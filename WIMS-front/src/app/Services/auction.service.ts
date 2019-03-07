@@ -30,6 +30,22 @@ export class AuctionService {
             AuctionValidation: true,
             OfferId: 3,
         },
+        {
+            Id: 4,
+            UserId: 2,
+            CurrentAuction: 500,
+            AuctionDate: '07/03/2019',
+            AuctionValidation: true,
+            OfferId: 4,
+        },
+        {
+            Id: 5,
+            UserId: 2,
+            CurrentAuction: 500,
+            AuctionDate: '07/03/2019',
+            AuctionValidation: true,
+            OfferId: 2,
+        },
     ];
     getAuctions() {
         return this.Auctions;

@@ -8,7 +8,6 @@ import {PriceToWin} from '../Observables/PriceToWin';
 })
 export class PricetowinService {
     Offers = [
-
         {
             Id: 1,
             TwitcherId: 1,

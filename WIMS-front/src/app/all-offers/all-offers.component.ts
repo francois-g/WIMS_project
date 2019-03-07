@@ -20,7 +20,11 @@ export class AllOffersComponent implements OnInit {
     offers;
     games;
     auctions;
+    tableAuctions = [];
+    Id;
     encherir = false;
+    NomDuJeu;
+    ImageDuJeu;
 
     private _formNewAuction: FormGroup;
 
@@ -51,10 +55,30 @@ export class AllOffersComponent implements OnInit {
         this.offers = this.Offers.getOffers();
         this.games = this.Games.getGames();
         this.auctions = this.Auctions.getAuctions();
+        for (let i = 0; i < this.auctions.length; i++) {
+            for (let j = 0; j < this.games.length; j++) {
+                if (this.offers[i].GameId === this.games[j].Id) {
+                    this.NomDuJeu = this.games[j].GameName;
+                    this.ImageDuJeu = this.games[j].GameImg;
+                }
+            }
+            this.tableAuctions[i] = [
+                {
+                    Id: this.offers[i].Id,
+                    TwitcherId: this.offers[i].TwitcherId,
+                    GameId: this.offers[i].GameId,
+                    GameName: this.NomDuJeu,
+                    Img: this.ImageDuJeu,
+                }
+            ];
+        }
+
+        console.log(this.tableAuctions);
     }
 
     Encherir(value) {
         this.encherir = value;
+        console.log(this.tableAuctions);
     }
     onSubmitNewEnchere() {
 
