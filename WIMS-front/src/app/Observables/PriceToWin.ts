@@ -1,67 +1,73 @@
 export class PriceToWin {
-    constructor (
-        private _id: number,
-        private _twitcherId: number,
-        private _currentBestAuction: number,
-        private _offerEnd: string,
-        private _gameId: number,
-        private _auctionStartValue: number,
-        private _active: boolean
-    ) {}
+    get offerDescription(): string {
+        return this._offerDescription;
+    }
 
-    get Id(): number {
+    set offerDescription(value: string) {
+        this._offerDescription = value;
+    }
+    get gameImg(): string {
+        return this._gameImg;
+    }
+
+    set gameImg(value: string) {
+        this._gameImg = value;
+    }
+    get id(): number {
         return this._id;
     }
 
-    set Id(value: number) {
+    set id(value: number) {
         this._id = value;
     }
 
-    get TwitcherId(): number {
+    get twitcherId(): number {
         return this._twitcherId;
     }
 
-    set TwitcherId(value: number) {
+    set twitcherId(value: number) {
         this._twitcherId = value;
     }
 
-    get CurrentBestAuction(): number {
-        return this._currentBestAuction;
+    get end(): string {
+        return this._end;
     }
 
-    set CurrentBestAuction(value: number) {
-        this._currentBestAuction = value;
+    set end(value: string) {
+        this._end = value;
     }
 
-    get OfferEnd(): string {
-        return this._offerEnd;
+    get game(): string {
+        return this._gameName;
     }
 
-    set OfferEnd(value: string) {
-        this._offerEnd = value;
+    set game(value: string) {
+        this._gameName = value;
     }
 
-    get GameId(): number {
-        return this._gameId;
+    get start(): string {
+        return this._start;
     }
 
-    set GameId(value: number) {
-        this._gameId = value;
+    set start(value: string) {
+        this._start = value;
     }
 
-    get AuctionStartValue(): number {
-        return this._auctionStartValue;
+    get value(): number {
+        return this._value;
     }
 
-    set AuctionStartValue(value: number) {
-        this._auctionStartValue = value;
+    set value(value: number) {
+        this._value = value;
     }
-
-    get Active(): boolean {
-        return this._active;
-    }
-
-    set Active(value: boolean) {
-        this._active = value;
-    }
+    constructor(
+       private _id: number,
+       private _twitcherId: number,
+       private _end: string,
+       private _gameName: string,
+       private _start: string,
+       private _value: number,
+       private _gameImg: string,
+       private _offerDescription: string,
+    ) {}
 }

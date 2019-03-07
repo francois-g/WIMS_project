@@ -2,7 +2,6 @@ export class Auction {
 
     constructor(
         private _id,
-        private _twitcherId,
         private _userId,
         private _minAuction,
         private _maxAuction,
@@ -19,14 +18,6 @@ export class Auction {
 
     set id(value) {
         this._id = value;
-    }
-
-    get twitcherId() {
-        return this._twitcherId;
-    }
-
-    set twitcherId(value) {
-        this._twitcherId = value;
     }
 
     get userId() {
