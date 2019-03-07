@@ -7,6 +7,7 @@ import {PriceToWin} from '../Observables/PriceToWin';
 import {forEach} from '@angular/router/src/utils/collection';
 import {AuctionService} from '../Services/auction.service';
 import {Auction} from '../Observables/Auction';
+import {GameService} from '../Services/game.service';
 
 @Component({
     selector: 'app-all-offers',
@@ -17,6 +18,8 @@ export class AllOffersComponent implements OnInit {
 
     submittedNewEnchere;
     offers;
+    games;
+    auctions;
     encherir = false;
 
     private _formNewAuction: FormGroup;
@@ -36,8 +39,7 @@ export class AllOffersComponent implements OnInit {
     set outputNewEnchere(value: { newEnchere: number }) {
         this._outputNewEnchere = value;
     }
-
-    constructor(private builder: FormBuilder, private Offers: PricetowinService) {
+    constructor(private builder: FormBuilder, private Offers: PricetowinService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'newEnchere': ['', [
                 Validators.required,
@@ -47,40 +49,10 @@ export class AllOffersComponent implements OnInit {
 
     ngOnInit() {
         this.offers = this.Offers.getOffers();
+        this.games = this.Games.getGames();
+        this.auctions = this.Auctions.getAuctions();
     }
-<<<<<<< HEAD
-=======
 
-    // getBestAuctionOfPrice(value) {
-    //     this._bestAuction$ = this.bestAuctionOfPrice.getById(value);
-    //     this._bestAuction$.subscribe(
-    //         b => {
-    //             console.log(b);
-    //         },
-    //         (err) => {
-    //             console.log('error ' + err);
-    //         }
-    //     );
-    // }
-
-    // getOffer(value) {
-    //     this._price$ = this.pricesToWin.getById(value);
-    //     console.log(value);
-    //     this._price$.subscribe(
-    //         pp => {
-    //             console.log(pp);
-    //             // this.price = p;
-    //         },
-    //         (err) => {
-    //             console.log(err + ' error');
-    //         }
-    //     );
-    //     // this.price.forEach(prop => {
-    //     //     console.log(prop);
-    //     // });
-    // }
-
->>>>>>> 465fe86137d413104dd0624302ad13a04a0655d8
     Encherir(value) {
         this.encherir = value;
     }

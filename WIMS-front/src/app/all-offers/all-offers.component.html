@@ -3,15 +3,16 @@
 <div class="row">
         <div class="mt-5 col-lg-4 "  *ngFor="let offer of offers">
             <mat-card class="ml-3 mr-3 mb-5">
-                <div class="d-flex justify-content-center mt-5 mb-5">{{offer.gameImg}}</div>
-                <mat-card-header class="d-flex justify-content-between">
+                <div class="d-flex justify-content-center mt-5 mb-5">{{offer.GameId}}</div>
+                <mat-card-header class="d-flex justify-content-around">
                     <div mat-card-avatar class="example-header-image"></div>
-                    {{offer.gameName}}
+                    <p> {{offer.AuctionStartValue}} </p>
+                    <p>{{offer.GameId}}</p>
                 </mat-card-header>
                 <mat-card-content class="d-flex flex-column align-items-center" >
-                    <p>{{offer.gameDescription}}</p>
-                    <button *ngIf="encherir !== offer.id" class="btn btn-warning" (click)="Encherir(offer.id)">Enchérir</button>
-                    <div *ngIf="encherir === offer.id">
+                    <p>{{offer.Description}}</p>
+                    <button *ngIf="encherir !== offer.Id" class="btn btn-warning" (click)="Encherir(offer.Id)">Enchérir</button>
+                    <div *ngIf="encherir === offer.Id">
                         <form [formGroup]="formNewAuction" class="form-group d-flex flex-column align-items-center">
                             <input type="number" class="form-control mb-3">
                             <input type="submit" class="btn btn-warning">

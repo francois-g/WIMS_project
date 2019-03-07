@@ -1,73 +1,67 @@
 export class PriceToWin {
-    get offerDescription(): string {
-        return this._offerDescription;
+    get Id(): number {
+        return this._Id;
     }
 
-    set offerDescription(value: string) {
-        this._offerDescription = value;
-    }
-    get gameImg(): string {
-        return this._gameImg;
+    set Id(value: number) {
+        this._Id = value;
     }
 
-    set gameImg(value: string) {
-        this._gameImg = value;
-    }
-    get id(): number {
-        return this._id;
+    get TwitcherId(): number {
+        return this._TwitcherId;
     }
 
-    set id(value: number) {
-        this._id = value;
+    set TwitcherId(value: number) {
+        this._TwitcherId = value;
     }
 
-    get twitcherId(): number {
-        return this._twitcherId;
+    get OfferEnd(): string {
+        return this._OfferEnd;
     }
 
-    set twitcherId(value: number) {
-        this._twitcherId = value;
+    set OfferEnd(value: string) {
+        this._OfferEnd = value;
     }
 
-    get end(): string {
-        return this._end;
+    get GameId(): number {
+        return this._GameId;
     }
 
-    set end(value: string) {
-        this._end = value;
+    set GameId(value: number) {
+        this._GameId = value;
     }
 
-    get game(): string {
-        return this._gameName;
+    get AuctionStartValue(): number {
+        return this._AuctionStartValue;
     }
 
-    set game(value: string) {
-        this._gameName = value;
+    set AuctionStartValue(value: number) {
+        this._AuctionStartValue = value;
     }
 
-    get start(): string {
-        return this._start;
+    get Description(): string {
+        return this._Description;
     }
 
-    set start(value: string) {
-        this._start = value;
+    set Description(value: string) {
+        this._Description = value;
     }
 
-    get value(): number {
-        return this._value;
+    get Active(): boolean {
+        return this._Active;
     }
 
-    set value(value: number) {
-        this._value = value;
+    set Active(value: boolean) {
+        this._Active = value;
     }
+
     constructor(
-       private _id: number,
-       private _twitcherId: number,
-       private _end: string,
-       private _gameName: string,
-       private _start: string,
-       private _value: number,
-       private _gameImg: string,
-       private _offerDescription: string,
+       private _Id: number,
+       private _TwitcherId: number,
+       private _OfferEnd: string,
+       private _GameId: number,
+       private _AuctionStartValue: number,
+       private _Description: string,
+       private _Active: boolean,
     ) {}
 }
