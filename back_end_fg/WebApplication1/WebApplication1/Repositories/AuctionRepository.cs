@@ -145,15 +145,12 @@ namespace WebApplication1.Repositories
                     cmd.Parameters.Add("@OfferId", SqlDbType.Int);
                     cmd.Parameters["@OfferId"].Value = (int)auc.AuctionPrice.Id;
 
-                    //cmd.Parameters.Add("@Active", SqlDbType.Bit);
-                    //auc.Active = true;
-                    //cmd.Parameters["@Active"].Value = (bool)auc.Active;
-
                     #endregion
 
                     c.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
                     c.Close();
+                    
 
                     SqlCommand updateCurrentInOffer = new SqlCommand("UpdatePriceToWin", c);
                     updateCurrentInOffer.CommandType = CommandType.StoredProcedure;
