@@ -41,12 +41,13 @@ namespace WebApplication1.Repositories
                             user.Email = (string)reader[5].ToString().Trim();
                             user.TwitchLink = (reader[6] is DBNull) ? null : (string)reader[6];
                             user.PseudoTwitch = (reader[7] is DBNull) ? null : (string)reader[7];
-                            user.ConditionAccepted = (bool)reader[8];
-                            user.CurrencyId = (reader[9] is DBNull) ? null : (int?)reader[9];
-                            user.Avatar = (reader[10] is DBNull) ? null : (string)reader[10];
-                            user.Active = (bool)reader[11];
+                            user.Balance = (int)reader[8];
+                            user.ConditionAccepted = (bool)reader[9];
+                            user.CurrencyId = (reader[10] is DBNull) ? null : (int?)reader[10];
+                            user.Avatar = (reader[11] is DBNull) ? null : (string)reader[11];
                             //user.Role.Id = (int)reader[12];
-                            user.Role = (int)reader[12];
+                            user.RoleId = (int)reader[12];
+                            user.Active = (bool)reader[13];
                             listFromDB.Add(user);
                         }
                     }
@@ -83,13 +84,14 @@ namespace WebApplication1.Repositories
                         user.Email = (string)reader[5].ToString().Trim();
                         user.TwitchLink = (reader[6] is DBNull) ? null : (string)reader[6];
                         user.PseudoTwitch = (reader[7] is DBNull) ? null : (string)reader[7];
-                        user.ConditionAccepted = (bool)reader[8];
-                        user.CurrencyId = (reader[9] is DBNull) ? null : (int?)reader[9];
+                        user.Balance = (int)reader[8];
+                        user.ConditionAccepted = (bool)reader[9];
+                        user.CurrencyId = (reader[10] is DBNull) ? null : (int?)reader[10];
                         if (user.CurrencyId != null) { user.Currency.Id = (int)user.CurrencyId; }
-                        user.Avatar = (reader[10] is DBNull) ? null : (string)reader[10];
-                        user.Active = (bool)reader[11];
+                        user.Avatar = (reader[11] is DBNull) ? null : (string)reader[11];
                         //user.Role.Id = (int)reader[12];
-                        user.Role = (int)reader[12];
+                        user.RoleId = (int)reader[12];
+                        user.Active = (bool)reader[13];
                     }
                 }
                 c.Close();
@@ -144,7 +146,7 @@ namespace WebApplication1.Repositories
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
                 //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
-                cmd.Parameters["@Role"].Value = (int)u.Role;
+                cmd.Parameters["@Role"].Value = (int)u.RoleId;
 
                 #endregion
 
@@ -209,7 +211,7 @@ namespace WebApplication1.Repositories
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
                 //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
-                cmd.Parameters["@Role"].Value = (int)u.Role;
+                cmd.Parameters["@Role"].Value = (int)u.RoleId;
 
                 c.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();

@@ -34,9 +34,10 @@ namespace WebApplication1.Repositories
                             PriceToWin price = new PriceToWin();
                             price.Id = (int)reader[0];
                             price.Twitcher.Id = (int)reader[1];
-                            price.OfferEnd = (DateTime)reader[3];
-                            price.Game.Id = (int)reader[4];
-                            price.AuctionStartValue = (int)reader[5];
+                            price.OfferEnd = (DateTime)reader[2];
+                            price.Game.Id = (int)reader[3];
+                            price.AuctionStartValue = (int)reader[4];
+                            price.Description = (reader[5] is DBNull) ? null : (string)reader[5];
                             price.Active = (bool)reader[6];
                             listFromDB.Add(price);
                         }
@@ -68,9 +69,10 @@ namespace WebApplication1.Repositories
                     {
                         price.Id = (int)reader[0];
                         price.Twitcher.Id = (int)reader[1];
-                        price.OfferEnd = (DateTime)reader[3];
-                        price.Game.Id = (int)reader[4];
-                        price.AuctionStartValue = (int)reader[5];
+                        price.OfferEnd = (DateTime)reader[2];
+                        price.Game.Id = (int)reader[3];
+                        price.AuctionStartValue = (int)reader[4];
+                        price.Description = (reader[5] is DBNull) ? null : (string)reader[5];
                         price.Active = (bool)reader[6];
                     }
                 }
@@ -121,6 +123,9 @@ namespace WebApplication1.Repositories
 
                 cmd.Parameters.Add("@AuctionStartValue", SqlDbType.Int);
                 cmd.Parameters["@AuctionStartValue"].Value = (int)p.AuctionStartValue;
+                
+                cmd.Parameters.Add("@Description", SqlDbType.Text);
+                cmd.Parameters["@Description"].Value = (p.Description != null) ? (string)p.Description : "";
 
                 cmd.Parameters.Add("@Active", SqlDbType.Bit);
                 p.Active = true;
@@ -150,11 +155,19 @@ namespace WebApplication1.Repositories
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
                 cmd.Parameters["@Id"].Value = id;
 
-                cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
-                cmd.Parameters["@OfferEnd"].Value = (DateTime)p.OfferEnd;
+                if (p.OfferEnd != new DateTime(1, 1, 1, 0, 0, 0))
+                {
+                    cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
+                    cmd.Parameters["@OfferEnd"].Value = (DateTime)p.OfferEnd;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
+                    cmd.Parameters["@OfferEnd"].Value = (DateTime)priceToModify.OfferEnd;
+                }
 
-                //cmd.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
-                //cmd.Parameters["@CurrentBestAuction"].Value = (int)p.CurrentBestAuction.Id;
+                cmd.Parameters.Add("@Description", SqlDbType.Text);
+                cmd.Parameters["@Description"].Value = (string)p.Description;
 
                 cmd.Parameters.Add("@Active", SqlDbType.Bit);
                 cmd.Parameters["@Active"].Value = (bool)p.Active;

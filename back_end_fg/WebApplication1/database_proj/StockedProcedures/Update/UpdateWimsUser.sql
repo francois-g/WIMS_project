@@ -7,6 +7,7 @@ CREATE PROCEDURE [dbo].[UpdateWimsUser]
 	@Email varchar(50),
 	@TwitchLink varchar(200) = null,
   @PseudoTwitch varchar(50) = null,
+  @Balance int,
 	@ConditionAccepted bit,
 	@CurrencyId int = 1,
 	@Avatar varchar(250) = null,
@@ -15,6 +16,6 @@ CREATE PROCEDURE [dbo].[UpdateWimsUser]
 
 AS
 	UPDATE WimsUser SET FirstName = @FirstName, LastName = @LastName, Pseudo = @Pseudo, Pswd = @Pswd, Email = @Email,
-  TwitchLink = @TwitchLink, PseudoTwitch = @PseudoTwitch, ConditionAccepted = @ConditionAccepted, CurrencyId = @CurrencyId,
+  TwitchLink = @TwitchLink, PseudoTwitch = @PseudoTwitch, Balance = @Balance, ConditionAccepted = @ConditionAccepted, CurrencyId = @CurrencyId,
   Avatar = @Avatar, Active = @Active, RoleId = @Role WHERE Id = @Id;
 RETURN 0

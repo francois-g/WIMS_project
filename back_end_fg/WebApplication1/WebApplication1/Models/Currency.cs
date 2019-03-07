@@ -12,6 +12,11 @@ namespace WimsApiMKI.Models
         private string _currencyShortcut;
         private decimal _conversionRate;
 
+        public Currency()
+        {
+            this.Id = 1;
+        }
+
         #region GetSet
         public decimal ConversionRate
         {

@@ -16,23 +16,28 @@ namespace WimsApiMKI.Models
         private string _email;
         private string _twitchLink;
         private string _pseudoTwitch;
+        private int _balance;
         private bool _conditionAccepted;
         private int? _currencyId;
         private Currency _currency;
         private string _avatar;
         private bool _active;
         //private Role _role;
-        private int _role;
+        private int _roleId;
 
         public WimsUser()
         {
-            Currency = new Currency();
-            //Role = new Role();
-            Role = 1;
+            this.Currency = new Currency();
+            this.RoleId = 1;
         }
 
         #region GetSet
-        
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public string Firstname
         {
             get { return _firstname; }
@@ -75,6 +80,12 @@ namespace WimsApiMKI.Models
             set { _pseudoTwitch = value; }
         }
 
+        public int Balance
+        {
+            get { return _balance; }
+            set { _balance = value; }
+        }
+
         public bool ConditionAccepted
         {
             get { return _conditionAccepted; }
@@ -105,25 +116,10 @@ namespace WimsApiMKI.Models
             set { _active = value; }
         }
 
-        public int Role
+        public int RoleId
         {
-            get { return _role; }
-            set { _role = value; }
-        }
-
-
-
-        
-
-
-
-        
-
-
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
+            get { return _roleId; }
+            set { _roleId = value; }
         }
         #endregion
 
