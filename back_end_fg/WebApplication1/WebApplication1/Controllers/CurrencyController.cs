@@ -7,151 +7,139 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Controllers
 {
-
     public class CurrencyController : ApiController
-    {        
-        List<Currency> listFromDB = new List<Currency>();
-        static string ServerName = System.Net.Dns.GetHostName();
-        static string ConnectionStringID =
-                (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
+    {
+        CurrencyRepository repo = new CurrencyRepository();
 
-        public IEnumerable<Currency> Get()
-        {
-            using (SqlConnection c = new SqlConnection())
-            {
-                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-                using (SqlCommand cmd = c.CreateCommand())
-                {
-                    //cmd.CommandText = "SELECT * FROM currency";
-                    cmd.CommandText = "SelectCurrency";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    c.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Currency currency = new Currency();
-                            currency.Id = (int)reader[0];
-                            currency.CurrencyName = (string)reader[1].ToString().Trim();
-                            currency.ConversionRate = (decimal)reader[2];
-                            currency.CurrencyShortCut = (string)reader[3].ToString().Trim();
-                            listFromDB.Add(currency);
-                        }
-                    }
-                    c.Close();
-                }
-            }
+        public IEnumerable<Currency> Get() => this.repo.getAll();
+        #region copied in repository
+        //using (SqlConnection c = new SqlConnection())//{//    c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;//    //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";//    using (SqlCommand cmd = c.CreateCommand())//    {//        //cmd.CommandText = "SELECT * FROM currency";//        cmd.CommandText = "SelectCurrency";//        cmd.CommandType = CommandType.StoredProcedure;//        c.Open();//        using (SqlDataReader reader = cmd.ExecuteReader())//        {//            while (reader.Read())//            {//                Currency currency = new Currency();//                currency.Id = (int)reader[0];//                currency.CurrencyName = (string)reader[1].ToString().Trim();//                currency.ConversionRate = (decimal)reader[2];//                currency.CurrencyShortCut = (string)reader[3].ToString().Trim();//                listFromDB.Add(currency);//            }//        }//        c.Close();//    }//}//return listFromDB;
+        #endregion
 
-            return listFromDB;
-        }
 
         public Currency Get(int id)
         {
-            Currency cur = new Currency();
-            using (SqlConnection c = new SqlConnection())
-            {
-                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-                SqlCommand cmd = new SqlCommand("SelectCurrencyById", c);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@Id", SqlDbType.Int);
-                cmd.Parameters["@Id"].Value = id;
+            return this.repo.getById(id);
 
-                //SqlCommand cmd = new SqlCommand("SELECT * FROM Currency WHERE Id = @id", c);
-                //cmd.Parameters.Add("@id", SqlDbType.Int);
-                //cmd.Parameters["@id"].Value = id;
+            #region copied in repository
+            //Currency cur = new Currency();
+            //using (SqlConnection c = new SqlConnection())
+            //{
+            //    c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+            //    //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+            //    SqlCommand cmd = new SqlCommand("SelectCurrencyById", c);
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Parameters.Add("@Id", SqlDbType.Int);
+            //    cmd.Parameters["@Id"].Value = id;
 
-                c.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        cur.Id = (int)reader[0];
-                        cur.CurrencyName = (string)reader[1].ToString().Trim();
-                        cur.ConversionRate = (decimal)reader[2];
-                        cur.CurrencyShortCut = (string)reader[3].ToString().Trim();
-                    }
-                }
-                c.Close();
-            }
-            return cur;
+            //    //SqlCommand cmd = new SqlCommand("SELECT * FROM Currency WHERE Id = @id", c);
+            //    //cmd.Parameters.Add("@id", SqlDbType.Int);
+            //    //cmd.Parameters["@id"].Value = id;
+
+            //    c.Open();
+            //    using (SqlDataReader reader = cmd.ExecuteReader())
+            //    {
+            //        while (reader.Read())
+            //        {
+            //            cur.Id = (int)reader[0];
+            //            cur.CurrencyName = (string)reader[1].ToString().Trim();
+            //            cur.ConversionRate = (decimal)reader[2];
+            //            cur.CurrencyShortCut = (string)reader[3].ToString().Trim();
+            //        }
+            //    }
+            //    c.Close();
+            //}
+            //return cur;
+            #endregion
         }
 
         public void Post([FromBody]Currency cur)
         {
-            using (SqlConnection c = new SqlConnection())
-            {
-                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-                SqlCommand cmd = new SqlCommand("AddCurrency", c);
-                cmd.CommandType = CommandType.StoredProcedure;
+            this.repo.add(cur);
 
-                cmd.Parameters.Add("@CurrencyName", SqlDbType.Text);
-                cmd.Parameters["@CurrencyName"].Value = (string)cur.CurrencyName;
+            #region copied in repository
+            //using (SqlConnection c = new SqlConnection())
+            //{
+            //    c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+            //    //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+            //    SqlCommand cmd = new SqlCommand("AddCurrency", c);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("@ConversionRate", SqlDbType.Decimal);
-                cmd.Parameters["@ConversionRate"].Value = (decimal)cur.ConversionRate;
+            //    cmd.Parameters.Add("@CurrencyName", SqlDbType.Text);
+            //    cmd.Parameters["@CurrencyName"].Value = (string)cur.CurrencyName;
 
-                cmd.Parameters.Add("@CurrencyShortCut", SqlDbType.Text);
-                cmd.Parameters["@CurrencyShortCut"].Value = (string)cur.CurrencyShortCut;
+            //    cmd.Parameters.Add("@ConversionRate", SqlDbType.Decimal);
+            //    cmd.Parameters["@ConversionRate"].Value = (decimal)cur.ConversionRate;
 
-                c.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
-                c.Close();
-            }
+            //    cmd.Parameters.Add("@CurrencyShortCut", SqlDbType.Text);
+            //    cmd.Parameters["@CurrencyShortCut"].Value = (string)cur.CurrencyShortCut;
 
-            listFromDB.Add(cur);
+            //    c.Open();
+            //    int rowsAffected = cmd.ExecuteNonQuery();
+            //    c.Close();
+            //}
+
+            //listFromDB.Add(cur);
+            #endregion
         }
 
         public void Put(int id, [FromBody]Currency cur)
         {
-            Currency currencyToModify = this.Get(id);
-            listFromDB.Remove(currencyToModify);
+            this.repo.update(id, cur);
 
-            using (SqlConnection c = new SqlConnection())
-            {
-                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-                SqlCommand cmd = new SqlCommand("UpdateCurrency", c);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@Id", SqlDbType.Int);
-                cmd.Parameters["@Id"].Value = id;
+            #region copied in repository
+            //Currency currencyToModify = this.Get(id);
+            //listFromDB.Remove(currencyToModify);
 
-                cmd.Parameters.Add("@CurrencyName", SqlDbType.Text);
-                cmd.Parameters["@CurrencyName"].Value = (string)cur.CurrencyName;
+            //using (SqlConnection c = new SqlConnection())
+            //{
+            //    c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+            //    //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+            //    SqlCommand cmd = new SqlCommand("UpdateCurrency", c);
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Parameters.Add("@Id", SqlDbType.Int);
+            //    cmd.Parameters["@Id"].Value = id;
 
-                cmd.Parameters.Add("@ConversionRate", SqlDbType.Decimal);
-                cmd.Parameters["@ConversionRate"].Value = (decimal)cur.ConversionRate;
+            //    cmd.Parameters.Add("@CurrencyName", SqlDbType.Text);
+            //    cmd.Parameters["@CurrencyName"].Value = (string)cur.CurrencyName;
 
-                cmd.Parameters.Add("@CurrencyShortCut", SqlDbType.Text);
-                cmd.Parameters["@CurrencyShortCut"].Value = cur.CurrencyShortCut;
+            //    cmd.Parameters.Add("@ConversionRate", SqlDbType.Decimal);
+            //    cmd.Parameters["@ConversionRate"].Value = (decimal)cur.ConversionRate;
 
-                c.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
-                c.Close();
-            }
+            //    cmd.Parameters.Add("@CurrencyShortCut", SqlDbType.Text);
+            //    cmd.Parameters["@CurrencyShortCut"].Value = cur.CurrencyShortCut;
 
-            listFromDB.Add(cur);
+            //    c.Open();
+            //    int rowsAffected = cmd.ExecuteNonQuery();
+            //    c.Close();
+            //}
+
+            //listFromDB.Add(cur);
+            #endregion
         }
 
         public void Delete(int id)
         {
-            using (SqlConnection c = new SqlConnection())
-            {
-                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
-                SqlCommand cmd = new SqlCommand("DELETE FROM Currency WHERE Id = @id", c);
-                cmd.Parameters.Add("@id", SqlDbType.Int);
-                cmd.Parameters["@id"].Value = id;
-                c.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
-                c.Close();
-            }
+            this.repo.delete(id, "Currency");
+
+            #region copied in repository
+            //using (SqlConnection c = new SqlConnection())
+            //{
+            //    c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+            //    //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+            //    SqlCommand cmd = new SqlCommand("DELETE FROM Currency WHERE Id = @id", c);
+            //    cmd.Parameters.Add("@id", SqlDbType.Int);
+            //    cmd.Parameters["@id"].Value = id;
+            //    c.Open();
+            //    int rowsAffected = cmd.ExecuteNonQuery();
+            //    c.Close();
+            //}
+            #endregion
         }
     }
 }

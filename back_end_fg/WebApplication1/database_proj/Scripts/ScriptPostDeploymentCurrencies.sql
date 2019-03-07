@@ -15,3 +15,11 @@ INSERT INTO Role (Id, RoleName) VALUES
 
 Set Identity_Insert Role Off;
 
+
+Set Identity_Insert Game On;
+
+INSERT INTO Game (Id, GameName, GameImg) VALUES
+(1, 'Fortnite', 'C:\\Users\\studentsc07\\Pictures\\fortniteImg.jpg'),
+(2, 'FIFA', '');
+
+Set Identity_Insert Game Off;
