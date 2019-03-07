@@ -22,29 +22,14 @@ namespace WimsApiMKI.Models
         private Currency _currency;
         private string _avatar;
         private bool _active;
-<<<<<<< HEAD
-        private int _role;
+        private int _roleId;
         //private Role _role;
 
 
         public WimsUser()
         {
             Currency = new Currency();
-            //Role = new Role();
-<<<<<<< HEAD
-            Role = 2;
-=======
-            Role = 1;
->>>>>>> 0b2a35c742958a6187cef42269e483e385693401
-=======
-        //private Role _role;
-        private int _roleId;
-
-        public WimsUser()
-        {
-            this.Currency = new Currency();
-            this.RoleId = 1;
->>>>>>> a88fc40a863289e4577dc4636eec791cd87aaec6
+            RoleId = 1;
         }
 
         #region GetSet
