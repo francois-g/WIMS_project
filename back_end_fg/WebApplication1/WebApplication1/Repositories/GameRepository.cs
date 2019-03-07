@@ -113,8 +113,16 @@ namespace WebApplication1.Repositories
                 cmd.Parameters.Add("@GameId", SqlDbType.Int);
                 cmd.Parameters["@GameId"].Value = id;
 
-                cmd.Parameters.Add("@GameName", SqlDbType.Text);
-                cmd.Parameters["@GameName"].Value = g.GameName;
+                if (g.GameName != null)
+                {
+                    cmd.Parameters.Add("@GameName", SqlDbType.Text);
+                    cmd.Parameters["@GameName"].Value = g.GameName;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@GameName", SqlDbType.Text);
+                    cmd.Parameters["@GameName"].Value = (string)gameToModify.GameName;
+                }
 
                 if (g.GameImage != null)
                 {

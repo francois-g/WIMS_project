@@ -101,12 +101,22 @@ namespace WebApplication1.Repositories
                 {
                     while (reader.Read())
                     {
-                        best = (int)reader[0];
+                        best = (reader[0] is DBNull) ? 0 : (int)reader[0];
                     }
                 }
                 c.Close();
 
-                if (auc.CurrentAuction > best)
+                SqlCommand selectOfferEnd = new SqlCommand("SELECT OfferEnd FROM PriceToWin WHERE Id = " + auc.AuctionPrice.Id, c);
+                c.Open();
+                DateTime dateToCompare = (DateTime)selectOfferEnd.ExecuteScalar();
+                c.Close();
+
+                SqlCommand selectStartValue = new SqlCommand("SELECT AuctionStartValue FROM PriceToWin WHERE Id = " + auc.AuctionPrice.Id, c);
+                c.Open();
+                int startValue = (int)selectStartValue.ExecuteScalar();
+                c.Close();
+
+                if (auc.CurrentAuction >= startValue && auc.CurrentAuction > best && auc.AuctionDate < dateToCompare)
                 {
                     SqlCommand cmd = new SqlCommand("AddAuction", c);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -132,8 +142,8 @@ namespace WebApplication1.Repositories
                     cmd.Parameters.Add("@AuctionValidation", SqlDbType.Bit);
                     cmd.Parameters["@AuctionValidation"].Value = (bool)auc.AuctionValidation;
 
-                    cmd.Parameters.Add("@PriceId", SqlDbType.Int);
-                    cmd.Parameters["@PriceId"].Value = (int)auc.AuctionPrice.Id;
+                    cmd.Parameters.Add("@OfferId", SqlDbType.Int);
+                    cmd.Parameters["@OfferId"].Value = (int)auc.AuctionPrice.Id;
 
                     //cmd.Parameters.Add("@Active", SqlDbType.Bit);
                     //auc.Active = true;
@@ -150,6 +160,13 @@ namespace WebApplication1.Repositories
                     updateCurrentInOffer.Parameters.Add("@Id", SqlDbType.Int);
                     updateCurrentInOffer.Parameters["@Id"].Value = (int)auc.AuctionPrice.Id;
 
+                    updateCurrentInOffer.Parameters.Add("@OfferEnd", SqlDbType.DateTime);
+                    updateCurrentInOffer.Parameters["@OfferEnd"].Value = dateToCompare;
+
+                    updateCurrentInOffer.Parameters.Add("@Active", SqlDbType.Bit);
+                    updateCurrentInOffer.Parameters["@Active"].Value = (dateToCompare < auc.AuctionDate) ? true : false;
+                    
+
                     SqlCommand findInsertedAuctionId = new SqlCommand("Select MAX(Id) FROM Auction WHERE OfferId = " + auc.AuctionPrice.Id, c);
                     int found = new int();
                     c.Open();
@@ -161,10 +178,7 @@ namespace WebApplication1.Repositories
                         }
                     }
                     c.Close();
-                    updateCurrentInOffer.Parameters.Add("@CurrentBestAuction", SqlDbType.Int);
-                    updateCurrentInOffer.Parameters["@CurrentBestAuction"].Value = (int)found;
-                    //updateCurrentInOffer.Parameters.Add("@Active", SqlDbType.Bit);
-                    //updateCurrentInOffer.Parameters["@Active"].Value = (bool)auc.Active;
+
                     c.Open();
                     int exec = updateCurrentInOffer.ExecuteNonQuery();
                     c.Close();
