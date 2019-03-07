@@ -12,6 +12,7 @@ namespace WimsApiMKI.Models
         private DateTime _offerEnd;
         private Game _game;
         private int _auctionStartValue;
+        private string _description;
         private bool _active;
 
         public PriceToWin(int value)
@@ -55,6 +56,12 @@ namespace WimsApiMKI.Models
         {
             get { return _auctionStartValue; }
             set { _auctionStartValue = value; }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
         }
 
         public bool Active

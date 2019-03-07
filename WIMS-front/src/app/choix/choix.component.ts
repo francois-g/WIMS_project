@@ -18,6 +18,11 @@ import {Role} from '../Observables/Role';
 export class ChoixComponent implements OnInit {
     IsPseudoStreamer;
     IsMdpStreamer;
+    IsPseudoAndMailViewerUnique;
+    IsPseudoAndMailStreamerUnique;
+    IsMdpAndCheckedMdpStreamer;
+    IsMdpAndCheckedMdpViewer;
+    id = 999999;
     ident;
     private u : User;
     private _user$: Observable<User[]>;
@@ -119,20 +124,14 @@ export class ChoixComponent implements OnInit {
         prenomViewer: string,
         nomViewer: string,
         mailViewer: string,
-        adresse: string,
-        ville: string,
-        cdp: string,
-        pays: string,
         pseudoVew: string,
         mdpVew: string,
         mdpValidationVew: string,
     };
-    get outputInscriptionViewer(): { prenomViewer: string; nomViewer: string; mailViewer: string; adresse: string; ville: string; cdp: string;
-        pays: string; pseudoVew: string; mdpVew: string; mdpValidationVew: string} {
+    get outputInscriptionViewer(): { prenomViewer: string; nomViewer: string; mailViewer: string; pseudoVew: string; mdpVew: string; mdpValidationVew: string} {
         return this._outputInscriptionViewer;
     }
-    set outputInscriptionViewer(value: { prenomViewer: string; nomViewer: string; mailViewer: string; adresse: string; ville: string; cdp: string;
-        pays: string; pseudoVew: string; mdpVew: string; mdpValidationVew: string }) {
+    set outputInscriptionViewer(value: { prenomViewer: string; nomViewer: string; mailViewer: string; pseudoVew: string; mdpVew: string; mdpValidationVew: string }) {
         this._outputInscriptionViewer = value;
     }
 
@@ -162,12 +161,14 @@ export class ChoixComponent implements OnInit {
             ]],
             'mail':['',[
                 Validators.required,
+                Validators.email,
             ]],
             'pseudo':['',[
                 Validators.required,
             ]],
             'mdp':['',[
                 Validators.required,
+                Validators.minLength(6),
             ]],
             'mdpValidation':['',[
                 Validators.required,
@@ -200,22 +201,7 @@ export class ChoixComponent implements OnInit {
             ]],
             'mailViewer': ['', [
                 Validators.required,
-            ]
-            ],
-            'adresse': ['', [
-                Validators.required,
-            ]
-            ],
-            'ville': ['', [
-                Validators.required,
-            ]
-            ],
-            'cdp': ['', [
-                Validators.required,
-            ]
-            ],
-            'pays': ['', [
-                Validators.required,
+                Validators.email,
             ]
             ],
             'pseudoVew': ['', [
@@ -224,6 +210,7 @@ export class ChoixComponent implements OnInit {
             ],
             'mdpVew': ['', [
                 Validators.required,
+                Validators.minLength(6),
             ]
             ],
             'mdpValidationVew': ['', [
@@ -264,8 +251,27 @@ export class ChoixComponent implements OnInit {
         }
     }
     onSubmitInscriptionStreamer() {
-
-        if(this.formInscriptionStreamer.valid){
+        for(let i = 0; i < this.user.length; i++) {
+            if (this.user[i].Pseudo === this.formInscriptionStreamer.value.pseudo ||
+                this.user[i].Email === this.formInscriptionStreamer.value.mail) {
+                this.id = i;
+            }
+        }
+        if(this.id !== 999999){
+            this.IsPseudoAndMailStreamerUnique = false;
+            console.log('false');
+        }
+        else{
+            this.IsPseudoAndMailStreamerUnique = true;
+            console.log('true');
+        }
+        if(this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation){
+            this.IsMdpAndCheckedMdpStreamer = true;
+        }
+        else {
+            this.IsMdpAndCheckedMdpStreamer = false;
+        }
+        if(this.formInscriptionStreamer.valid && this.IsPseudoAndMailStreamerUnique === true && this.IsMdpAndCheckedMdpStreamer === true){
             this.submittedInscriptionStreamer = true;
             console.log('Inscription ok');
             this.u = new User(
@@ -327,9 +333,56 @@ export class ChoixComponent implements OnInit {
         }
     }
     onSubmitInscriptionViewer() {
-
-        if(this.formInscriptionViewer.valid){
+        for(let i = 0; i < this.user.length; i++) {
+            if (this.user[i].Pseudo === this.formInscriptionViewer.value.pseudoVew ||
+                this.user[i].Email === this.formInscriptionViewer.value.mailViewer) {
+                this.id = i;
+            }
+        }
+        if(this.id !== 999999){
+            this.IsPseudoAndMailViewerUnique = false;
+            console.log('false');
+        }
+        else{
+            this.IsPseudoAndMailViewerUnique = true;
+            console.log('true');
+        }
+        if(this.formInscriptionViewer.value.mdpVew === this.formInscriptionViewer.value.mdpValidationVew){
+            this.IsMdpAndCheckedMdpViewer = true;
+        }
+        else {
+            this.IsMdpAndCheckedMdpViewer = false;
+        }
+        if(this.formInscriptionViewer.valid && this.IsPseudoAndMailViewerUnique === true && this.IsMdpAndCheckedMdpViewer === true){
             this.submittedInscriptionViewer = true;
+            console.log('Inscription ok');
+            console.log(this.IsPseudoAndMailViewerUnique);
+            this.u = new User(
+                this.formInscriptionViewer.value.prenomViewer,
+                this.formInscriptionViewer.value.nomViewer,
+                this.formInscriptionViewer.value.pseudoVew,
+                this.formInscriptionViewer.value.mdpVew,
+                this.formInscriptionViewer.value.mailViewer
+            );
+            this.u.Role = 1;
+            this.u.Currency = new Currency(1);
+            console.log(this.u);
+            this.Users.insert(this.u).subscribe(
+                () => {
+
+                    console.log('Enregistrement fait');
+
+                },
+
+                (error) => {
+
+                    console.log('erreur ' + error);
+
+                }
+            );
+
+            // console.log(this.u);
+            // this.Users.insert(this.u);
         }
         // stop here if form is invalid
         else{

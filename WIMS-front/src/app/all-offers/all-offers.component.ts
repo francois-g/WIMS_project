@@ -7,6 +7,7 @@ import {PriceToWin} from '../Observables/PriceToWin';
 import {forEach} from '@angular/router/src/utils/collection';
 import {AuctionService} from '../Services/auction.service';
 import {Auction} from '../Observables/Auction';
+import {GameService} from '../Services/game.service';
 
 @Component({
     selector: 'app-all-offers',
@@ -16,13 +17,14 @@ import {Auction} from '../Observables/Auction';
 export class AllOffersComponent implements OnInit {
 
     submittedNewEnchere;
-    actualPrice = 15;
-    enchereId;
-
-    private _price$: Observable<PriceToWin[]>;
-    private _price: PriceToWin[];
-    private _bestAuction$: Observable<Auction[]>;
-    private _bestAuction: Auction[];
+    offers;
+    games;
+    auctions;
+    tableAuctions = [];
+    Id;
+    encherir = false;
+    NomDuJeu;
+    ImageDuJeu;
 
     private _formNewAuction: FormGroup;
 
@@ -41,32 +43,7 @@ export class AllOffersComponent implements OnInit {
     set outputNewEnchere(value: { newEnchere: number }) {
         this._outputNewEnchere = value;
     }
-
-    get price(): PriceToWin[] {
-        return this._price;
-    }
-
-    set price(value: PriceToWin[]) {
-        this._price = value;
-    }
-
-    get bestAuction$(): Observable<Auction[]> {
-        return this._bestAuction$;
-    }
-
-    set bestAuction$(value: Observable<Auction[]>) {
-        this._bestAuction$ = value;
-    }
-
-    get bestAuction(): Auction[] {
-        return this._bestAuction;
-    }
-
-    set bestAuction(value: Auction[]) {
-        this._bestAuction = value;
-    }
-
-    constructor(private builder: FormBuilder, private pricesToWin: PricetowinService, private bestAuctionOfPrice: AuctionService) {
+    constructor(private builder: FormBuilder, private Offers: PricetowinService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'newEnchere': ['', [
                 Validators.required,
@@ -75,59 +52,41 @@ export class AllOffersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._price$ = this.pricesToWin.getAll();
-        this._price$.subscribe(
-            p => {
-                console.log(p + 'FG');
-                this.price = p;
-                console.log(this.price);
-            },
-            (err) => {
-                console.log('erreur' + err);
+        this.offers = this.Offers.getOffers();
+        this.games = this.Games.getGames();
+        this.auctions = this.Auctions.getAuctions();
+        for (let i = 0; i < this.auctions.length; i++) {
+            for (let j = 0; j < this.games.length; j++) {
+                if (this.offers[i].GameId === this.games[j].Id) {
+                    this.NomDuJeu = this.games[j].GameName;
+                    this.ImageDuJeu = this.games[j].GameImg;
+                }
             }
-        );
+            this.tableAuctions[i] = [
+                {
+                    Id: this.offers[i].Id,
+                    TwitcherId: this.offers[i].TwitcherId,
+                    GameId: this.offers[i].GameId,
+                    GameName: this.NomDuJeu,
+                    Img: this.ImageDuJeu,
+                }
+            ];
+        }
+
+        console.log(this.tableAuctions);
     }
-
-    // getBestAuctionOfPrice(value) {
-    //     this._bestAuction$ = this.bestAuctionOfPrice.getById(value);
-    //     this._bestAuction$.subscribe(
-    //         b => {
-    //             console.log(b);
-    //         },
-    //         (err) => {
-    //             console.log('error ' + err);
-    //         }
-    //     );
-    // }
-
-    // getOffer(value) {
-    //     this._price$ = this.pricesToWin.getById(value);
-    //     console.log(value);
-    //     this._price$.subscribe(
-    //         pp => {
-    //             console.log(pp);
-    //             // this.price = p;
-    //         },
-    //         (err) => {
-    //             console.log(err + ' error');
-    //         }
-    //     );
-    //     // this.price.forEach(prop => {
-    //     //     console.log(prop);
-    //     // });
-    // }
 
     Encherir(value) {
-        this.enchereId = value;
+        this.encherir = value;
+        console.log(this.tableAuctions);
     }
-
     onSubmitNewEnchere() {
 
-        if(this.formNewAuction.valid) {
+        if (this.formNewAuction.valid) {
             this.submittedNewEnchere = true;
         }
         // stop here if form is invalid
-        else{
+        else {
             this.submittedNewEnchere = false;
         }
     }

@@ -1,8 +1,9 @@
 CREATE PROCEDURE [dbo].[UpdatePriceToWin]
-	@OfferEnd Datetime = null,
+	@OfferEnd Datetime,
+  @Description varchar(MAX) = null,
 	@Active bit,
 	@Id int
 
 AS
-	UPDATE PriceToWin SET OfferEnd = @OfferEnd, Active = @Active WHERE Id = @Id;
+	UPDATE PriceToWin SET OfferEnd = @OfferEnd, Description = @Description, Active = @Active WHERE Id = @Id;
 RETURN 0

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +9,11 @@ namespace WimsApiMKI.Models
     {
         private int _id;
         private string _roleName;
+
+        public Role(int value)
+        {
+            this.Id = value;
+        }
 
         #region GetSet
         public string RoleName
