@@ -48,6 +48,39 @@ export class AllOffersComponent implements OnInit {
     ngOnInit() {
         this.offers = this.Offers.getOffers();
     }
+<<<<<<< HEAD
+=======
+
+    // getBestAuctionOfPrice(value) {
+    //     this._bestAuction$ = this.bestAuctionOfPrice.getById(value);
+    //     this._bestAuction$.subscribe(
+    //         b => {
+    //             console.log(b);
+    //         },
+    //         (err) => {
+    //             console.log('error ' + err);
+    //         }
+    //     );
+    // }
+
+    // getOffer(value) {
+    //     this._price$ = this.pricesToWin.getById(value);
+    //     console.log(value);
+    //     this._price$.subscribe(
+    //         pp => {
+    //             console.log(pp);
+    //             // this.price = p;
+    //         },
+    //         (err) => {
+    //             console.log(err + ' error');
+    //         }
+    //     );
+    //     // this.price.forEach(prop => {
+    //     //     console.log(prop);
+    //     // });
+    // }
+
+>>>>>>> 465fe86137d413104dd0624302ad13a04a0655d8
     Encherir(value) {
         this.encherir = value;
     }

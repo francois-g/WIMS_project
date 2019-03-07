@@ -9,6 +9,7 @@ import {PriceToWin} from '../Observables/PriceToWin';
 export class PricetowinService {
     Offers = [
 
+<<<<<<< HEAD
         {
             id: 1,
             twitcherId: 1,
@@ -63,4 +64,23 @@ export class PricetowinService {
     getOffers() {
         return this.Offers;
     }
+=======
+  private _url = 'http://localhost:50946/api/pricetowin';
+  // private _url = 'http://mini.techni.local/badges';
+
+  get url(): string {
+    return this._url;
+  }
+
+  constructor(private _httpClient: HttpClient) {
+  }
+
+  getAll(): Observable<PriceToWin[]> {
+    return this._httpClient.get<PriceToWin[]>(this.url);
+  }
+
+  getById(value: number): Observable<PriceToWin[]> {
+      return this._httpClient.get<PriceToWin[]>(this.url + '/' + value);
+  }
+>>>>>>> 465fe86137d413104dd0624302ad13a04a0655d8
 }

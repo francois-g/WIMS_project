@@ -8,7 +8,6 @@ namespace WimsApiMKI.Models
     public class Auction
     {
         private int _id;
-        private WimsUser _twitcher;
         private WimsUser _user;
         private int? _minAuction;
         private int? _maxAuction;
@@ -17,11 +16,9 @@ namespace WimsApiMKI.Models
         private bool _auctionValidation;
         private int _idPrice;
         private PriceToWin _auctionPrice;
-        private bool _active;
 
         public Auction()
         {
-            Twitcher = new WimsUser();
             User = new WimsUser();
             AuctionPrice = new PriceToWin(_idPrice);
             AuctionDate = DateTime.Now;
@@ -37,12 +34,6 @@ namespace WimsApiMKI.Models
         {
             get { return _id; }
             set { _id = value; }
-        }
-
-        public WimsUser Twitcher
-        {
-            get { return _twitcher; }
-            set { _twitcher = value; }
         }
         
         public WimsUser User
@@ -91,12 +82,6 @@ namespace WimsApiMKI.Models
         {
             get { return _auctionPrice; }
             set { _auctionPrice = value; }
-        }
-
-        public bool Active
-        {
-            get { return _active; }
-            set { _active = value; }
         }
         #endregion
 
