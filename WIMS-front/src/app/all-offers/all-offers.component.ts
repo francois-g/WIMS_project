@@ -107,7 +107,7 @@ export class AllOffersComponent implements OnInit {
         console.log(this.Offers);
     }
 
-    getGameName(value: number) {
+    getGame(value: number) {
         this._game$ = this.Games.getById(value);
         this._game$.subscribe(
             g => {

@@ -385,7 +385,7 @@ export class ChoixComponent implements OnInit {
             // this.Users.insert(this.u);
         }
         // stop here if form is invalid
-        else{
+        else {
             this.submittedInscriptionViewer = false;
         }
     }
@@ -417,6 +417,7 @@ export class ChoixComponent implements OnInit {
         const blue = document.getElementById('blue');
         blue.style.opacity = ('1');
     }
+
     formViewer(value) {
         this.viewer = value;
         this.streamer = 0;
