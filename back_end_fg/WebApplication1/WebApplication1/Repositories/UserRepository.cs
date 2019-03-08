@@ -207,6 +207,9 @@ namespace WebApplication1.Repositories
                 cmd.Parameters.Add("@PseudoTwitch", SqlDbType.Text);
                 cmd.Parameters["@PseudoTwitch"].Value = (u.PseudoTwitch is null) ? userToModify.PseudoTwitch : (string)u.PseudoTwitch;
 
+                cmd.Parameters.Add("@Balance", SqlDbType.Int);
+                cmd.Parameters["@Balance"].Value = (u.Balance > 0) ? (int)u.Balance : userToModify.Balance ;
+
                 cmd.Parameters.Add("@ConditionAccepted", SqlDbType.Bit);
                 cmd.Parameters["@ConditionAccepted"].Value = (bool)u.ConditionAccepted;
 
