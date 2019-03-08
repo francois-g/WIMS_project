@@ -28,11 +28,10 @@ export class AllOffersComponent implements OnInit {
     // offers;
     // games;
     // auctions;
+    avatar;
     tableAuctions = [];
     Id;
     encherir = false;
-    NomDuJeu;
-    ImageDuJeu;
 
     private _formNewAuction: FormGroup;
 
@@ -104,7 +103,10 @@ export class AllOffersComponent implements OnInit {
                 console.log('erreur' + err);
             }
         );
+        this.avatar = document.getElementsByClassName('avatar');
         console.log(this.Offers);
+        console.log(this.avatar);
+            // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
     }
 
     getGame(value: number) {
