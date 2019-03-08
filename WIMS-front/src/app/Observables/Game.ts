@@ -2,7 +2,7 @@ export class Game {
     constructor(
       private _Id: number,
       private _GameName: string,
-      private _GameImg: string,
+      private _GameImage: string,
     ) {}
     private _Active: boolean;
 
@@ -22,12 +22,12 @@ export class Game {
         this._GameName = value;
     }
 
-    get GameImg(): string {
-        return this._GameImg;
+    get GameImage(): string {
+        return this._GameImage;
     }
 
-    set GameImg(value: string) {
-        this._GameImg = value;
+    set GameImage(value: string) {
+        this._GameImage = value;
     }
 
     get Active(): boolean {

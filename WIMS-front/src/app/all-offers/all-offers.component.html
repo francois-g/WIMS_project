@@ -3,7 +3,9 @@
 <div class="row">
         <div class="mt-5 col-lg-4 "  *ngFor="let o of offer">
             <mat-card class="ml-3 mr-3 mb-5">
-                <div class="d-flex justify-content-center mt-5 mb-5"></div>
+                <div class="d-flex justify-content-center">
+                    <img src="{{o.Game.GameImage}}">
+                </div>
                 {{o.Id}}
                 <mat-card-header class="d-flex justify-content-around">
                     <div mat-card-avatar class="example-header-image"></div>
