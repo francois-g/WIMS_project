@@ -25,10 +25,6 @@ export class AllOffersComponent implements OnInit {
     private _game$: Observable<Game[]>;
     private _game: Game[];
 
-    // offers;
-    // games;
-    // auctions;
-    avatar;
     tableAuctions = [];
     Id;
     encherir = false;
@@ -95,17 +91,12 @@ export class AllOffersComponent implements OnInit {
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(
             o => {
-                console.log(this.offer);
                 this.offer = o;
-                console.log(o);
             },
             (err) => {
                 console.log('erreur' + err);
             }
         );
-        this.avatar = document.getElementsByClassName('avatar');
-        console.log(this.Offers);
-        console.log(this.avatar);
             // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
     }
 
