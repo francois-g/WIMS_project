@@ -21,7 +21,7 @@ namespace WebApplication1.Repositories
             using (SqlConnection c = new SqlConnection())
             {
                 c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 using (SqlCommand cmd = c.CreateCommand())
                 {
                     cmd.CommandText = "SelectPriceToWin";
@@ -86,7 +86,7 @@ namespace WebApplication1.Repositories
             using (SqlConnection c = new SqlConnection())
             {
                 c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("AddPriceToWin", c);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -149,7 +149,7 @@ namespace WebApplication1.Repositories
             using (SqlConnection c = new SqlConnection())
             {
                 c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
-                c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 SqlCommand cmd = new SqlCommand("UpdatePriceToWin", c);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int);
