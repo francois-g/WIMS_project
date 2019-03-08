@@ -1,4 +1,7 @@
+import {Game} from './Game';
+
 export class PriceToWin {
+
     get Id(): number {
         return this._Id;
     }
@@ -23,13 +26,21 @@ export class PriceToWin {
         this._OfferEnd = value;
     }
 
-    get GameId(): number {
-        return this._GameId;
+    get Game(): Game {
+        return this._OfferGame;
     }
 
-    set GameId(value: number) {
-        this._GameId = value;
+    set Game(value: Game) {
+        this._OfferGame = value;
     }
+
+    // get GameId(): number {
+    //     return this._GameId;
+    // }
+    //
+    // set GameId(value: number) {
+    //     this._GameId = value;
+    // }
 
     get AuctionStartValue(): number {
         return this._AuctionStartValue;
@@ -59,7 +70,8 @@ export class PriceToWin {
        private _Id: number,
        private _TwitcherId: number,
        private _OfferEnd: string,
-       private _GameId: number,
+       private _OfferGame: Game,
+       // private _GameId: number,
        private _AuctionStartValue: number,
        private _Description: string,
        private _Active: boolean,
