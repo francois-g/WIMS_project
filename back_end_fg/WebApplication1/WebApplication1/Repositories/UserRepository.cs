@@ -187,42 +187,41 @@ namespace WebApplication1.Repositories
                 u.Id = id;
 
                 cmd.Parameters.Add("@FirstName", SqlDbType.Text);
-                cmd.Parameters["@FirstName"].Value = (string)u.Firstname;
+                cmd.Parameters["@FirstName"].Value = (u.Firstname is null) ? userToModify.Firstname : (string)u.Firstname;
 
                 cmd.Parameters.Add("@LastName", SqlDbType.Text);
-                cmd.Parameters["@LastName"].Value = (string)u.Lastname;
+                cmd.Parameters["@LastName"].Value = (u.Lastname is null) ? userToModify.Lastname : (string)u.Lastname;
 
                 cmd.Parameters.Add("@Pseudo", SqlDbType.Text);
-                cmd.Parameters["@Pseudo"].Value = (string)u.Pseudo;
+                cmd.Parameters["@Pseudo"].Value = (u.Pseudo is null) ? userToModify.Pseudo : (string)u.Pseudo;
 
                 cmd.Parameters.Add("@Pswd", SqlDbType.Text);
-                cmd.Parameters["@Pswd"].Value = (string)u.Pswd;
+                cmd.Parameters["@Pswd"].Value = (u.Pswd is null) ? userToModify.Pswd : (string)u.Pswd;
 
                 cmd.Parameters.Add("@Email", SqlDbType.Text);
-                cmd.Parameters["@Email"].Value = (string)u.Email;
+                cmd.Parameters["@Email"].Value = (u.Email is null) ? userToModify.Email : (string)u.Email;
 
                 cmd.Parameters.Add("@TwitchLink", SqlDbType.Text);
-                cmd.Parameters["@TwitchLink"].Value = (string)u.TwitchLink;
+                cmd.Parameters["@TwitchLink"].Value = (u.TwitchLink is null) ? userToModify.TwitchLink : (string)u.TwitchLink;
 
                 cmd.Parameters.Add("@PseudoTwitch", SqlDbType.Text);
-                cmd.Parameters["@PseudoTwitch"].Value = (string)u.PseudoTwitch;
+                cmd.Parameters["@PseudoTwitch"].Value = (u.PseudoTwitch is null) ? userToModify.PseudoTwitch : (string)u.PseudoTwitch;
 
                 cmd.Parameters.Add("@ConditionAccepted", SqlDbType.Bit);
                 cmd.Parameters["@ConditionAccepted"].Value = (bool)u.ConditionAccepted;
 
                 cmd.Parameters.Add("@CurrencyId", SqlDbType.Int);
-                cmd.Parameters["@CurrencyId"].Value = (int)u.Currency.Id;
+                cmd.Parameters["@CurrencyId"].Value = (u.CurrencyId is null) ? userToModify.CurrencyId : (int)u.Currency.Id;
 
                 cmd.Parameters.Add("@Avatar", SqlDbType.Text);
-                cmd.Parameters["@Avatar"].Value = (string)u.Avatar;
+                cmd.Parameters["@Avatar"].Value = (u.Avatar is null) ? userToModify.Avatar : (string)u.Avatar;
 
                 cmd.Parameters.Add("@Active", SqlDbType.Bit);
-                u.Active = true;
-                cmd.Parameters["@Active"].Value = (bool)u.Active;
+                cmd.Parameters["@Active"].Value = (u.Active == true) ? true : (bool)u.Active;
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
                 //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
-                cmd.Parameters["@Role"].Value = (int)u.RoleId;
+                cmd.Parameters["@Role"].Value = (u.RoleId != 0) ? userToModify.RoleId : (int)u.RoleId;
 
                 c.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
