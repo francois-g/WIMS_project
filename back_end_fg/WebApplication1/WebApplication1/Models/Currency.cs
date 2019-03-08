@@ -18,16 +18,11 @@ namespace WimsApiMKI.Models
         }
 
         #region GetSet
-        public decimal ConversionRate
-        {
-            get { return _conversionRate; }
-            set { _conversionRate = value; }
-        }
 
-        public string CurrencyShortCut
+        public int Id
         {
-            get { return _currencyShortcut; }
-            set { _currencyShortcut = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public string CurrencyName
@@ -36,11 +31,18 @@ namespace WimsApiMKI.Models
             set { _currencyName = value; }
         }
 
-        public int Id
+        public string CurrencyShortCut
         {
-            get { return _id; }
-            set { _id = value; }
+            get { return _currencyShortcut; }
+            set { _currencyShortcut = value; }
         }
+
+        public decimal ConversionRate
+        {
+            get { return _conversionRate; }
+            set { _conversionRate = value; }
+        }
+
         #endregion
     }
 }

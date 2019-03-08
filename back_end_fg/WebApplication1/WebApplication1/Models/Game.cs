@@ -13,6 +13,7 @@ namespace WimsApiMKI.Models
         private bool _active;
 
         #region GetSet
+
         public int Id
         {
             get { return _id; }
@@ -36,6 +37,7 @@ namespace WimsApiMKI.Models
             get { return _active; }
             set { _active = value; }
         }
+
         #endregion
     }
 }
