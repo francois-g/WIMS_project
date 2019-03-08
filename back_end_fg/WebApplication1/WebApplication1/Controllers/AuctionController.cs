@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class AuctionController : ApiController
     {
         AuctionRepository repo = new AuctionRepository();
