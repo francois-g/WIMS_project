@@ -17,6 +17,8 @@ namespace WebApplication1.Repositories
         static string ConnectionStringID =
                 (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
 
+        CurrencyRepository cRepo = new CurrencyRepository();
+
         public IEnumerable<WimsUser> getAll()
         {
             using (SqlConnection c = new SqlConnection())
@@ -44,6 +46,11 @@ namespace WebApplication1.Repositories
                             user.Balance = (int)reader[8];
                             user.ConditionAccepted = (bool)reader[9];
                             user.CurrencyId = (reader[10] is DBNull) ? null : (int?)reader[10];
+                            if (user.CurrencyId != null)
+                            {
+                                user.Currency = cRepo.getById((int)user.CurrencyId);
+                            }
+                            //if (user.CurrencyId != null) { user.Currency.Id = (int)user.CurrencyId; }
                             user.Avatar = (reader[11] is DBNull) ? null : (string)reader[11];
                             //user.Role.Id = (int)reader[12];
                             user.RoleId = (int)reader[12];
@@ -87,7 +94,11 @@ namespace WebApplication1.Repositories
                         user.Balance = (int)reader[8];
                         user.ConditionAccepted = (bool)reader[9];
                         user.CurrencyId = (reader[10] is DBNull) ? null : (int?)reader[10];
-                        if (user.CurrencyId != null) { user.Currency.Id = (int)user.CurrencyId; }
+                        if (user.CurrencyId != null)
+                        {
+                            user.Currency = cRepo.getById((int)user.CurrencyId);
+                        }
+                        //if (user.CurrencyId != null) { user.Currency.Id = (int)user.CurrencyId; }
                         user.Avatar = (reader[11] is DBNull) ? null : (string)reader[11];
                         //user.Role.Id = (int)reader[12];
                         user.RoleId = (int)reader[12];

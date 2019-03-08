@@ -17,6 +17,9 @@ namespace WebApplication1.Repositories
         static string ConnectionStringID =
                 (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
 
+        UserRepository uRepo = new UserRepository();
+        PriceToWinRepository pRepo = new PriceToWinRepository();
+
         public IEnumerable<Auction> getAll()
         {
             using (SqlConnection c = new SqlConnection())
@@ -34,13 +37,18 @@ namespace WebApplication1.Repositories
                         {
                             Auction auction = new Auction();
                             auction.Id = (int)reader[0];
-                            auction.User.Id = (int)reader[1];
+                            auction.User = uRepo.getById((int)reader[1]);
+                            //auction.User.Id = (int)reader[1];
                             auction.MinAuction = (reader[2] is DBNull) ? null : (int?)reader[2];
                             auction.MaxAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
                             auction.CurrentAuction = (int)reader[4];
                             auction.AuctionDate = (reader[5] is DBNull) ? null : (DateTime?)reader[5];
                             auction.AuctionValidation = (bool)reader[6];
                             auction.IdPrice = (reader[7] is DBNull) ? 0 : (int)reader[7];
+                            if (auction.IdPrice != 0)
+                            {
+                                auction.AuctionPrice = pRepo.getById(auction.IdPrice);
+                            }
                             listFromDB.Add(auction);
                         }
                     }
@@ -70,13 +78,18 @@ namespace WebApplication1.Repositories
                     while (reader.Read())
                     {
                         auc.Id = (int)reader[0];
-                        auc.User.Id = (int)reader[1];
+                        auc.User = uRepo.getById((int)reader[1]);
+                        //auction.User.Id = (int)reader[1];
                         auc.MinAuction = (reader[2] is DBNull) ? null : (int?)reader[2];
                         auc.MaxAuction = (reader[3] is DBNull) ? null : (int?)reader[3];
                         auc.CurrentAuction = (int)reader[4];
                         auc.AuctionDate = (reader[5] is DBNull) ? null : (DateTime?)reader[5];
                         auc.AuctionValidation = (bool)reader[6];
                         auc.AuctionPrice.Id = (int)reader[7];
+                        if (auc.IdPrice != 0)
+                        {
+                            auc.AuctionPrice = pRepo.getById(auc.IdPrice);
+                        }
                     }
                 }
                 c.Close();

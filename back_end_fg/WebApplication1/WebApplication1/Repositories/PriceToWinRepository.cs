@@ -15,6 +15,9 @@ namespace WebApplication1.Repositories
         static string ServerName = System.Net.Dns.GetHostName();
         static string ConnectionStringID =
                 (ServerName == "TFNSSC07") ? "LocalConnection" : "DefaultConnection";
+        
+        GameRepository gRepo = new GameRepository();
+        UserRepository uRepo = new UserRepository();
 
         public IEnumerable<PriceToWin> getAll()
         {
@@ -33,9 +36,11 @@ namespace WebApplication1.Repositories
                         {
                             PriceToWin price = new PriceToWin();
                             price.Id = (int)reader[0];
-                            price.Twitcher.Id = (int)reader[1];
+                            price.Twitcher = uRepo.getById((int)reader[1]);
+                            //price.Twitcher.Id = (int)reader[1];
                             price.OfferEnd = (DateTime)reader[2];
-                            price.Game.Id = (int)reader[3];
+                            price.Game = gRepo.getById((int)reader[3]);
+                            //price.Game.Id = (int)reader[3];
                             price.AuctionStartValue = (int)reader[4];
                             price.Description = (reader[5] is DBNull) ? null : (string)reader[5];
                             price.Active = (bool)reader[6];
@@ -68,9 +73,11 @@ namespace WebApplication1.Repositories
                     while (reader.Read())
                     {
                         price.Id = (int)reader[0];
-                        price.Twitcher.Id = (int)reader[1];
+                        price.Twitcher = uRepo.getById((int)reader[1]);
+                        //price.Twitcher.Id = (int)reader[1];
                         price.OfferEnd = (DateTime)reader[2];
-                        price.Game.Id = (int)reader[3];
+                        price.Game = gRepo.getById((int)reader[3]);
+                        //price.Game.Id = (int)reader[3];
                         price.AuctionStartValue = (int)reader[4];
                         price.Description = (reader[5] is DBNull) ? null : (string)reader[5];
                         price.Active = (bool)reader[6];
