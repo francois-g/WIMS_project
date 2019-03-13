@@ -55,12 +55,12 @@ export class Auction {
         this._AuctionValidation = value;
     }
 
-    get OfferId(): number {
-        return this._OfferId;
+    get IdPrice(): number {
+        return this._IdPrice;
     }
 
-    set OfferId(value: number) {
-        this._OfferId = value;
+    set IdPrice(value: number) {
+        this._IdPrice = value;
     }
     private _MinAuction: number;
     private _MaxAuction: number;
@@ -70,7 +70,7 @@ export class Auction {
         private _CurrentAuction: number,
         private _AuctionDate: string,
         private _AuctionValidation: boolean,
-        private _OfferId: number,
+        private _IdPrice: number,
     ) {}
 
 }

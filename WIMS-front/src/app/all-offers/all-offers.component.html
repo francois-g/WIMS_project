@@ -8,14 +8,12 @@
                 </div>
                 {{o.Twitcher.Pseudo}}
                 <mat-card-header class="d-flex justify-content-around">
-
                         <img mat-card-avatar class="example-header-image" src="{{o.Twitcher.Avatar}}">
-
-                    <!--<p>{{getGame(o.Game.Id)}}</p>-->
                     <p>{{o.Game.GameName}}</p>
                 </mat-card-header>
                 <mat-card-content class="d-flex flex-column align-items-center" >
                     <p>{{o.Description}}</p>
+
                     <!--<button *ngIf="encherir !== auction.Id" class="btn btn-warning" (click)="Encherir(auction.Id)">Enchérir</button>-->
                     <!--<div *ngIf="encherir === auction.Id">-->
                         <!--<form [formGroup]="formNewAuction" class="form-group d-flex flex-column align-items-center">-->
@@ -23,6 +21,9 @@
                             <!--<input type="submit" class="btn btn-warning">-->
                         <!--</form>-->
                     <!--</div>-->
+
+                    <p id="printBest">{{getBestAuction(o.Id)}}</p>
+                    <!--<button id="buttonForBest" (click)="getBestAuction(o.Id)"></button>-->
                 </mat-card-content>
 
                 <mat-card-actions class="d-flex justify-content-center">
