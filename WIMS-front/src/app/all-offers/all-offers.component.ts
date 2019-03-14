@@ -17,7 +17,6 @@ import {Game} from '../Observables/Game';
     styleUrls: ['./all-offers.component.css']
 })
 export class AllOffersComponent implements OnInit {
-
     submittedNewEnchere;
 
     private _offer$: Observable<PriceToWin[]>;
@@ -28,6 +27,7 @@ export class AllOffersComponent implements OnInit {
     private _auction: Auction[];
     private _tabOfValues: number[];
     private _editMode: boolean;
+    private _editableId: number;
 
     // offers;
     // games;
@@ -100,6 +100,14 @@ export class AllOffersComponent implements OnInit {
 
     set editMode(value: boolean) {
         this._editMode = value;
+    }
+
+    get editableId(): number {
+        return this._editableId;
+    }
+
+    set editableId(value: number) {
+        this._editableId = value;
     }
 
     get formNewAuction(): FormGroup {
@@ -217,19 +225,21 @@ export class AllOffersComponent implements OnInit {
 
     }
 
-    modifyDesc(value: number)
-    {
-        this.editMode = true;
-        let inputDiv = document.createElement('input');
-        inputDiv.setAttribute('id', 'descToEdit');
-        inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
-        document.getElementById('descOffer').after(inputDiv);
+    modifyDesc(index: number) {
+        this.editableId = index;
+        if (this.offer[index - 1].Id === this.editableId) {
+            this.editMode = true;
+            let inputDiv = document.createElement('input');
+            inputDiv.setAttribute('id', 'descToEdit');
+            inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
+            document.getElementById('descOffer').after(inputDiv);
+        }
     }
 
     editModeOff() {
         this.editMode = false;
         document.getElementById('descToEdit').remove();
-        console.log('c\'est bon' + this.editMode);
+        // console.log('c\'est bon' + this.editMode(value));
     }
 
 

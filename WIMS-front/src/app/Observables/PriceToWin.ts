@@ -2,6 +2,17 @@ import {Game} from './Game';
 
 export class PriceToWin {
 
+    constructor(
+        private _Id: number,
+        private _TwitcherId: number,
+        private _OfferEnd: string,
+        private _OfferGame: Game,
+        // private _GameId: number,
+        private _AuctionStartValue: number,
+        private _Description: string,
+        private _Active: boolean,
+    ) {}
+
     get Id(): number {
         return this._Id;
     }
@@ -66,14 +77,4 @@ export class PriceToWin {
         this._Active = value;
     }
 
-    constructor(
-       private _Id: number,
-       private _TwitcherId: number,
-       private _OfferEnd: string,
-       private _OfferGame: Game,
-       // private _GameId: number,
-       private _AuctionStartValue: number,
-       private _Description: string,
-       private _Active: boolean,
-    ) {}
 }

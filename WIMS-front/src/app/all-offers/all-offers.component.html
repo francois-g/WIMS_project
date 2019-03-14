@@ -14,7 +14,7 @@
                 <mat-card-content class="d-flex flex-column align-items-center" >
                     <p *ngIf="this.editMode == false" id="descOffer">{{o.Description}}</p>
                     <button *ngIf="this.editMode == false" (click)="modifyDesc(o.Id)"><i class="fas fa-pencil-alt"></i></button>
-                    <button id="submitDesc" *ngIf="this.editMode == true" (click)="editModeOff(o.Id)"><i class="fa fa-check"></i></button>
+                    <button id="submitDesc" *ngIf="this.editMode == true" (click)="editModeOff()"><i class="fa fa-check"></i></button>
 
                     <p *ngIf="getBestAuction(o.Id) == 0" class="printBest">{{o.AuctionStartValue}}</p>
                     <p *ngIf="getBestAuction(o.Id) != 0" class="printBest">{{getBestAuction(o.Id)}}</p>
