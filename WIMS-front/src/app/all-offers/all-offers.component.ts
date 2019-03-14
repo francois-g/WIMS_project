@@ -18,7 +18,6 @@ import {Game} from '../Observables/Game';
 })
 export class AllOffersComponent implements OnInit {
 
-
     submittedNewEnchere;
 
     private _offer$: Observable<PriceToWin[]>;
@@ -28,6 +27,7 @@ export class AllOffersComponent implements OnInit {
     private _auction$: Observable<Auction[]>;
     private _auction: Auction[];
     private _tabOfValues: number[];
+    private _editMode: boolean;
 
     // offers;
     // games;
@@ -35,7 +35,6 @@ export class AllOffersComponent implements OnInit {
     avatar;
     tableAuctions = [];
     Id;
-    encherir = false;
 
     private _formNewAuction: FormGroup;
 
@@ -95,6 +94,14 @@ export class AllOffersComponent implements OnInit {
         this._tabOfValues = value;
     }
 
+    get editMode(): boolean {
+        return this._editMode;
+    }
+
+    set editMode(value: boolean) {
+        this._editMode = value;
+    }
+
     get formNewAuction(): FormGroup {
         return this._formNewAuction;
     }
@@ -151,6 +158,8 @@ export class AllOffersComponent implements OnInit {
                 console.log('erreur' + err );
             }
         );
+
+        this.editMode = false;
         // console.log(this.avatar);
         // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
 
@@ -208,6 +217,23 @@ export class AllOffersComponent implements OnInit {
 
     }
 
+    modifyDesc(value: number)
+    {
+        this.editMode = true;
+        let inputDiv = document.createElement('input');
+        inputDiv.setAttribute('id', 'descToEdit');
+        inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
+        document.getElementById('descOffer').after(inputDiv);
+    }
+
+    editModeOff() {
+        this.editMode = false;
+        document.getElementById('descToEdit').remove();
+        console.log('c\'est bon' + this.editMode);
+    }
+
+
+
     // ngOnInit() {
     //     this.offers = this.Offers.getOffers();
     //     this.games = this.Games.getGames();
@@ -233,8 +259,8 @@ export class AllOffersComponent implements OnInit {
     //     console.log(this.tableAuctions);
     // }
 
-    Encherir(value) {
-        this.encherir = value;
+    encherir(value: Auction) {
+        document.getElementById('buttonAuction');
         console.log(this.tableAuctions);
     }
     onSubmitNewEnchere() {

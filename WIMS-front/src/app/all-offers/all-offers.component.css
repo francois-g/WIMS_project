@@ -10,3 +10,18 @@
   color: red;
   font-weight: bold;
 }
+
+.printBest {
+    font-size: 3em;
+    color: greenyellow;
+    font-family: Calibri;
+    font-weight: bold;
+}
+
+.buttonAuction {
+    font-size: 2em;
+    font-family: Calibri;
+    color: white;
+    background-color: orange;
+    padding: 0 70px;
+}
