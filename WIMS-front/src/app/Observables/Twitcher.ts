@@ -7,10 +7,7 @@ export class Twitcher {
     set id(value: number) {
         this.Id = value;
     }
-
     constructor(
         private Id: number,
-    ) {
-
-    }
+    ) {}
 }

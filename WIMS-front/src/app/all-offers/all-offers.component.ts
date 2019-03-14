@@ -19,6 +19,7 @@ import {Game} from '../Observables/Game';
 export class AllOffersComponent implements OnInit {
 
     submittedNewEnchere;
+    avatar;
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -134,15 +135,12 @@ export class AllOffersComponent implements OnInit {
                 console.log('erreur' + err);
             }
         );
-<<<<<<< HEAD
-            // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
-    }
-=======
+
         this.avatar = document.getElementsByClassName('avatar');
         console.log('offres');
         console.log(this.Offers);
         console.log(this.offer);
->>>>>>> eb693734b7012545df6dae2255c125832514b9ba
+
 
         this._auction$ = this.Auctions.getAll();
         this._auction$.subscribe(
