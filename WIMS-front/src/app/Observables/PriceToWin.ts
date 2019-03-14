@@ -3,35 +3,35 @@ import {Game} from './Game';
 export class PriceToWin {
 
     get Id(): number {
-        return this._Id;
+        return this.id;
     }
 
     set Id(value: number) {
-        this._Id = value;
+        this.id = value;
     }
 
     get TwitcherId(): number {
-        return this._TwitcherId;
+        return this.twitcherId;
     }
 
     set TwitcherId(value: number) {
-        this._TwitcherId = value;
+        this.twitcherId = value;
     }
 
     get OfferEnd(): string {
-        return this._OfferEnd;
+        return this.offerEnd;
     }
 
     set OfferEnd(value: string) {
-        this._OfferEnd = value;
+        this.offerEnd = value;
     }
 
     get Game(): Game {
-        return this._OfferGame;
+        return this.offerGame;
     }
 
     set Game(value: Game) {
-        this._OfferGame = value;
+        this.offerGame = value;
     }
 
     // get GameId(): number {
@@ -43,37 +43,38 @@ export class PriceToWin {
     // }
 
     get AuctionStartValue(): number {
-        return this._AuctionStartValue;
+        return this.auctionStartValue;
     }
 
     set AuctionStartValue(value: number) {
-        this._AuctionStartValue = value;
+        this.auctionStartValue = value;
     }
 
     get Description(): string {
-        return this._Description;
+        return this.description;
     }
 
     set Description(value: string) {
-        this._Description = value;
+        this.description = value;
     }
 
     get Active(): boolean {
-        return this._Active;
+        return this.active;
     }
 
     set Active(value: boolean) {
-        this._Active = value;
+        this.active = value;
     }
-
+    private id: number;
+    private twitcherId: number;
+    private active: boolean;
     constructor(
-       private _Id: number,
-       private _TwitcherId: number,
-       private _OfferEnd: string,
-       private _OfferGame: Game,
+
+       private offerEnd: string,
+       private offerGame: Game,
        // private _GameId: number,
-       private _AuctionStartValue: number,
-       private _Description: string,
-       private _Active: boolean,
+       private auctionStartValue: number,
+       private description: string,
+
     ) {}
 }
