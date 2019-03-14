@@ -226,14 +226,16 @@ export class AllOffersComponent implements OnInit {
     }
 
     modifyDesc(index: number) {
+        this.editMode = true;
         this.editableId = index;
-        if (this.offer[index - 1].Id === this.editableId) {
-            this.editMode = true;
-            let inputDiv = document.createElement('input');
-            inputDiv.setAttribute('id', 'descToEdit');
-            inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
-            document.getElementById('descOffer').after(inputDiv);
-        }
+
+        let offerToModify = this.offer[index];
+        offerToModify.Description = document.getElementById('descToEdit-' + index).val;
+
+        // let inputDiv = document.createElement('input');
+        // inputDiv.setAttribute('id', 'descToEdit');
+        // inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
+        // document.getElementById('descOffer-' + index).after(inputDiv);
     }
 
     editModeOff() {
