@@ -6,6 +6,7 @@ import {PriceToWin} from '../Observables/PriceToWin';
 import {Game} from '../Observables/Game';
 import {User} from '../Observables/User';
 import {Currency} from '../Observables/Currency';
+import {Twitcher} from '../Observables/Twitcher';
 
 
 @Component({
@@ -122,12 +123,11 @@ ngOnInit(): void {
 
             this.u = new PriceToWin(
                 this.dateHeure,
-                this.formOffre.value.gameName,
                 this.formOffre.value.startValue,
                 this.formOffre.value.description,
             );
-
-            this.u.TwitcherId = 1;
+            this.u.Game = new Game(this.formOffre.value.gameName);
+            this.u.Twitcher = new Twitcher(1);
             console.log(this.u);
             this.Offers.insert(this.u).subscribe(
                 () => {

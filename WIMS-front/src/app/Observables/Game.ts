@@ -1,17 +1,18 @@
 export class Game {
     constructor(
-      private _Id: number,
-      private _GameName: string,
-      private _GameImage: string,
+      private id: number,
+
     ) {}
+    private _GameName: string;
+    private _GameImage: string;
     private _Active: boolean;
 
     get Id(): number {
-        return this._Id;
+        return this.id;
     }
 
     set Id(value: number) {
-        this._Id = value;
+        this.id = value;
     }
 
     get GameName(): string {
