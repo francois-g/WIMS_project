@@ -225,25 +225,16 @@ export class ChoixComponent implements OnInit {
     submittedInscriptionViewer;
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
-            for (let i = 0; i < this.user.length; i++) {
-                if (this.user[i].Pseudo === this.formConnexionStreamer.value.pseudoStreamer) {
-                    console.log('Pseudo correct');
-                    this.ident = i;
-                    i = this.user.length;
-                    if (this.user[this.ident].Pswd === this.formConnexionStreamer.value.mdpStreamer) {
-                        console.log('mdp correct, Connexion ok');
-                        this.submittedConnectionStreamer = true;
-                        this.router.navigate(['AllOffers']);
-                    } else {
-                        console.log('Mauvais mot de passe');
-                        this.IsMdpStreamer = false;
-                    }
+            this._user$ = this.Users.getByPseudo(this.formConnexionStreamer.value.pseudoStreamer);
+            this._user$.subscribe(
+                u => {
+                    sessionStorage.setItem("test", JSON.stringify(u))
+                    this.user = u;
+                },
+                (err) => {
+                    console.log('erreur' + err);
                 }
-                else {
-                    console.log('Pseudo faux');
-                    this.IsPseudoStreamer = false;
-                }
-            }
+            );
         }
         // stop here if form is invalid
         else {
@@ -369,7 +360,6 @@ export class ChoixComponent implements OnInit {
             console.log(this.u);
             this.Users.insert(this.u).subscribe(
                 () => {
-
                     console.log('Enregistrement fait');
 
                 },
@@ -390,15 +380,16 @@ export class ChoixComponent implements OnInit {
         }
     }
     ngOnInit() {
-        this._user$ = this.Users.getAll();
-        this._user$.subscribe(
-            u => {
-                this.user = u;
-            },
-            (err) => {
-                console.log('erreur' + err);
-            }
-        );
+        // this._user$ = this.Users.getAll();
+        // this._user$.subscribe(
+        //     u => {
+        //         sessionStorage.setItem("test", JSON.stringify(u))
+        //         this.user = u;
+        //     },
+        //     (err) => {
+        //         console.log('erreur' + err);
+        //     }
+        // );
     }
 
     blueOver() {

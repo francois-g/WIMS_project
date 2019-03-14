@@ -26,4 +26,7 @@ export class UserService {
     insert(value: object): Observable<User> {
         return this._httpClient.post<User>(this.url, value);
     }
+    getByPseudo(value: string): Observable<User[]> {
+        return this._httpClient.get<User[]>(this.url + '/login/' + value);
+    }
 }
