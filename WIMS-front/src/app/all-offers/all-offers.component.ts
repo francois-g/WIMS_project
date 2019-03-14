@@ -20,7 +20,6 @@ export class AllOffersComponent implements OnInit {
     submittedNewEnchere;
     avatar;
 
-
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
     private _game$: Observable<Game[]>;
@@ -30,11 +29,13 @@ export class AllOffersComponent implements OnInit {
     private _tabOfValues: number[];
     private _editMode: boolean;
     private _editableId: number;
+    private _formNewAuction: FormGroup;
+    private _outputNewAuction: {
+        newAuction: Auction,
+    };
 
     tableAuctions = [];
     Id;
-
-    private _formNewAuction: FormGroup;
 
     get offer$(): Observable<PriceToWin[]> {
         return this._offer$;
@@ -114,25 +115,22 @@ export class AllOffersComponent implements OnInit {
     set formNewAuction(value: FormGroup) {
         this._formNewAuction = value;
     }
-    private _outputNewEnchere: {
-        newEnchere: number,
-    };
-    get outputNewEnchere(): { newEnchere: number } {
-        return this._outputNewEnchere;
+
+    get outputNewAuction(): { newAuction: Auction } {
+        return this._outputNewAuction;
     }
-    set outputNewEnchere(value: { newEnchere: number }) {
-        this._outputNewEnchere = value;
+    set outputNewEnchere(value: { newAuction: Auction }) {
+        this._outputNewAuction = value;
     }
 
     constructor(private builder: FormBuilder, private Offers: PricetowinService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
-            'newEnchere': ['', [
+            'auctionValue': ['', [
                 Validators.required,
-            ]],
+            ]
+            ],
         });
     }
-
-
 
     ngOnInit() {
         this._offer$ = this.Offers.getAll();
@@ -149,7 +147,6 @@ export class AllOffersComponent implements OnInit {
         console.log('offres');
         console.log(this.Offers);
         console.log(this.offer);
-
 
         this._auction$ = this.Auctions.getAll();
         this._auction$.subscribe(
@@ -269,8 +266,16 @@ export class AllOffersComponent implements OnInit {
     // }
 
     encherir(value: Auction) {
-        document.getElementById('buttonAuction');
-        console.log(this.tableAuctions);
+        // document.getElementById('buttonAuction');
+        this.formNewAuction = this.builder.group({
+            'auctionValue': ['', [
+                Validators.required,
+            ]
+            ],
+        });
+        this.Auctions.insert(value);
+        console.log(value);
+        // console.log(this.tableAuctions);
     }
     onSubmitNewEnchere() {
 

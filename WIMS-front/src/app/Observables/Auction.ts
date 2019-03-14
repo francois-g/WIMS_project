@@ -1,76 +1,78 @@
+import {User} from './User';
+
 export class Auction {
     get Id(): number {
-        return this._Id;
+        return this.id;
     }
 
     set Id(value: number) {
-        this._Id = value;
+        this.id = value;
     }
 
-    get UserId(): number {
-        return this._UserId;
+    get User(): User {
+        return this.user;
     }
 
-    set UserId(value: number) {
-        this._UserId = value;
+    set User(value: User) {
+        this.user = value;
     }
 
     get MinAuction(): number {
-        return this._MinAuction;
+        return this.minAuction;
     }
 
     set MinAuction(value: number) {
-        this._MinAuction = value;
+        this.minAuction = value;
     }
 
     get MaxAuction(): number {
-        return this._MaxAuction;
+        return this.maxAuction;
     }
 
     set MaxAuction(value: number) {
-        this._MaxAuction = value;
+        this.maxAuction = value;
     }
 
     get CurrentAuction(): number {
-        return this._CurrentAuction;
+        return this.currentAuction;
     }
 
     set CurrentAuction(value: number) {
-        this._CurrentAuction = value;
+        this.currentAuction = value;
     }
 
     get AuctionDate(): string {
-        return this._AuctionDate;
+        return this.auctionDate;
     }
 
     set AuctionDate(value: string) {
-        this._AuctionDate = value;
+        this.auctionDate = value;
     }
 
     get AuctionValidation(): boolean {
-        return this._AuctionValidation;
+        return this.auctionValidation;
     }
 
     set AuctionValidation(value: boolean) {
-        this._AuctionValidation = value;
+        this.auctionValidation = value;
     }
 
     get IdPrice(): number {
-        return this._IdPrice;
+        return this.idPrice;
     }
 
     set IdPrice(value: number) {
-        this._IdPrice = value;
+        this.idPrice = value;
     }
-    private _MinAuction: number;
-    private _MaxAuction: number;
+    private minAuction: number;
+    private maxAuction: number;
     constructor(
-        private _Id: number,
-        private _UserId: number,
-        private _CurrentAuction: number,
-        private _AuctionDate: string,
-        private _AuctionValidation: boolean,
-        private _IdPrice: number,
+        private id: number,
+        private user: User,
+        private currentAuction: number,
+        private auctionDate: string,
+        private auctionValidation: boolean,
+        private idPrice: number,
     ) {}
 
 }
