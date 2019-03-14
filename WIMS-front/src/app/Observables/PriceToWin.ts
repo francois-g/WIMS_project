@@ -25,7 +25,7 @@ export class PriceToWin {
         this.id = value;
     }
 
-    get TwitcherId(): Twitcher {
+    get Twitcher(): Twitcher {
         return this.twitcher;
     }
 

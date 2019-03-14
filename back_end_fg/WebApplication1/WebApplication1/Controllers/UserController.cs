@@ -106,6 +106,11 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        public WimsUser GetWithLogin(string login)
+        {
+            return this.repo.getByLogin(login);
+        }
+
         public void Post([FromBody]WimsUser u)
         {
             this.repo.add(u);

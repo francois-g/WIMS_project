@@ -2,7 +2,6 @@ import {Currency} from './Currency';
 
 export class Twitcher {
 
-
     constructor(
         private id: number,
     ) {}

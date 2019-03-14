@@ -19,11 +19,11 @@ namespace WebApplication1
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                name: "Bledard",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Currency", action = "CurrencyDetails", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Bledard",
+            //    url: "{controller}/{action}/{login}",
+            //    defaults: new { controller = "User", action = "Get", login = UrlParameter.Optional }
+            //);
         }
     }
 }
