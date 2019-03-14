@@ -1,48 +1,52 @@
 import {Game} from './Game';
+import {Twitcher} from './Twitcher';
 
 export class PriceToWin {
 
+    private id: number;
+    private twitcher: Twitcher;
+    private active: boolean;
+    private game: Game;
     constructor(
-        private _Id: number,
-        private _TwitcherId: number,
-        private _OfferEnd: string,
-        private _OfferGame: Game,
+
+        private offerEnd: string,
+
         // private _GameId: number,
-        private _AuctionStartValue: number,
-        private _Description: string,
-        private _Active: boolean,
+        private auctionStartValue: number,
+        private description: string,
+
     ) {}
 
     get Id(): number {
-        return this._Id;
+        return this.id;
     }
 
     set Id(value: number) {
-        this._Id = value;
+        this.id = value;
     }
 
-    get TwitcherId(): number {
-        return this._TwitcherId;
+    get TwitcherId(): Twitcher {
+        return this.twitcher;
     }
 
-    set TwitcherId(value: number) {
-        this._TwitcherId = value;
+    set Twitcher(value: Twitcher) {
+        this.twitcher = value;
     }
 
     get OfferEnd(): string {
-        return this._OfferEnd;
+        return this.offerEnd;
     }
 
     set OfferEnd(value: string) {
-        this._OfferEnd = value;
+        this.offerEnd = value;
     }
 
     get Game(): Game {
-        return this._OfferGame;
+        return this.game;
     }
 
     set Game(value: Game) {
-        this._OfferGame = value;
+        this.game = value;
     }
 
     // get GameId(): number {
@@ -54,27 +58,26 @@ export class PriceToWin {
     // }
 
     get AuctionStartValue(): number {
-        return this._AuctionStartValue;
+        return this.auctionStartValue;
     }
 
     set AuctionStartValue(value: number) {
-        this._AuctionStartValue = value;
+        this.auctionStartValue = value;
     }
 
     get Description(): string {
-        return this._Description;
+        return this.description;
     }
 
     set Description(value: string) {
-        this._Description = value;
+        this.description = value;
     }
 
     get Active(): boolean {
-        return this._Active;
+        return this.active;
     }
 
     set Active(value: boolean) {
-        this._Active = value;
+        this.active = value;
     }
-
 }

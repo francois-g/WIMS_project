@@ -18,6 +18,8 @@ import {Game} from '../Observables/Game';
 })
 export class AllOffersComponent implements OnInit {
     submittedNewEnchere;
+    avatar;
+
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -29,10 +31,6 @@ export class AllOffersComponent implements OnInit {
     private _editMode: boolean;
     private _editableId: number;
 
-    // offers;
-    // games;
-    // auctions;
-    avatar;
     tableAuctions = [];
     Id;
 
@@ -140,18 +138,18 @@ export class AllOffersComponent implements OnInit {
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(
             o => {
-                console.log(this.offer);
                 this.offer = o;
-                console.log(o);
             },
             (err) => {
                 console.log('erreur' + err);
             }
         );
+
         this.avatar = document.getElementsByClassName('avatar');
         console.log('offres');
         console.log(this.Offers);
         console.log(this.offer);
+
 
         this._auction$ = this.Auctions.getAll();
         this._auction$.subscribe(
@@ -190,8 +188,6 @@ export class AllOffersComponent implements OnInit {
     // getBestAuction(value is Column Id in PriceToWin)
     getBestAuction(IdOfPrice: number) {
         let tabOfFilteredAuctions: Auction[];
-        console.log('button');
-        console.log(this.auction);
 
         // on ne prend les enchères qu'avec un IdPrice égal au paramètre de la fonction
         tabOfFilteredAuctions = this.auction.filter(a => a.IdPrice === IdOfPrice);
@@ -229,13 +225,14 @@ export class AllOffersComponent implements OnInit {
         this.editMode = true;
         this.editableId = index;
 
-        let offerToModify = this.offer[index];
-        offerToModify.Description = document.getElementById('descToEdit-' + index).val;
+        // let offerToModify = this.offer[index];
+        // offerToModify.Description = document.getElementById('descToEdit-' + index);
 
         // let inputDiv = document.createElement('input');
         // inputDiv.setAttribute('id', 'descToEdit');
         // inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
         // document.getElementById('descOffer-' + index).after(inputDiv);
+
     }
 
     editModeOff() {
