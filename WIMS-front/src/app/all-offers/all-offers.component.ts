@@ -24,10 +24,13 @@ export class AllOffersComponent implements OnInit {
     private _offer: PriceToWin[];
     private _game$: Observable<Game[]>;
     private _game: Game[];
+    private _auction$: Observable<Auction[]>;
+    private _auction: Auction[];
+    private _tabOfValues: number[];
+    private _editMode: boolean;
 
     tableAuctions = [];
     Id;
-    encherir = false;
 
     private _formNewAuction: FormGroup;
 
@@ -63,6 +66,38 @@ export class AllOffersComponent implements OnInit {
         this._game = value;
     }
 
+    get auction$(): Observable<Auction[]> {
+        return this._auction$;
+    }
+
+    set auction$(value: Observable<Auction[]>) {
+        this._auction$ = value;
+    }
+
+    get auction(): Auction[] {
+        return this._auction;
+    }
+
+    set auction(value: Auction[]) {
+        this._auction = value;
+    }
+
+    get tabOfValues(): number[] {
+        return this._tabOfValues;
+    }
+
+    set tabOfValues(value: number[]) {
+        this._tabOfValues = value;
+    }
+
+    get editMode(): boolean {
+        return this._editMode;
+    }
+
+    set editMode(value: boolean) {
+        this._editMode = value;
+    }
+
     get formNewAuction(): FormGroup {
         return this._formNewAuction;
     }
@@ -87,6 +122,8 @@ export class AllOffersComponent implements OnInit {
         });
     }
 
+
+
     ngOnInit() {
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(
@@ -97,22 +134,104 @@ export class AllOffersComponent implements OnInit {
                 console.log('erreur' + err);
             }
         );
+<<<<<<< HEAD
             // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
     }
+=======
+        this.avatar = document.getElementsByClassName('avatar');
+        console.log('offres');
+        console.log(this.Offers);
+        console.log(this.offer);
+>>>>>>> eb693734b7012545df6dae2255c125832514b9ba
 
-    getGame(value: number) {
-        this._game$ = this.Games.getById(value);
-        this._game$.subscribe(
-            g => {
-                console.log(this.game);
-                this.game = g;
-                console.log(g);
+        this._auction$ = this.Auctions.getAll();
+        this._auction$.subscribe(
+            a => {
+                this.auction = a;
+                console.log('get all');
+                console.log(this.auction);
+                console.log('service ');
+                console.log(this.Auctions);
             },
             (err) => {
-                console.log('erreur ' + err);
+                console.log('erreur' + err );
             }
         );
+
+        this.editMode = false;
+        // console.log(this.avatar);
+        // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
+
     }
+
+    // getGame(value: number) {
+    //     this._game$ = this.Games.getById(value);
+    //     this._game$.subscribe(
+    //         g => {
+    //             console.log(this.game);
+    //             this._game = g;
+    //             console.log(g);
+    //         },
+    //         (err) => {
+    //             console.log('erreur ' + err);
+    //         }
+    //     );
+    // }
+
+    // getBestAuction(value is Column Id in PriceToWin)
+    getBestAuction(IdOfPrice: number) {
+        let tabOfFilteredAuctions: Auction[];
+        console.log('button');
+        console.log(this.auction);
+
+        // on ne prend les enchères qu'avec un IdPrice égal au paramètre de la fonction
+        tabOfFilteredAuctions = this.auction.filter(a => a.IdPrice === IdOfPrice);
+        console.log('filtré');
+        console.log(tabOfFilteredAuctions);
+
+        // on a un tableau de valeurs, de nombres. Il va devenir le map du tableau filtré précédemment, en retournant uniquement la CurrentAuction
+        this.tabOfValues = tabOfFilteredAuctions.map(a => {
+            return a.CurrentAuction;
+        });
+        console.log('juste les valeurs');
+        console.log(this.tabOfValues);
+
+        // on trouve le maximum
+        let max = 0;
+        this.tabOfValues.map( v => {
+            if (v > max) {
+                max = v;
+            }
+        });
+
+        // if (max === 0) {
+        //     this.Offers[IdOfPrice].AuctionStartValue = max;
+        // }
+
+        console.log('maximum');
+        console.log(max);
+        // et on le retourne
+        return max;
+
+
+    }
+
+    modifyDesc(value: number)
+    {
+        this.editMode = true;
+        let inputDiv = document.createElement('input');
+        inputDiv.setAttribute('id', 'descToEdit');
+        inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
+        document.getElementById('descOffer').after(inputDiv);
+    }
+
+    editModeOff() {
+        this.editMode = false;
+        document.getElementById('descToEdit').remove();
+        console.log('c\'est bon' + this.editMode);
+    }
+
+
 
     // ngOnInit() {
     //     this.offers = this.Offers.getOffers();
@@ -139,8 +258,8 @@ export class AllOffersComponent implements OnInit {
     //     console.log(this.tableAuctions);
     // }
 
-    Encherir(value) {
-        this.encherir = value;
+    encherir(value: Auction) {
+        document.getElementById('buttonAuction');
         console.log(this.tableAuctions);
     }
     onSubmitNewEnchere() {
