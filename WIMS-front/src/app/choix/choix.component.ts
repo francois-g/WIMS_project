@@ -266,12 +266,12 @@ export class ChoixComponent implements OnInit {
             this.submittedInscriptionStreamer = true;
             console.log('Inscription ok');
             this.u = new User(
-                this.formInscriptionStreamer.value.prenom,
-                this.formInscriptionStreamer.value.nom,
-                this.formInscriptionStreamer.value.pseudo,
-                this.formInscriptionStreamer.value.mdp,
-                this.formInscriptionStreamer.value.mail
             );
+            this.u.FirstName = this.formInscriptionStreamer.value.prenom;
+            this.u.LastName = this.formInscriptionStreamer.value.nom;
+            this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
+            this.u.Pswd = this.formInscriptionStreamer.value.mdp;
+            this.u.Email = this.formInscriptionStreamer.value.mail;
             this.u.Role = 2;
             this.u.Currency = new Currency(1);
             console.log(this.u);
@@ -349,12 +349,12 @@ export class ChoixComponent implements OnInit {
             console.log('Inscription ok');
             console.log(this.IsPseudoAndMailViewerUnique);
             this.u = new User(
-                this.formInscriptionViewer.value.prenomViewer,
-                this.formInscriptionViewer.value.nomViewer,
-                this.formInscriptionViewer.value.pseudoVew,
-                this.formInscriptionViewer.value.mdpVew,
-                this.formInscriptionViewer.value.mailViewer
             );
+            this.u.FirstName = this.formInscriptionViewer.value.prenom;
+            this.u.LastName = this.formInscriptionViewer.value.nom;
+            this.u.Pseudo = this.formInscriptionViewer.value.pseudo;
+            this.u.Pswd = this.formInscriptionViewer.value.mdp;
+            this.u.Email = this.formInscriptionViewer.value.mail;
             this.u.Role = 1;
             this.u.Currency = new Currency(1);
             console.log(this.u);

@@ -19,6 +19,7 @@ import {Game} from '../Observables/Game';
 export class AllOffersComponent implements OnInit {
     submittedNewEnchere;
     avatar;
+    u;
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -275,9 +276,11 @@ export class AllOffersComponent implements OnInit {
     // }
 
     encherir(value: number) {
+        this.u = new User();
+        this.u.id = 2;
         // document.getElementById('buttonAuction');
         this.postedAuction = new Auction (
-            new User(2),
+            this.u.id,
             this.formNewAuction.value.auctionValue,
             value
         );
