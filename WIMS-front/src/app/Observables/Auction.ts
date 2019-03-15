@@ -64,15 +64,15 @@ export class Auction {
     set IdPrice(value: number) {
         this.idPrice = value;
     }
+    private id: number;
     private minAuction: number;
     private maxAuction: number;
+    private auctionDate: string;
+    private auctionValidation: boolean;
     constructor(
-        private id: number,
         private user: User,
         private currentAuction: number,
-        private auctionDate: string,
-        private auctionValidation: boolean,
-        private idPrice: number,
+        private idPrice: number
     ) {}
 
 }

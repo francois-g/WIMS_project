@@ -107,7 +107,7 @@ namespace WebApplication1.Repositories
 
                 SqlCommand cmd2 = new SqlCommand("SELECT MAX(CurrentAuction) FROM Auction WHERE OfferId = @PriceIdFromAuctionTable", c);
                 cmd2.Parameters.Add("@PriceIdFromAuctionTable", SqlDbType.Int);
-                cmd2.Parameters["@PriceIdFromAuctionTable"].Value = auc.AuctionPrice.Id;
+                cmd2.Parameters["@PriceIdFromAuctionTable"].Value = auc.IdPrice;
                 int best = new int();
                 c.Open();
                 using (SqlDataReader reader = cmd2.ExecuteReader())
@@ -119,12 +119,12 @@ namespace WebApplication1.Repositories
                 }
                 c.Close();
 
-                SqlCommand selectOfferEnd = new SqlCommand("SELECT OfferEnd FROM PriceToWin WHERE Id = " + auc.AuctionPrice.Id, c);
+                SqlCommand selectOfferEnd = new SqlCommand("SELECT OfferEnd FROM PriceToWin WHERE Id = " + auc.IdPrice, c);
                 c.Open();
                 DateTime dateToCompare = (DateTime)selectOfferEnd.ExecuteScalar();
                 c.Close();
 
-                SqlCommand selectStartValue = new SqlCommand("SELECT AuctionStartValue FROM PriceToWin WHERE Id = " + auc.AuctionPrice.Id, c);
+                SqlCommand selectStartValue = new SqlCommand("SELECT AuctionStartValue FROM PriceToWin WHERE Id = " + auc.IdPrice, c);
                 c.Open();
                 int startValue = (int)selectStartValue.ExecuteScalar();
                 c.Close();
@@ -156,7 +156,7 @@ namespace WebApplication1.Repositories
                     cmd.Parameters["@AuctionValidation"].Value = (bool)auc.AuctionValidation;
 
                     cmd.Parameters.Add("@OfferId", SqlDbType.Int);
-                    cmd.Parameters["@OfferId"].Value = (int)auc.AuctionPrice.Id;
+                    cmd.Parameters["@OfferId"].Value = (int)auc.IdPrice;
 
                     #endregion
 
@@ -177,7 +177,7 @@ namespace WebApplication1.Repositories
                     updateCurrentInOffer.Parameters["@Active"].Value = (dateToCompare < auc.AuctionDate) ? true : false;
                     
 
-                    SqlCommand findInsertedAuctionId = new SqlCommand("Select MAX(Id) FROM Auction WHERE OfferId = " + auc.AuctionPrice.Id, c);
+                    SqlCommand findInsertedAuctionId = new SqlCommand("Select MAX(Id) FROM Auction WHERE OfferId = " + auc.IdPrice, c);
                     int found = new int();
                     c.Open();
                     using (SqlDataReader reader = findInsertedAuctionId.ExecuteReader())

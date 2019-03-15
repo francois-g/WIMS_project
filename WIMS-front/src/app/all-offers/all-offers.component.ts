@@ -33,6 +33,7 @@ export class AllOffersComponent implements OnInit {
     private _outputNewAuction: {
         newAuction: Auction,
     };
+    private _postedAuction: Auction;
 
     tableAuctions = [];
     Id;
@@ -123,6 +124,14 @@ export class AllOffersComponent implements OnInit {
         this._outputNewAuction = value;
     }
 
+    get postedAuction(): Auction {
+        return this._postedAuction;
+    }
+
+    set postedAuction(value: Auction) {
+        this._postedAuction = value;
+    }
+
     constructor(private builder: FormBuilder, private Offers: PricetowinService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'auctionValue': ['', [
@@ -144,18 +153,18 @@ export class AllOffersComponent implements OnInit {
         );
 
         this.avatar = document.getElementsByClassName('avatar');
-        console.log('offres');
-        console.log(this.Offers);
-        console.log(this.offer);
+        // console.log('offres');
+        // console.log(this.Offers);
+        // console.log(this.offer);
 
         this._auction$ = this.Auctions.getAll();
         this._auction$.subscribe(
             a => {
                 this.auction = a;
-                console.log('get all');
-                console.log(this.auction);
-                console.log('service ');
-                console.log(this.Auctions);
+                // console.log('get all');
+                // console.log(this.auction);
+                // console.log('service ');
+                // console.log(this.Auctions);
             },
             (err) => {
                 console.log('erreur' + err );
@@ -188,15 +197,15 @@ export class AllOffersComponent implements OnInit {
 
         // on ne prend les enchères qu'avec un IdPrice égal au paramètre de la fonction
         tabOfFilteredAuctions = this.auction.filter(a => a.IdPrice === IdOfPrice);
-        console.log('filtré');
-        console.log(tabOfFilteredAuctions);
+        // console.log('filtré');
+        // console.log(tabOfFilteredAuctions);
 
         // on a un tableau de valeurs, de nombres. Il va devenir le map du tableau filtré précédemment, en retournant uniquement la CurrentAuction
         this.tabOfValues = tabOfFilteredAuctions.map(a => {
             return a.CurrentAuction;
         });
-        console.log('juste les valeurs');
-        console.log(this.tabOfValues);
+        // console.log('juste les valeurs');
+        // console.log(this.tabOfValues);
 
         // on trouve le maximum
         let max = 0;
@@ -210,8 +219,8 @@ export class AllOffersComponent implements OnInit {
         //     this.Offers[IdOfPrice].AuctionStartValue = max;
         // }
 
-        console.log('maximum');
-        console.log(max);
+        // console.log('maximum');
+        // console.log(max);
         // et on le retourne
         return max;
 
@@ -265,16 +274,24 @@ export class AllOffersComponent implements OnInit {
     //     console.log(this.tableAuctions);
     // }
 
-    encherir(value: Auction) {
+    encherir(value: number) {
         // document.getElementById('buttonAuction');
-        this.formNewAuction = this.builder.group({
-            'auctionValue': ['', [
-                Validators.required,
-            ]
-            ],
-        });
-        this.Auctions.insert(value);
-        console.log(value);
+        this.postedAuction = new Auction (
+            new User(2),
+            this.formNewAuction.value.auctionValue,
+            value
+        );
+
+        this._auction$ = this.Auctions.insert(this.postedAuction);
+        this._auction$.subscribe(
+            () => {
+                console.log(this.postedAuction);
+                console.log('enregistrement fait');
+            },
+            (err) => {
+                console.log('erreur' + err );
+            }
+        );
         // console.log(this.tableAuctions);
     }
     onSubmitNewEnchere() {

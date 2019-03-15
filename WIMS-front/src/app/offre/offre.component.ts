@@ -115,7 +115,7 @@ ngOnInit(): void {
         // if (this.formOffre.valid) {
             this.submittedOffre = true;
 
-            this.date= this.formOffre.value.dateFin.toString();
+            this.date = this.formOffre.value.dateFin.toString();
             this.dateHeure = this.formOffre.value.Fin.toString();
             this.finMinute = this.formOffre.value.minuteFin.toString();
             this.dateHeure = this.date + 'T' + this.dateHeure + ':' + this.finMinute + ':00';
