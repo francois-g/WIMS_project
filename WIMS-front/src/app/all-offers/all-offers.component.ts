@@ -242,9 +242,9 @@ export class AllOffersComponent implements OnInit {
 
     }
 
-    editModeOff() {
+    editModeOff(value: number) {
         this.editMode = false;
-        document.getElementById('descToEdit').remove();
+        document.getElementById('descToEdit-' + value).remove();
         // console.log('c\'est bon' + this.editMode(value));
     }
 

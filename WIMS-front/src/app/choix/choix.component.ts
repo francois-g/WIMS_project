@@ -256,17 +256,16 @@ export class ChoixComponent implements OnInit {
             this.IsPseudoAndMailStreamerUnique = true;
             console.log('true');
         }
-        if(this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation){
+        if (this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation){
             this.IsMdpAndCheckedMdpStreamer = true;
         }
         else {
             this.IsMdpAndCheckedMdpStreamer = false;
         }
-        if(this.formInscriptionStreamer.valid && this.IsPseudoAndMailStreamerUnique === true && this.IsMdpAndCheckedMdpStreamer === true){
+        if (this.formInscriptionStreamer.valid && this.IsPseudoAndMailStreamerUnique === true && this.IsMdpAndCheckedMdpStreamer === true){
             this.submittedInscriptionStreamer = true;
             console.log('Inscription ok');
-            this.u = new User(
-            );
+            this.u = new User();
             this.u.FirstName = this.formInscriptionStreamer.value.prenom;
             this.u.LastName = this.formInscriptionStreamer.value.nom;
             this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
