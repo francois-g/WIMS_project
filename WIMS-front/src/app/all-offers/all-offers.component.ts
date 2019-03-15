@@ -194,36 +194,38 @@ export class AllOffersComponent implements OnInit {
 
     // getBestAuction(value is Column Id in PriceToWin)
     getBestAuction(IdOfPrice: number) {
-        let tabOfFilteredAuctions: Auction[];
+        if (this.auction !== undefined) {
+            let tabOfFilteredAuctions: Auction[];
+            // console.log(this.auction);
+            // on ne prend les enchères qu'avec un IdPrice égal au paramètre de la fonction
+            tabOfFilteredAuctions = this.auction.filter(a => a.IdPrice === IdOfPrice);
+            // console.log('filtré');
+            // console.log(tabOfFilteredAuctions);
 
-        // on ne prend les enchères qu'avec un IdPrice égal au paramètre de la fonction
-        tabOfFilteredAuctions = this.auction.filter(a => a.IdPrice === IdOfPrice);
-        // console.log('filtré');
-        // console.log(tabOfFilteredAuctions);
+            // on a un tableau de valeurs, de nombres. Il va devenir le map du tableau filtré précédemment, en retournant uniquement la CurrentAuction
+            this.tabOfValues = tabOfFilteredAuctions.map(a => {
+                return a.CurrentAuction;
+            });
+            // console.log('juste les valeurs');
+            // console.log(this.tabOfValues);
 
-        // on a un tableau de valeurs, de nombres. Il va devenir le map du tableau filtré précédemment, en retournant uniquement la CurrentAuction
-        this.tabOfValues = tabOfFilteredAuctions.map(a => {
-            return a.CurrentAuction;
-        });
-        // console.log('juste les valeurs');
-        // console.log(this.tabOfValues);
+            // on trouve le maximum
+            let max = 0;
+            this.tabOfValues.map(v => {
+                if (v > max) {
+                    max = v;
+                }
+            });
 
-        // on trouve le maximum
-        let max = 0;
-        this.tabOfValues.map( v => {
-            if (v > max) {
-                max = v;
-            }
-        });
+            // if (max === 0) {
+            //     this.Offers[IdOfPrice].AuctionStartValue = max;
+            // }
 
-        // if (max === 0) {
-        //     this.Offers[IdOfPrice].AuctionStartValue = max;
-        // }
-
-        // console.log('maximum');
-        // console.log(max);
-        // et on le retourne
-        return max;
+            // console.log('maximum');
+            // console.log(max);
+            // et on le retourne
+            return max;
+        }
 
 
     }
@@ -247,33 +249,6 @@ export class AllOffersComponent implements OnInit {
         document.getElementById('descToEdit-' + value).remove();
         // console.log('c\'est bon' + this.editMode(value));
     }
-
-
-
-    // ngOnInit() {
-    //     this.offers = this.Offers.getOffers();
-    //     this.games = this.Games.getGames();
-    //     this.auctions = this.Auctions.getAuctions();
-    //     for (let i = 0; i < this.auctions.length; i++) {
-    //         for (let j = 0; j < this.games.length; j++) {
-    //             if (this.offers[i].GameId === this.games[j].Id) {
-    //                 this.NomDuJeu = this.games[j].GameName;
-    //                 this.ImageDuJeu = this.games[j].GameImg;
-    //             }
-    //         }
-    //         this.tableAuctions[i] = [
-    //             {
-    //                 Id: this.offers[i].Id,
-    //                 TwitcherId: this.offers[i].TwitcherId,
-    //                 GameId: this.offers[i].GameId,
-    //                 GameName: this.NomDuJeu,
-    //                 Img: this.ImageDuJeu,
-    //             }
-    //         ];
-    //     }
-    //
-    //     console.log(this.tableAuctions);
-    // }
 
     encherir(value: number) {
         this.u = new User();
