@@ -20,6 +20,7 @@ export class AllOffersComponent implements OnInit {
     submittedNewEnchere;
     avatar;
     u;
+    id;
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -37,7 +38,7 @@ export class AllOffersComponent implements OnInit {
     private _postedAuction: Auction;
 
     tableAuctions = [];
-    Id;
+
 
     get offer$(): Observable<PriceToWin[]> {
         return this._offer$;
@@ -252,11 +253,10 @@ export class AllOffersComponent implements OnInit {
     }
 
     encherir(value: number) {
-        this.u = new User();
-        this.u.id = 2;
+
         // document.getElementById('buttonAuction');
         this.postedAuction = new Auction (
-            this.u.id,
+            this.u = new User(),
             this.formNewAuction.value.auctionValue,
             value
         );
