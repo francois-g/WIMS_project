@@ -73,7 +73,7 @@ export class AuctionService {
         return this._httpClient.get<Auction[]>(this.url + '/' + value);
     }
 
-    insert(value: object): Observable<Auction> {
-        return this._httpClient.post<Auction>(this.url, value);
+    insert(value: object): Observable<Auction[]> {
+        return this._httpClient.post<Auction[]>(this.url, value);
     }
 }

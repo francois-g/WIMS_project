@@ -3,14 +3,14 @@ import {Role} from './Role';
 
 export class User {
     constructor (
-        private firstName: string,
-        private lastName: string,
-        private pseudo: string,
-        private pswd: string,
-        private email: string,
+        private id: number
     ) {}
 
-    private id: number;
+    private firstName: string;
+    private lastName: string;
+    private pseudo: string;
+    private pswd: string;
+    private email: string;
     private twitchLink: string = '';
     private pseudoTwitch: string = '';
     private conditionAccepted: number;
