@@ -7,16 +7,17 @@ import {NavComponent} from './nav/nav.component';
 import {OffreComponent} from './offre/offre.component';
 import {ContactComponent} from './contact/contact.component';
 import {ProfileComponent} from './profile/profile.component';
+import {HomeComponent} from './home/home.component';
 
 
 const routes: Routes = [
-    { path: '', component: ChoixComponent },
-    { path: 'Choix', component: ChoixComponent },
+    { path: '', component: HomeComponent },
+    { path: 'Choice', component: ChoixComponent },
     { path: 'AllOffers', component: AllOffersComponent },
     { path: 'Menu', component: NavComponent },
-    { path: 'Offre', component: OffreComponent },
+    { path: 'Offer', component: OffreComponent },
     { path: 'Contact', component: ContactComponent },
-    { path: 'Profile', component: ProfileComponent },
+    { path: 'Profile', component: ProfileComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,17 @@
+.title-head {
+    font-size: 7em;
+    font-family: 'Play', sans-serif;
+    font-weight: bold;
+    /*font-style: italic;*/
+    text-align: center;
+    background-color: black;
+    color: black;
+    margin: auto;
+    padding: 0 5px;
+    text-shadow: yellow 2px 2px, yellow -2px 2px, yellow -2px -2px, yellow 2px -2px;
+}
+
+.logo-title {
+    size: 3em;
+    margin: 2em 0;
+}

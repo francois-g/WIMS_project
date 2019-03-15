@@ -16,6 +16,7 @@ import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component';
     ContactComponent,
     FooterComponent,
     ProfileComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
