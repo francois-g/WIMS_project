@@ -18,11 +18,7 @@ export class AllOffersComponent implements OnInit {
 
     submittedNewEnchere;
     avatar;
-<<<<<<< HEAD
-    u;
-    id;
-=======
->>>>>>> 8960d926f3084599e2e4febd68c295e34d959469
+
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -40,10 +36,7 @@ export class AllOffersComponent implements OnInit {
     private _postedAuction: Auction;
 
     tableAuctions = [];
-<<<<<<< HEAD
 
-=======
->>>>>>> 8960d926f3084599e2e4febd68c295e34d959469
 
     get offer$(): Observable<PriceToWin[]> {
         return this._offer$;
@@ -258,18 +251,12 @@ export class AllOffersComponent implements OnInit {
     }
 
     encherir(value: number) {
-<<<<<<< HEAD
 
-        // document.getElementById('buttonAuction');
-        this.postedAuction = new Auction (
-            this.u = new User(),
-=======
         const u = new User();
         u.Id = 2;
         // document.getElementById('buttonAuction');
         this.postedAuction = new Auction (
             u,
->>>>>>> 8960d926f3084599e2e4febd68c295e34d959469
             this.formNewAuction.value.auctionValue,
             value
         );
