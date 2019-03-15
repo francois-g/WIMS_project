@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Services} from '@angular/core/src/view';
 import {PricetowinService} from '../Services/pricetowin.service';
 import {Observable} from 'rxjs';
 import {PriceToWin} from '../Observables/PriceToWin';
-import {forEach} from '@angular/router/src/utils/collection';
 import {AuctionService} from '../Services/auction.service';
 import {Auction} from '../Observables/Auction';
 import {GameService} from '../Services/game.service';
@@ -17,10 +15,14 @@ import {Game} from '../Observables/Game';
     styleUrls: ['./all-offers.component.css']
 })
 export class AllOffersComponent implements OnInit {
+
     submittedNewEnchere;
     avatar;
+<<<<<<< HEAD
     u;
     id;
+=======
+>>>>>>> 8960d926f3084599e2e4febd68c295e34d959469
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -38,7 +40,10 @@ export class AllOffersComponent implements OnInit {
     private _postedAuction: Auction;
 
     tableAuctions = [];
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8960d926f3084599e2e4febd68c295e34d959469
 
     get offer$(): Observable<PriceToWin[]> {
         return this._offer$;
@@ -253,24 +258,38 @@ export class AllOffersComponent implements OnInit {
     }
 
     encherir(value: number) {
+<<<<<<< HEAD
 
         // document.getElementById('buttonAuction');
         this.postedAuction = new Auction (
             this.u = new User(),
+=======
+        const u = new User();
+        u.Id = 2;
+        // document.getElementById('buttonAuction');
+        this.postedAuction = new Auction (
+            u,
+>>>>>>> 8960d926f3084599e2e4febd68c295e34d959469
             this.formNewAuction.value.auctionValue,
             value
         );
 
         this._auction$ = this.Auctions.insert(this.postedAuction);
-        this._auction$.subscribe(
-            () => {
-                console.log(this.postedAuction);
-                console.log('enregistrement fait');
-            },
-            (err) => {
-                console.log('erreur' + err );
-            }
-        );
+        if (this.formNewAuction.value.auctionValue > this.getBestAuction(value)) {
+            this._auction$.subscribe(
+                () => {
+                    console.log(this.postedAuction);
+                    console.log('enregistrement fait');
+                    window.location.reload();
+                },
+                (err) => {
+                    console.log('erreur' + err);
+                }
+            );
+        }
+        else {
+            alert('radin !!!! c\'est trop bas');
+        }
         // console.log(this.tableAuctions);
     }
     onSubmitNewEnchere() {
