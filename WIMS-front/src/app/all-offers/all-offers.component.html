@@ -13,10 +13,10 @@
                 </mat-card-header>
                 <mat-card-content class="d-flex flex-column align-items-center" >
                     <p *ngIf="this.editMode == false || editableId != o.Id" id="descOffer-{{o.Id}}">{{o.Description}}</p>
-                    <button *ngIf="this.editMode == false" (click)="modifyDesc(o.Id)"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-warning" *ngIf="this.editMode == false" (click)="modifyDesc(o.Id)"><i class="fas fa-pencil-alt"></i></button>
 
                     <input *ngIf="this.editMode == true && editableId == o.Id" id="descToEdit-{{o.Id}}" value="{{o.Description}}">
-                    <button id="submitDesc" *ngIf="this.editMode == true && editableId == o.Id" (click)="editModeOff(o.Id)"><i class="fa fa-check"></i></button>
+                    <button class="btn btn-warning" id="submitDesc" *ngIf="this.editMode == true && editableId == o.Id" (click)="editModeOff(o.Id)"><i class="fa fa-check"></i></button>
 
                     <p *ngIf="getBestAuction(o.Id) == 0" class="printBest">{{o.AuctionStartValue}}</p>
                     <p *ngIf="getBestAuction(o.Id) != 0" class="printBest">{{getBestAuction(o.Id)}}</p>
@@ -37,7 +37,7 @@
                                 </button>
                             </span>
                         </div>
-                        <button type="submit" class="buttonAuction">Faire Offre</button>
+                        <button type="submit" class="buttonAuction btn btn-warning mt-3">Faire Offre</button>
                     </form>
                 </mat-card-actions>
 
