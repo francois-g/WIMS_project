@@ -228,7 +228,7 @@ export class ChoixComponent implements OnInit {
             this._user$ = this.Users.getByPseudo(this.formConnexionStreamer.value.pseudoStreamer);
             this._user$.subscribe(
                 u => {
-                    sessionStorage.setItem("test", JSON.stringify(u))
+                    sessionStorage.setItem("test", JSON.stringify(u));
                     this.user = u;
                 },
                 (err) => {
