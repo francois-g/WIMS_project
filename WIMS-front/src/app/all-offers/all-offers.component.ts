@@ -226,6 +226,7 @@ export class AllOffersComponent implements OnInit {
         return max;
 
 
+
     }
 
     modifyDesc(index: number) {
