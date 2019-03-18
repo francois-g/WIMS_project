@@ -98,6 +98,11 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        public IEnumerable<PriceToWin> GroupBy(string value)
+        {
+            return this.repo.getGrouped(value);
+        }
+
         public void Post([FromBody]PriceToWin p)
         {
             this.repo.add(p);

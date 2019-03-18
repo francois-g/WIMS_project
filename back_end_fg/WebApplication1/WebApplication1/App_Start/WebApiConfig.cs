@@ -26,6 +26,12 @@ namespace WebApplication1
                 routeTemplate: "api/{controller}/login/{login}",
                 defaults: new { controller = "User", action = "GetWithLogin" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "GroupedPricesApi",
+                routeTemplate: "api/{controller}/group/{value}",
+                defaults: new { controller = "PriceToWin", action = "GroupBy" }
+            );
         }
     }
 }
