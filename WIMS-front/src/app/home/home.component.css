@@ -3,15 +3,18 @@
     font-family: 'Play', sans-serif;
     font-weight: bold;
     /*font-style: italic;*/
-    text-align: center;
-    background-color: black;
-    color: black;
-    margin: auto;
-    padding: 0 5px;
-    text-shadow: yellow 2px 2px, yellow -2px 2px, yellow -2px -2px, yellow 2px -2px;
+    color: white;
+    /*text-shadow: lightgray 2px 2px, lightgray -2px 2px, lightgray -2px -2px, lightgray 2px -2px;*/
 }
-
+.all{
+    background-color: #FF9558;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    min-height: 90vh;
+}
 .logo-title {
     size: 3em;
-    margin: 2em 0;
+}
+.connexion{
+    background-color: dodgerblue;
 }
