@@ -98,9 +98,10 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
-        public IEnumerable<PriceToWin> GroupBy(string value)
+        [HttpGet]
+        public IEnumerable<PriceToWin> OrderBy(string value)
         {
-            return this.repo.getGrouped(value);
+            return this.repo.getOrdered(value);
         }
 
         public void Post([FromBody]PriceToWin p)
