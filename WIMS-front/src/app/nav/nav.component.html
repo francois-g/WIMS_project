@@ -1,5 +1,9 @@
 <nav class="menu navbar navbar-expand-lg">
+<<<<<<< HEAD
     <img src="../../assets/images/wimslogo.png" id="logo">
+=======
+    <img src="../../assets/images/wimslogo.png" id="logo" [routerLink]="['/home']">
+>>>>>>> 44db6d95cf5121d71453da67a296fc2899de3ae8
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,5 +26,11 @@
                 <a [routerLink]="['/Profile']" class="nav-link">Votre profile</a>
             </li>
         </ul>
+
+        <div class="navbar-right form-inline">
+            <input *ngIf="searchIsOpen" type="text" placeholder="search" class="search-input">
+            <button *ngIf="!searchIsOpen" class="button-search" (click)="openSearchBar()"><i class="fas fa-search"></i></button>
+            <button *ngIf="searchIsOpen" class="button-search" (click)="searchQuery()"><i class="fas fa-search"></i></button>
+        </div>
     </div>
 </nav>

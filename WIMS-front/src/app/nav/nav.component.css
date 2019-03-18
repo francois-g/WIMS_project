@@ -1,7 +1,12 @@
 .menu{
+<<<<<<< HEAD
     background-color: orange;
     width: 100%;
     height: 8%;
+=======
+  background-color: #FF9558;
+  width: 100%;
+>>>>>>> 44db6d95cf5121d71453da67a296fc2899de3ae8
 }
 #logo{
     max-width: 4%;
@@ -9,3 +14,17 @@
 a{
     color: white;
 }
+<<<<<<< HEAD
+=======
+
+a {
+    color: white;
+}
+
+.button-search {
+    background-color: Transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+>>>>>>> 44db6d95cf5121d71453da67a296fc2899de3ae8
