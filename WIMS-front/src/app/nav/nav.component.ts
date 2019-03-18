@@ -11,6 +11,7 @@ import {User} from '../Observables/User';
 export class NavComponent implements OnInit {
 
     private _searchIsOpen: boolean;
+    private _inputText: string;
 
     get searchIsOpen(): boolean {
         return this._searchIsOpen;
@@ -18,6 +19,14 @@ export class NavComponent implements OnInit {
 
     set searchIsOpen(value: boolean) {
         this._searchIsOpen = value;
+    }
+
+    get inputText(): string {
+        return this._inputText;
+    }
+
+    set inputText(value: string) {
+        this._inputText = value;
     }
 
     constructor() { }
@@ -29,5 +38,11 @@ export class NavComponent implements OnInit {
 
     openSearchBar() {
         this.searchIsOpen = true;
+    }
+
+    searchQuery() {
+        this.inputText = ((document.getElementById('search-input') as HTMLInputElement).value);
+        console.log(this.inputText);
+        
     }
 }
