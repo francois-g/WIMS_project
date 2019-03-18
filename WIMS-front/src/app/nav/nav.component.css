@@ -1,8 +1,9 @@
 .menu{
-  background-color: orange;
-  width: 100%;
+    background-color: orange;
+    width: 100%;
+    height: 8%;
 }
 #logo{
-    max-width: 6%;
+    max-width: 4%;
 }
 
