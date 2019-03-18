@@ -141,7 +141,21 @@ export class AllOffersComponent implements OnInit {
     }
 
     tri(value:string){
-        console.log(value);
+        if(value === "GameId"){
+            this.offer = [];
+            this._offer$ = this.Offers.orderBy(value);
+            this._offer$.subscribe(
+                o => {
+                    o.forEach(one => {
+                        if (Date.parse(one.OfferEnd) > Date.now()) {
+                            this.offer.push(one);
+                        }
+                    });
+                },
+                (err) => {
+                    console.log('erreur' + err);
+                }
+        }
     }
 
 
