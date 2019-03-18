@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PricetowinService} from '../Services/pricetowin.service';
-import {from, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PriceToWin} from '../Observables/PriceToWin';
 import {AuctionService} from '../Services/auction.service';
 import {Auction} from '../Observables/Auction';
 import {GameService} from '../Services/game.service';
 import {User} from '../Observables/User';
 import {Game} from '../Observables/Game';
-import {filter} from 'rxjs/operators';
+import {DataService} from '../Services/data.service';
+import {isUndefined} from 'util';
 
 @Component({
     selector: 'app-all-offers',
@@ -16,7 +17,6 @@ import {filter} from 'rxjs/operators';
     styleUrls: ['./all-offers.component.css']
 })
 export class AllOffersComponent implements OnInit {
-
     submittedNewEnchere;
     avatar;
 
@@ -47,7 +47,11 @@ export class AllOffersComponent implements OnInit {
     }
 
     get offer(): PriceToWin[] {
-        return this._offer;
+        if (this.data.currentPrintedOffers.length === 0) {
+            return this._offer;
+        } else {
+            return this.data.currentPrintedOffers;
+        }
     }
 
     set offer(value: PriceToWin[]) {
@@ -131,7 +135,8 @@ export class AllOffersComponent implements OnInit {
     set postedAuction(value: Auction) {
         this._postedAuction = value;
     }
-    constructor(private builder: FormBuilder, private Offers: PricetowinService, private Games: GameService, private Auctions: AuctionService) {
+
+    constructor(private builder: FormBuilder, private Offers: PricetowinService, private data: DataService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'auctionValue': ['', [
                 Validators.required,
@@ -140,8 +145,8 @@ export class AllOffersComponent implements OnInit {
         });
     }
 
-    tri(value:string){
-        if(value === "GameId"){
+    tri(value: string) {
+        if (value === 'GameId') {
             this.offer = [];
             this._offer$ = this.Offers.orderBy(value);
             this._offer$.subscribe(
@@ -154,9 +159,8 @@ export class AllOffersComponent implements OnInit {
                 },
                 (err) => {
                     console.log('erreur' + err);
-                }
-        }
-        else if(value === "TwitcherId"){
+                });
+        } else if (value === 'TwitcherId') {
             this.offer = [];
             this._offer$ = this.Offers.orderBy(value);
             this._offer$.subscribe(
@@ -169,10 +173,9 @@ export class AllOffersComponent implements OnInit {
                 },
                 (err) => {
                     console.log('erreur' + err);
-                }
+                });
         }
     }
-
 
     ngOnInit() {
         this.offer = [];
@@ -184,6 +187,7 @@ export class AllOffersComponent implements OnInit {
                         this.offer.push(one);
                     }
                 });
+                this.data.changeOffers(this.offer);
             },
             (err) => {
                 console.log('erreur' + err);
@@ -205,29 +209,12 @@ export class AllOffersComponent implements OnInit {
                 // console.log(this.Auctions);
             },
             (err) => {
-                console.log('erreur' + err );
+                console.log('erreur' + err);
             }
         );
 
         this.editMode = false;
-        // console.log(this.avatar);
-        // .style.backgroundImage = 'url(this.offer[0].Twitcher.avatar)';
-
     }
-
-    // getGame(value: number) {
-    //     this._game$ = this.Games.getById(value);
-    //     this._game$.subscribe(
-    //         g => {
-    //             console.log(this.game);
-    //             this._game = g;
-    //             console.log(g);
-    //         },
-    //         (err) => {
-    //             console.log('erreur ' + err);
-    //         }
-    //     );
-    // }
 
     // getBestAuction(value is Column Id in PriceToWin)
     getBestAuction(IdOfPrice: number) {
@@ -263,23 +250,11 @@ export class AllOffersComponent implements OnInit {
             // et on le retourne
             return max;
         }
-
-
-
     }
 
     modifyDesc(index: number) {
         this.editMode = true;
         this.editableId = index;
-
-        // let offerToModify = this.offer[index];
-        // offerToModify.Description = document.getElementById('descToEdit-' + index);
-
-        // let inputDiv = document.createElement('input');
-        // inputDiv.setAttribute('id', 'descToEdit');
-        // inputDiv.setAttribute('value', document.getElementById('descOffer').innerHTML);
-        // document.getElementById('descOffer-' + index).after(inputDiv);
-
     }
 
     editModeOff(value: number) {
@@ -311,8 +286,7 @@ export class AllOffersComponent implements OnInit {
                     console.log('erreur' + err);
                 }
             );
-        }
-        else {
+        } else {
             alert('radin !!!! c\'est trop bas');
         }
         // console.log(this.tableAuctions);
@@ -325,4 +299,5 @@ export class AllOffersComponent implements OnInit {
             this.submittedNewEnchere = false;
         }
     }
+
 }

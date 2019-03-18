@@ -17,7 +17,6 @@ import { FooterComponent } from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
-import {SearchBoxComponent} from './search-box/search-box.component';
 import { AboutComponent } from './about/about.component';
 
 
@@ -33,7 +32,6 @@ import { AboutComponent } from './about/about.component';
     FooterComponent,
     ProfileComponent,
     HomeComponent,
-    SearchBoxComponent,
     AboutComponent
   ],
   imports: [
