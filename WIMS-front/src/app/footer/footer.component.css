@@ -1,0 +1,13 @@
+footer {
+    background-color: #31A5FF;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-copyright {
+    background-color: dodgerblue;
+}
