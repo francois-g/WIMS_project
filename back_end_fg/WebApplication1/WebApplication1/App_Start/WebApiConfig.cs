@@ -29,7 +29,7 @@ namespace WebApplication1
 
             config.Routes.MapHttpRoute(
                 name: "GroupedPricesApi",
-                routeTemplate: "api/{controller}/group/{value}",
+                routeTemplate: "api/{controller}/order/{value}",
                 defaults: new { controller = "PriceToWin", action = "GroupBy" }
             );
         }
