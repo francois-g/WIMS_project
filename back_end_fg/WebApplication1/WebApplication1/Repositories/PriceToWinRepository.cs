@@ -88,7 +88,7 @@ namespace WebApplication1.Repositories
             return price;
         }
 
-        public IEnumerable<PriceToWin> getGrouped(string value)
+        public IEnumerable<PriceToWin> getOrdered(string value)
         {
             using (SqlConnection c = new SqlConnection())
             {
@@ -96,7 +96,7 @@ namespace WebApplication1.Repositories
                 //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
                 using (SqlCommand cmd = c.CreateCommand())
                 {
-                    cmd.CommandText = "Select * FROM PriceToWin GROUP BY " + value;
+                    cmd.CommandText = "Select * FROM PriceToWin ORDER BY " + value;
                     c.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
