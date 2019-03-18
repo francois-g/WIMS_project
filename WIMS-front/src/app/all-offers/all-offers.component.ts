@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PricetowinService} from '../Services/pricetowin.service';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {PriceToWin} from '../Observables/PriceToWin';
 import {AuctionService} from '../Services/auction.service';
 import {Auction} from '../Observables/Auction';
 import {GameService} from '../Services/game.service';
 import {User} from '../Observables/User';
 import {Game} from '../Observables/Game';
+import {filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-all-offers',
@@ -18,7 +19,6 @@ export class AllOffersComponent implements OnInit {
 
     submittedNewEnchere;
     avatar;
-
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -131,7 +131,6 @@ export class AllOffersComponent implements OnInit {
     set postedAuction(value: Auction) {
         this._postedAuction = value;
     }
-
     constructor(private builder: FormBuilder, private Offers: PricetowinService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'auctionValue': ['', [
@@ -140,6 +139,11 @@ export class AllOffersComponent implements OnInit {
             ],
         });
     }
+
+    tri(value:string){
+        console.log(value);
+    }
+
 
     ngOnInit() {
         this.offer = [];
