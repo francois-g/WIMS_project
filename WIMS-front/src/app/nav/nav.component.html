@@ -28,8 +28,8 @@
         <div class="navbar-right form-inline">
             <form>
                 <input *ngIf="searchIsOpen" type="text" placeholder="Rechercher une offre par streamer" id="search-input" [(ngModel)]="inputText" name="input">
-                <button *ngIf="!searchIsOpen" class="button-search" (click)="openSearchBar()"><i class="fas fa-search"></i></button>
-                <button *ngIf="searchIsOpen" class="button-search" type="submit" (click)="searchQuery()"><i class="fas fa-search"></i></button>
+                <button *ngIf="!searchIsOpen" (click)="openSearchBar()"><i class="fas fa-search"></i></button>
+                <button *ngIf="searchIsOpen" id="search-button" type="submit" (click)="searchQuery()"><i class="fas fa-search"></i></button>
             </form>
         </div>
     </div>
