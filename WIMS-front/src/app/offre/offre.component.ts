@@ -127,7 +127,7 @@ ngOnInit(): void {
                 this.formOffre.value.description,
             );
             this.u.Game = new Game(this.formOffre.value.gameName);
-            this.u.Twitcher = new Twitcher(1);
+            this.u.Twitcher = new Twitcher(2);
             console.log(this.u);
             this.Offers.insert(this.u).subscribe(
                 () => {

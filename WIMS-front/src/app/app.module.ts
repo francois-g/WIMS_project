@@ -18,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import {SearchBoxComponent} from './search-box/search-box.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {SearchBoxComponent} from './search-box/search-box.component';
     FooterComponent,
     ProfileComponent,
     HomeComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

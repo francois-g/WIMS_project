@@ -1,29 +1,39 @@
 <app-nav></app-nav>
-<div class="container all">
-    <form class="mt-5 d-flex flex-column justify-content-center align-items-center" [formGroup]="formOffre" (ngSubmit)="onSubmitOffre()">
-        <label for="gameName">Nom du jeu:</label>
-        <select name="gameName" id="gameName" [formControl]="formOffre.controls['gameName']">
-            <option value="3">Fortnite</option>
-            <option value="2">Fifa</option>
-        </select>
-        <label for="description">Description:</label>
-        <textarea class="col-lg-7" name="message" id="description" cols="20" rows="10" [formControl]="formOffre.controls['description']"></textarea>
-        <label for="startValue">Prix de départ de l'enchère: </label>
-        <input type="number" id="startValue" [formControl]="formOffre.controls['startValue']">
-        <label for="dateFin">L'enchère prendra fin le: </label>
-        <input type="date" id="dateFin" [formControl]="formOffre.controls['dateFin']">
-        <label for="Fin">L'enchère prendra fin à: </label>
-        <div class="d-flex">
-            <select id="Fin" class="mr-1" [formControl]="formOffre.controls['Fin']">
-                <option *ngFor="let hour of hours" value="{{hour}}">{{hour}}h</option>
-            </select>
-            :
-            <select id="minuteFin" class="ml-1" [formControl]="formOffre.controls['minuteFin']">
-                <option *ngFor="let minute of minutes" value="{{minute}}">{{minute}}min</option>
-            </select>
-        </div>
+<div class="container-fluid all">
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="d-flex flex-column justify-content-center" [formGroup]="formOffre" (ngSubmit)="onSubmitOffre()">
+                <label for="gameName">Nom du jeu:</label>
+                <select name="gameName" id="gameName" class="col-lg-3 form-control" [formControl]="formOffre.controls['gameName']">
+                    <option value="3">Fortnite</option>
+                    <option value="2">Fifa</option>
+                </select>
+                <label for="description">Description:</label>
+                <textarea class="form-control" name="message" id="description" cols="20" rows="10" [formControl]="formOffre.controls['description']"></textarea>
+                <label for="startValue">Prix de départ de l'enchère: </label>
+                <input type="number" id="startValue" class="form-control col-lg-3" [formControl]="formOffre.controls['startValue']">
+                <label for="dateFin">L'enchère prendra fin le: </label>
+                <input type="date" class="form-control col-lg-2" id="dateFin" [formControl]="formOffre.controls['dateFin']">
+                <label for="Fin">à: </label>
+                <div class="d-flex">
+                    <select id="Fin" class="mr-1 form-control col-lg-2" [formControl]="formOffre.controls['Fin']">
+                        <option *ngFor="let hour of hours" value="{{hour}}">{{hour}}h</option>
+                    </select>
+                    :
+                    <select id="minuteFin" class="ml-1 form-control col-lg-2" [formControl]="formOffre.controls['minuteFin']">
+                        <option *ngFor="let minute of minutes" value="{{minute}}">{{minute}}min</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Poster" class="btn btn-warning mt-3 col-lg-3">
+                </div>
 
-        <input type="submit" value="Poster" class="btn btn-warning mt-3">
-    </form>
+            </form>
+        </div>
+        <div class="col-lg-6" id="imageOffre">
+
+        </div>
+    </div>
+
 </div>
 <app-footer></app-footer>
