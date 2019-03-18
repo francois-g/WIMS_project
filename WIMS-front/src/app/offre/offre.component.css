@@ -1,0 +1,5 @@
+#imageOffre{
+    background-image: url("../../assets/images/game.jpg");
+    background-size: cover;
+    opacity: 0.5;
+}
