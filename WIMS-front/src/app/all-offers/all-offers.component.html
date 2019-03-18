@@ -2,13 +2,11 @@
 <div class="container">
     <div class="d-flex mt-5">
         <p>Trier par:</p>
-        <button class="btn btn-warning ml-3" (click)="tri('streamer')">Streamer</button>
+        <button class="btn btn-warning ml-3" (click)="tri('TwitcherId')">Streamer</button>
         <button class="btn btn-warning ml-3" (click)="tri('GameId')">Jeux</button>
-        <button class="btn btn-warning ml-3" (click)="tri('prix')">Prix</button>
     </div>
 
 <div class="row">
-
         <div class="mt-5 col-lg-4 "  *ngFor="let o of offer">
             <mat-card class="ml-3 mr-3 mb-5">
                 <div class="d-flex justify-content-center">
@@ -27,7 +25,7 @@
                     <button class="btn btn-warning" id="submitDesc" *ngIf="this.editMode == true && editableId == o.Id" (click)="editModeOff(o.Id)"><i class="fa fa-check"></i></button>
 
                     <p *ngIf="getBestAuction(o.Id) == 0" class="printBest">{{o.AuctionStartValue}}</p>
-                    <p *ngIf="getBestAuction(o.Id) != 0" class="printBest">{{getBestAuction(o.Id)}}</p>
+                    <p *ngIf="getBestAuction(o.Id) != 0" class="printBest">{{getBestAuction(o.Id)}} </p>
                 </mat-card-content>
 
                 <mat-card-actions class="d-flex justify-content-center">
