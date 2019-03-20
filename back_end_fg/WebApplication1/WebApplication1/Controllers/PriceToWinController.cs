@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using WebApplication1.Authenticators;
 using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
@@ -104,6 +105,8 @@ namespace WebApplication1.Controllers
             return this.repo.getOrdered(value);
         }
 
+        [TokenAuthenticator(Domain: "offerDom")]
+        [Authorize(Roles = "Admin, Streamer")]
         public void Post([FromBody]PriceToWin p)
         {
             this.repo.add(p);
@@ -161,6 +164,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "offerDom")]
+        [Authorize(Roles = "Admin")]
         public void Put(int id, [FromBody]PriceToWin p)
         {
             this.repo.update(id, p);

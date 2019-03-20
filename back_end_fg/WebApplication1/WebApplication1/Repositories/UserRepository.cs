@@ -155,9 +155,8 @@ namespace WebApplication1.Repositories
                 u.Active = true;
                 cmd.Parameters["@Active"].Value = (bool)u.Active;
 
-                cmd.Parameters.Add("@Role", SqlDbType.Int);
+                cmd.Parameters.AddWithValue("@Role", (int)u.RoleId);
                 //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
-                cmd.Parameters["@Role"].Value = (int)u.RoleId;
 
                 #endregion
 

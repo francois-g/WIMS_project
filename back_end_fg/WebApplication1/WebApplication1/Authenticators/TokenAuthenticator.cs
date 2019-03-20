@@ -42,11 +42,12 @@ namespace WebApplication1.Authenticators
             
             HttpRequestMessage requestMessage = context.Request;
 
-            if(requestMessage.Headers.Authorization != null)
+            string role = "";
+
+            if (requestMessage.Headers.Authorization != null)
             {
                 if (requestMessage.Headers.Authorization.Scheme.Equals("bearer", StringComparison.OrdinalIgnoreCase))
                 {
-                    string role = "";
                     string token = requestMessage.Headers.Authorization.Parameter.ToString();
                     var jwt = new JwtSecurityToken(token);
                     string user = jwt.Claims.First(c => c.Type == "pseudo").Value.ToString().Trim();
@@ -61,10 +62,8 @@ namespace WebApplication1.Authenticators
                                 "Join Role as r On w.RoleId = r.Id " +
                                 "Where w.Pseudo = @pseudo AND w.Pswd = @pswd";
 
-                            cmd.Parameters.Add("@pseudo", SqlDbType.NChar);
-                            cmd.Parameters["@pseudo"].Value = user;
-                            cmd.Parameters.Add("@pswd", SqlDbType.NChar);
-                            cmd.Parameters["@pswd"].Value = pwd;
+                            cmd.Parameters.AddWithValue("@pseudo", user);
+                            cmd.Parameters.AddWithValue("@pswd", pwd);
 
                             c.Open();
                             role = (string)cmd.ExecuteScalar().ToString().Trim();
@@ -72,7 +71,9 @@ namespace WebApplication1.Authenticators
                         }
                     }
 
-                    if (role.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                    if (role.Equals("admin", StringComparison.OrdinalIgnoreCase) ||
+                        role.Equals("viewer", StringComparison.OrdinalIgnoreCase) ||
+                        role.Equals("streamer", StringComparison.OrdinalIgnoreCase))
                     {
                         var claims = new List<Claim>()
                         {
@@ -92,7 +93,15 @@ namespace WebApplication1.Authenticators
             }
             else
             {
-                context.ErrorResult = new AuthenticationFailureResult("invalid request", requestMessage);
+                role = "visitor";
+                var claims = new List<Claim>()
+                        {
+                            new Claim(ClaimTypes.Role, role)
+                        };
+
+                var claimsIdentity = new ClaimsIdentity(claims, "No Auth");
+                context.Principal = new ClaimsPrincipal(new[] { claimsIdentity });
+                //context.ErrorResult = new AuthenticationFailureResult("invalid request", requestMessage);
             }
 
             return Task.FromResult(0);
