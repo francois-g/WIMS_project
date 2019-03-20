@@ -115,9 +115,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public bool CheckIfExists(string value)
+        public bool CheckIfExists(string value1, string value2)
         {
-            return this.repo.checkExisting(value);
+            return this.repo.checkExisting(value1, value2);
         }
 
         //only not authenticated users, manage this on the front app

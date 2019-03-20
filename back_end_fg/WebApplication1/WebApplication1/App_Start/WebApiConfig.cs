@@ -35,7 +35,7 @@ namespace WebApplication1
 
             config.Routes.MapHttpRoute(
                 name: "CheckUsersExistingApi",
-                routeTemplate: "api/{controller}/usercheck/{value}",
+                routeTemplate: "api/{controller}/usercheck/{value1}/{value2}",
                 defaults: new { controller = "User", action = "CheckIfExists" }
             );
         }
