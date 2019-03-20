@@ -22,9 +22,9 @@ export class ChoixComponent implements OnInit {
     IsPseudoAndMailStreamerUnique;
     IsMdpAndCheckedMdpStreamer;
     IsMdpAndCheckedMdpViewer;
-    id = 999999;
+    maxId = 999999;
     ident;
-    private u : User;
+    private u: User;
     private _user$: Observable<User[]>;
     private _user: User[];
 
@@ -156,27 +156,27 @@ export class ChoixComponent implements OnInit {
                 Validators.required,
             ]
             ],
-            'nom':['',[
+            'nom': ['', [
                 Validators.required,
             ]],
-            'mail':['',[
+            'mail': ['', [
                 Validators.required,
                 Validators.email,
             ]],
-            'pseudo':['',[
+            'pseudo': ['', [
                 Validators.required,
             ]],
-            'mdp':['',[
+            'mdp': ['', [
                 Validators.required,
                 Validators.minLength(6),
             ]],
-            'mdpValidation':['',[
+            'mdpValidation': ['', [
                 Validators.required,
             ]],
-            'pseudoTwitch':['',[
+            'pseudoTwitch': ['', [
                 Validators.required,
             ]],
-            'lienTwitch': ['',[
+            'lienTwitch': ['', [
                 Validators.required,
             ]]
         });
@@ -223,12 +223,13 @@ export class ChoixComponent implements OnInit {
     submittedInscriptionStreamer;
     submittedConnectionViewer;
     submittedInscriptionViewer;
+
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
             this._user$ = this.Users.getByPseudo(this.formConnexionStreamer.value.pseudoStreamer);
             this._user$.subscribe(
                 u => {
-                    sessionStorage.setItem("test", JSON.stringify(u));
+                    sessionStorage.setItem('test', JSON.stringify(u));
                     this.user = u;
                 },
                 (err) => {
@@ -242,17 +243,18 @@ export class ChoixComponent implements OnInit {
         }
     }
     onSubmitInscriptionStreamer() {
-        for(let i = 0; i < this.user.length; i++) {
+        console.log(this.user);
+        for (let i = 0; i < this.user.length; i++) {
             if (this.user[i].Pseudo === this.formInscriptionStreamer.value.pseudo ||
                 this.user[i].Email === this.formInscriptionStreamer.value.mail) {
-                this.id = i;
+                this.maxId = i;
             }
         }
-        if(this.id !== 999999){
+        if (this.maxId !== 999999) {
             this.IsPseudoAndMailStreamerUnique = false;
             console.log('false');
         }
-        else{
+        else {
             this.IsPseudoAndMailStreamerUnique = true;
             console.log('true');
         }
@@ -286,7 +288,7 @@ export class ChoixComponent implements OnInit {
                     console.log('erreur ' + error);
 
                 }
-                );
+            );
 
             // console.log(this.u);
             // this.Users.insert(this.u);
@@ -296,15 +298,15 @@ export class ChoixComponent implements OnInit {
             this.submittedInscriptionStreamer = false;
         }
     }
-    onSubmitConnexionViewer() {
 
+    onSubmitConnexionViewer() {
         for (let i = 0; i < this.user.length; i++) {
             if (this.formConnexionViewer.valid) {
                 if (this.user[i].Pseudo === this.formConnexionViewer.value.pseudoViewer) {
                     console.log('Pseudo correct');
                     this.ident = i;
                     i = this.user.length;
-                    if(this.user[this.ident].Pswd === this.formConnexionViewer.value.mdpViewer){
+                    if (this.user[this.ident].Pswd === this.formConnexionViewer.value.mdpViewer) {
                         console.log('mdp correct, Connexion ok');
                         this.submittedConnectionViewer = true;
                         this.router.navigate(['AllOffers']);
@@ -322,14 +324,16 @@ export class ChoixComponent implements OnInit {
             }
         }
     }
+
     onSubmitInscriptionViewer() {
-        for(let i = 0; i < this.user.length; i++) {
+        this.getAllOnPage();
+        for (let i = 0; i < this.user.length; i++) {
             if (this.user[i].Pseudo === this.formInscriptionViewer.value.pseudoVew ||
                 this.user[i].Email === this.formInscriptionViewer.value.mailViewer) {
-                this.id = i;
+                this.maxId = i;
             }
         }
-        if(this.id !== 999999){
+        if (this.maxId !== 999999) {
             this.IsPseudoAndMailViewerUnique = false;
             console.log('false');
         }
@@ -347,8 +351,7 @@ export class ChoixComponent implements OnInit {
             this.submittedInscriptionViewer = true;
             console.log('Inscription ok');
             console.log(this.IsPseudoAndMailViewerUnique);
-            this.u = new User(
-            );
+            this.u = new User();
             this.u.FirstName = this.formInscriptionViewer.value.prenom;
             this.u.LastName = this.formInscriptionViewer.value.nom;
             this.u.Pseudo = this.formInscriptionViewer.value.pseudo;
@@ -360,13 +363,9 @@ export class ChoixComponent implements OnInit {
             this.Users.insert(this.u).subscribe(
                 () => {
                     console.log('Enregistrement fait');
-
                 },
-
                 (error) => {
-
                     console.log('erreur ' + error);
-
                 }
             );
 
@@ -389,6 +388,19 @@ export class ChoixComponent implements OnInit {
         //         console.log('erreur' + err);
         //     }
         // );
+    }
+
+    getAllOnPage() {
+        this._user$ = this.Users.getAll();
+        this._user$.subscribe(
+            u => {
+                sessionStorage.setItem('test', JSON.stringify(u));
+                this.user = u;
+            },
+            (err) => {
+                console.log('erreur' + err);
+            }
+        );
     }
 
     blueOver() {
