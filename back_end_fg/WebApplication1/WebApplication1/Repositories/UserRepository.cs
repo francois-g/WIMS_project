@@ -110,6 +110,58 @@ namespace WebApplication1.Repositories
             return user;
         }
 
+        public bool checkExisting(string value)
+        {
+            using (SqlConnection c = new SqlConnection())
+            {
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+
+                using (SqlCommand cmd = c.CreateCommand())
+                {
+                    cmd.CommandText = "SelectWimsUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    c.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            WimsUser user = new WimsUser();
+                            user.Id = (int)reader[0];
+                            user.Firstname = (string)reader[1].ToString().Trim();
+                            user.Lastname = (string)reader[2].ToString().Trim();
+                            user.Pseudo = (string)reader[3].ToString().Trim();
+                            user.Pswd = (string)reader[4].ToString().Trim();
+                            user.Email = (string)reader[5].ToString().Trim();
+                            user.TwitchLink = (reader[6] is DBNull) ? null : (string)reader[6];
+                            user.PseudoTwitch = (reader[7] is DBNull) ? null : (string)reader[7];
+                            user.Balance = (int)reader[8];
+                            user.ConditionAccepted = (bool)reader[9];
+                            user.CurrencyId = (reader[10] is DBNull) ? null : (int?)reader[10];
+                            if (user.CurrencyId != null)
+                            {
+                                user.Currency = cRepo.getById((int)user.CurrencyId);
+                            }
+                            user.Avatar = (reader[11] is DBNull) ? null : (string)reader[11].ToString().Trim();
+                            user.RoleId = (int)reader[12];
+                            user.Active = (bool)reader[13];
+                            listFromDB.Add(user);
+                        }
+                    }
+                    c.Close();
+                }
+            }
+
+            foreach(WimsUser u in listFromDB)
+            {
+                if(u.Pseudo == value || u.Email.Replace(".", "x") == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void add(WimsUser u)
         {
             using (SqlConnection c = new SqlConnection())

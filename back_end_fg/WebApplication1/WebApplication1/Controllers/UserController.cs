@@ -114,6 +114,12 @@ namespace WebApplication1.Controllers
             return this.repo.getByLogin(login);
         }
 
+        [HttpGet]
+        public bool CheckIfExists(string value)
+        {
+            return this.repo.checkExisting(value);
+        }
+
         //only not authenticated users, manage this on the front app
         [TokenAuthenticator(Domain: "userDom")]
         [Authorize(Roles = "Admin, visitor")]
