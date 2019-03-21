@@ -124,6 +124,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        
         public string BuildToken(string value1, string value2)
         {
             return this.repo.createToken(value1, value2);

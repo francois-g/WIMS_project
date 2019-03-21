@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../Observables/User';
 import {tokenKey} from '@angular/core/src/view';
+import {Encoding} from 'tslint/lib/utils';
 
 
 
@@ -14,8 +15,7 @@ export class UserService {
     private _url = 'http://localhost:50946/api/user';
     // private _url = 'http://mini.techni.local/badges';
     private _token: {
-        pseudo: string,
-        password: string
+
     };
 
     get url(): string {
@@ -49,8 +49,12 @@ export class UserService {
         return this._httpClient.get<boolean>(this.url + '/usercheck/' + value1 + '/' + value2);
     }
 
-    postToken(value1: string, value2: string): object {
-        return this._httpClient.post<object>(this.url + '/token/' + value1 + '/' + value2);
+    getToken(value1: string, value2: string): Observable<string> {
+        console.log('service' , [value1, value2]);
+        return this._httpClient.post<string>(this.url + '/token/' , value1 + '/' + value2, {headers: {   "Accept": "application/json",
+
+                "Content-Type": "application/x-www-form-urlencoded"}} );
+
     }
 
     update(value: User): Observable<User> {

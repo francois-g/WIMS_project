@@ -10,7 +10,8 @@ import {Currency} from '../Observables/Currency';
 import * as $ from 'jquery';
 import {Role} from '../Observables/Role';
 import {isUndefined} from 'util';
-
+import * as jwt_decode from 'jwt-decode';
+import {stringify} from 'querystring';
 
 @Component({
     selector: 'app-choix',
@@ -228,18 +229,22 @@ export class ChoixComponent implements OnInit {
     getUsers(): void {
         this.users = this.Users.getAll();
     }
+    token: Observable<string>;
+    tokenString: string;
 
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
-            this._user$ = this.Users.getByPseudo(this.formConnexionStreamer.value.pseudoStreamer);
-            this._user$.subscribe(
-                u => {
-                    sessionStorage.setItem('test', JSON.stringify(u));
-                    this.user = u;
-                    console.log(this.user);
+            this.token = this.Users.getToken(this.formConnexionStreamer.value.pseudoStreamer , this.formConnexionStreamer.value.mdpStreamer);
+            console.log(this.formConnexionStreamer.value.mdpStreamer);
+            this.token.subscribe(
+                t => {
+                    sessionStorage.setItem('test', t.toString());
+                    this.tokenString = t;
+                    console.log(this.tokenString);
                 },
                 (err) => {
-                    console.log('erreur' + err);
+                    console.log('erreur');
+                    console.log(err);
                 }
             );
         } else {
