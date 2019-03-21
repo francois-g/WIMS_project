@@ -230,6 +230,7 @@ export class ChoixComponent implements OnInit {
                 u => {
                     sessionStorage.setItem("test", JSON.stringify(u));
                     this.user = u;
+                    console.log(this.user);
                 },
                 (err) => {
                     console.log('erreur' + err);
