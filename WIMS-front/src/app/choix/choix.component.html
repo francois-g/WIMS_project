@@ -4,8 +4,8 @@
     <!-- streamer -->
     <div id="blue" (mouseover)="blueOver()" (mouseout)="blueOut()" class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
       <div *ngIf="streamer !== 2">
-        <button class="btn d-flex flex-column align-items-center" (click)="formStreamer(1)">
-          <div id="orangeblue" class="d-flex justify-content-center align-items-center">
+        <button id="buttonStreamer" class="btn d-flex flex-column align-items-center" (click)="formStreamer(1)">
+          <div id="orangeblue" class="d-flex justify-content-center align-items-center iconBig">
             <img class="logo" src="../../assets/images/manette.png">
           </div>
           <p class="streamerViewer mt-2" id="streamer">STREAMER</p>
@@ -129,9 +129,9 @@ formInscriptionStreamer.controls['pseudoTwitch'].invalid || formInscriptionStrea
     <!-- viewer -->
     <div id="orange" (mouseover)="orangeOver()" (mouseout)="orangeOut()" class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
       <div *ngIf="viewer !== 2">
-        <button class="btn d-flex flex-column align-items-center" (click)="formViewer(1)">
-          <div id="blueorange" class="d-flex justify-content-center align-items-center">
-            <img class="logo" src="../../assets/images/screen.png">
+        <button id="buttonViewer" class="btn d-flex flex-column align-items-center" (click)="formViewer(1)">
+          <div id="blueorange" class="d-flex justify-content-center align-items-center iconBig">
+            <img class="logo" src="../../assets/images/screenEmpty.png">
           </div>
           <p class="streamerViewer mt-2" id="viewer">VIEWER</p>
         </button>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,6 +22,8 @@ namespace WebApplication1.Controllers
         UserRepository repo = new UserRepository();
 
         //[AllowAnonymous]
+        [TokenAuthenticator(Domain: "userDom")]
+        [Authorize(Roles = "Streamer")]
         public IEnumerable<WimsUser> Get()
         {
             return this.repo.getAll();
@@ -118,6 +121,12 @@ namespace WebApplication1.Controllers
         public bool CheckIfExists(string value1, string value2)
         {
             return this.repo.checkExisting(value1, value2);
+        }
+
+        [HttpPost]
+        public string BuildToken(string value1, string value2)
+        {
+            return this.repo.createToken(value1, value2);
         }
 
         //only not authenticated users, manage this on the front app

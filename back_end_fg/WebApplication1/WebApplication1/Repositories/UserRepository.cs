@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Http;
+using Microsoft.IdentityModel.Tokens;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Repositories
@@ -160,6 +165,70 @@ namespace WebApplication1.Repositories
             }
 
             return false;
+        }
+
+        public string createToken(string value1, string value2)
+        {
+            string key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+            
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            
+            var credentials = new SigningCredentials
+                              (securityKey, SecurityAlgorithms.HmacSha256Signature);
+            
+            var header = new JwtHeader(credentials);
+
+            var payload = new JwtPayload();
+
+            using (SqlConnection c = new SqlConnection())
+            {
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                using (SqlCommand cmd = c.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * From WimsUser Where Pseudo = @pseudo AND Pswd = @pswd";
+
+                    cmd.Parameters.AddWithValue("@pseudo", value1);
+                    cmd.Parameters.AddWithValue("@pswd", value2);
+
+                    c.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            payload.Add("Id", (int)reader[0]);
+                            payload.Add("Firstname", (string)reader[1].ToString().Trim());
+                            payload.Add("Lastname", (string)reader[2].ToString().Trim());
+                            payload.Add("pseudo", (string)reader[3].ToString().Trim());
+                            payload.Add("password", (string)reader[4].ToString().Trim());
+                            payload.Add("Email", (string)reader[5].ToString().Trim());
+                            payload.Add("TwitchLink", (reader[6] is DBNull) ? null : (string)reader[6]);
+                            payload.Add("PseudoTwitch", (reader[7] is DBNull) ? null : (string)reader[7]);
+                            payload.Add("Balance", (int)reader[8]);
+                            payload.Add("ConditionAccepted", (bool)reader[9]);
+                            payload.Add("CurrencyId", (reader[10] is DBNull) ? null : (int?)reader[10]);
+                            payload.Add("Avatar", (reader[11] is DBNull) ? null : (string)reader[11].ToString().Trim());
+                            payload.Add("RoleId", (int)reader[12]);
+                            payload.Add("Active", (bool)reader[13]);
+                        }
+                    }
+                    c.Close();
+                }
+
+                var secToken = new JwtSecurityToken(header, payload);
+                var handler = new JwtSecurityTokenHandler();
+
+                var tokenString = handler.WriteToken(secToken);
+                //var token = handler.ReadJwtToken(tokenString);
+
+                if (payload.Keys.Count > 0)
+                {
+                    return tokenString;
+                }
+                else
+                {
+                    return "invalid dude";
+                }
+            }
         }
 
         public void add(WimsUser u)
