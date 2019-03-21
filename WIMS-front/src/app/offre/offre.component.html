@@ -14,13 +14,13 @@
                 <input type="number" id="startValue" class="form-control col-lg-3" [formControl]="formOffre.controls['startValue']">
                 <label for="dateFin">L'enchère prendra fin le: </label>
                 <input type="date" class="form-control col-lg-2" id="dateFin" [formControl]="formOffre.controls['dateFin']">
-                <label for="Fin">L'enchère prendra fin à: </label>
+                <label for="Fin">à: </label>
                 <div class="d-flex">
-                    <select id="Fin" class="mr-1 form-control col-lg-3" [formControl]="formOffre.controls['Fin']">
+                    <select id="Fin" class="mr-1 form-control col-lg-2" [formControl]="formOffre.controls['Fin']">
                         <option *ngFor="let hour of hours" value="{{hour}}">{{hour}}h</option>
                     </select>
                     :
-                    <select id="minuteFin" class="ml-1 form-control col-lg-3" [formControl]="formOffre.controls['minuteFin']">
+                    <select id="minuteFin" class="ml-1 form-control col-lg-2" [formControl]="formOffre.controls['minuteFin']">
                         <option *ngFor="let minute of minutes" value="{{minute}}">{{minute}}min</option>
                     </select>
                 </div>

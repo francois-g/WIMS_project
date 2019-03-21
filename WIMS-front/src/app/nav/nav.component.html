@@ -1,5 +1,7 @@
-<nav class="menu navbar navbar-expand-lg navbar-light ">
-    <img src="../../assets/images/wimslogo.png" id="logo">
+<nav class="menu navbar navbar-expand-lg">
+
+    <img src="../../assets/images/wimslogo.png" id="logo" [routerLink]="['/home']">
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,5 +24,13 @@
                 <a [routerLink]="['/Profile']" class="nav-link">Votre profile</a>
             </li>
         </ul>
+
+        <div class="navbar-right form-inline">
+            <form>
+                <input *ngIf="searchIsOpen" type="text" placeholder="Rechercher une offre par streamer" id="search-input" [(ngModel)]="inputText" name="input">
+                <button *ngIf="!searchIsOpen" class="button-search"(click)="openSearchBar()"><i class="fas fa-search"></i></button>
+                <button *ngIf="searchIsOpen" id="search-button" class="button-search" type="submit" (click)="searchQuery()"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
     </div>
 </nav>

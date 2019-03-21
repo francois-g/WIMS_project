@@ -16,17 +16,6 @@ import {Role} from '../Observables/Role';
     styleUrls: ['./choix.component.css']
 })
 export class ChoixComponent implements OnInit {
-    IsPseudoStreamer;
-    IsMdpStreamer;
-    IsPseudoAndMailViewerUnique;
-    IsPseudoAndMailStreamerUnique;
-    IsMdpAndCheckedMdpStreamer;
-    IsMdpAndCheckedMdpViewer;
-    id = 999999;
-    ident;
-    private u : User;
-    private _user$: Observable<User[]>;
-    private _user: User[];
 
     get user$(): Observable<User[]> {
         return this._user$;
@@ -43,47 +32,24 @@ export class ChoixComponent implements OnInit {
     set user(value: User[]) {
         this._user = value;
     }
-    panelOpenState = false;
-    streamer;
-    viewer;
-
-    //Form Connexion Streamer
-    private _formConnexionStreamer: FormGroup;
-    get formConnexionStreamer(): FormGroup{
+    get formConnexionStreamer(): FormGroup {
         return this._formConnexionStreamer;
     }
-    set formConnexionStreamer(value : FormGroup){
+    set formConnexionStreamer(value: FormGroup) {
         this._formConnexionStreamer = value;
     }
-    private _outputConnexionStreamer : {
-        pseudoStreamer: string,
-        mdpStreamer: string,
-    };
     get outputConnexionStreamer(): { pseudoStreamer: string; mdpStreamer: string; } {
         return this._outputConnexionStreamer;
     }
     set outputConnexionStreamer(value: { pseudoStreamer: string; mdpStreamer: string; }) {
         this._outputConnexionStreamer = value;
     }
-
-    //Form inscription Streamer
-    private _formInscriptionStreamer: FormGroup;
-    get formInscriptionStreamer(): FormGroup{
+    get formInscriptionStreamer(): FormGroup {
         return this._formInscriptionStreamer;
     }
-    set formInscriptionStreamer(value : FormGroup){
+    set formInscriptionStreamer(value: FormGroup) {
         this._formInscriptionStreamer = value;
     }
-    private _outputInscriptionStreamer : {
-        prenom: string,
-        nom: string,
-        mail: string,
-        pseudo: string,
-        mdp: string,
-        mdpValidation: string,
-        pseudoTwitch: string,
-        lienTwitch: string,
-    };
     get outputInscriptionStreamer(): { prenom: string; nom: string; mail: string; pseudo: string; mdp: string, mdpValidation: string;
         pseudoTwitch: string; lienTwitch: string; } {
         return this._outputInscriptionStreamer;
@@ -92,52 +58,29 @@ export class ChoixComponent implements OnInit {
         pseudoTwitch: string; lienTwitch: string; }) {
         this._outputInscriptionStreamer = value;
     }
-
-    // Form Connexion Viewer
-    private _formConnexionViewer: FormGroup;
-    get formConnexionViewer(): FormGroup{
+    get formConnexionViewer(): FormGroup {
         return this._formConnexionViewer;
     }
-    set formConnexionViewer(value : FormGroup){
+    set formConnexionViewer(value: FormGroup) {
         this._formConnexionViewer = value;
     }
-    private _outputConnexionViewer : {
-        pseudoViewer: string,
-        mdpViewer: string,
-    };
     get outputConnexionViewer(): { pseudoViewer: string; mdpViewer: string; } {
         return this._outputConnexionViewer;
     }
     set outputConnexionViewer(value: { pseudoViewer: string; mdpViewer: string; }) {
         this._outputConnexionViewer = value;
     }
-
-    //Form Inscription Viewer
-    private _formInscriptionViewer: FormGroup;
-    get formInscriptionViewer(): FormGroup{
+    get formInscriptionViewer(): FormGroup {
         return this._formInscriptionViewer;
     }
-    set formInscriptionViewer(value : FormGroup){
+    set formInscriptionViewer(value: FormGroup) {
         this._formInscriptionViewer = value;
     }
-    private _outputInscriptionViewer : {
-        prenomViewer: string,
-        nomViewer: string,
-        mailViewer: string,
-        pseudoVew: string,
-        mdpVew: string,
-        mdpValidationVew: string,
-    };
     get outputInscriptionViewer(): { prenomViewer: string; nomViewer: string; mailViewer: string; pseudoVew: string; mdpVew: string; mdpValidationVew: string} {
         return this._outputInscriptionViewer;
     }
     set outputInscriptionViewer(value: { prenomViewer: string; nomViewer: string; mailViewer: string; pseudoVew: string; mdpVew: string; mdpValidationVew: string }) {
         this._outputInscriptionViewer = value;
-    }
-
-    users;
-    getUsers(): void {
-        this.users = this.Users.getAll();
     }
 
     constructor(private builder: FormBuilder, private Users: UserService, private router: Router) {
@@ -146,7 +89,7 @@ export class ChoixComponent implements OnInit {
                 Validators.required,
             ]
             ],
-            'mdpStreamer':['',[
+            'mdpStreamer': ['', [
                 Validators.required,
             ]],
         });
@@ -156,27 +99,27 @@ export class ChoixComponent implements OnInit {
                 Validators.required,
             ]
             ],
-            'nom':['',[
+            'nom': ['', [
                 Validators.required,
             ]],
-            'mail':['',[
+            'mail': ['', [
                 Validators.required,
                 Validators.email,
             ]],
-            'pseudo':['',[
+            'pseudo': ['', [
                 Validators.required,
             ]],
-            'mdp':['',[
+            'mdp': ['', [
                 Validators.required,
                 Validators.minLength(6),
             ]],
-            'mdpValidation':['',[
+            'mdpValidation': ['', [
                 Validators.required,
             ]],
-            'pseudoTwitch':['',[
+            'pseudoTwitch': ['', [
                 Validators.required,
             ]],
-            'lienTwitch': ['',[
+            'lienTwitch': ['', [
                 Validators.required,
             ]]
         });
@@ -186,7 +129,7 @@ export class ChoixComponent implements OnInit {
                 Validators.required,
             ]
             ],
-            'mdpViewer':['',[
+            'mdpViewer': ['', [
                 Validators.required,
             ]],
         });
@@ -219,16 +162,74 @@ export class ChoixComponent implements OnInit {
             ],
         });
     }
+    IsPseudoStreamer;
+    IsMdpStreamer;
+    IsPseudoAndMailViewerUnique;
+    IsPseudoAndMailStreamerUnique;
+    IsMdpAndCheckedMdpStreamer;
+    IsMdpAndCheckedMdpViewer;
+    maxId = 999999;
+    ident;
+    private u: User;
+    private _user$: Observable<User[]>;
+    private _user: User[];
+    panelOpenState = false;
+    streamer;
+    viewer;
+
+    // Form Connexion Streamer
+    private _formConnexionStreamer: FormGroup;
+    private _outputConnexionStreamer: {
+        pseudoStreamer: string,
+        mdpStreamer: string,
+    };
+
+    // Form inscription Streamer
+    private _formInscriptionStreamer: FormGroup;
+    private _outputInscriptionStreamer: {
+        prenom: string,
+        nom: string,
+        mail: string,
+        pseudo: string,
+        mdp: string,
+        mdpValidation: string,
+        pseudoTwitch: string,
+        lienTwitch: string,
+    };
+
+    // Form Connexion Viewer
+    private _formConnexionViewer: FormGroup;
+    private _outputConnexionViewer: {
+        pseudoViewer: string,
+        mdpViewer: string,
+    };
+
+    // Form Inscription Viewer
+    private _formInscriptionViewer: FormGroup;
+    private _outputInscriptionViewer: {
+        prenomViewer: string,
+        nomViewer: string,
+        mailViewer: string,
+        pseudoVew: string,
+        mdpVew: string,
+        mdpValidationVew: string,
+    };
+
+    users;
     submittedConnectionStreamer;
     submittedInscriptionStreamer;
     submittedConnectionViewer;
     submittedInscriptionViewer;
+    getUsers(): void {
+        this.users = this.Users.getAll();
+    }
+
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
             this._user$ = this.Users.getByPseudo(this.formConnexionStreamer.value.pseudoStreamer);
             this._user$.subscribe(
                 u => {
-                    sessionStorage.setItem("test", JSON.stringify(u));
+                    sessionStorage.setItem('test', JSON.stringify(u));
                     this.user = u;
                     console.log(this.user);
                 },
@@ -236,34 +237,31 @@ export class ChoixComponent implements OnInit {
                     console.log('erreur' + err);
                 }
             );
-        }
-        // stop here if form is invalid
-        else {
+        } else {
             this.submittedConnectionStreamer = false;
         }
     }
     onSubmitInscriptionStreamer() {
-        for(let i = 0; i < this.user.length; i++) {
+        console.log(this.user);
+        for (let i = 0; i < this.user.length; i++) {
             if (this.user[i].Pseudo === this.formInscriptionStreamer.value.pseudo ||
                 this.user[i].Email === this.formInscriptionStreamer.value.mail) {
-                this.id = i;
+                this.maxId = i;
             }
         }
-        if(this.id !== 999999){
+        if (this.maxId !== 999999) {
             this.IsPseudoAndMailStreamerUnique = false;
             console.log('false');
-        }
-        else{
+        } else {
             this.IsPseudoAndMailStreamerUnique = true;
             console.log('true');
         }
-        if (this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation){
+        if (this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation) {
             this.IsMdpAndCheckedMdpStreamer = true;
-        }
-        else {
+        } else {
             this.IsMdpAndCheckedMdpStreamer = false;
         }
-        if (this.formInscriptionStreamer.valid && this.IsPseudoAndMailStreamerUnique === true && this.IsMdpAndCheckedMdpStreamer === true){
+        if (this.formInscriptionStreamer.valid && this.IsPseudoAndMailStreamerUnique === true && this.IsMdpAndCheckedMdpStreamer === true) {
             this.submittedInscriptionStreamer = true;
             console.log('Inscription ok');
             this.u = new User();
@@ -287,69 +285,82 @@ export class ChoixComponent implements OnInit {
                     console.log('erreur ' + error);
 
                 }
-                );
+            );
 
             // console.log(this.u);
             // this.Users.insert(this.u);
-        }
-        // stop here if form is invalid
-        else{
+        } else {
             this.submittedInscriptionStreamer = false;
         }
     }
-    onSubmitConnexionViewer() {
 
+    onSubmitConnexionViewer() {
         for (let i = 0; i < this.user.length; i++) {
             if (this.formConnexionViewer.valid) {
                 if (this.user[i].Pseudo === this.formConnexionViewer.value.pseudoViewer) {
                     console.log('Pseudo correct');
                     this.ident = i;
                     i = this.user.length;
-                    if(this.user[this.ident].Pswd === this.formConnexionViewer.value.mdpViewer){
+                    if (this.user[this.ident].Pswd === this.formConnexionViewer.value.mdpViewer) {
                         console.log('mdp correct, Connexion ok');
                         this.submittedConnectionViewer = true;
                         this.router.navigate(['AllOffers']);
-                    }
-                    else {
+                    } else {
                         console.log('Mauvais mot de passe');
                     }
                 } else {
                     console.log('Pseudo faux');
                 }
-            }
-            // stop here if form is invalid
-            else {
+            } else {
                 this.submittedConnectionViewer = false;
             }
         }
     }
+
     onSubmitInscriptionViewer() {
-        for(let i = 0; i < this.user.length; i++) {
-            if (this.user[i].Pseudo === this.formInscriptionViewer.value.pseudoVew ||
-                this.user[i].Email === this.formInscriptionViewer.value.mailViewer) {
-                this.id = i;
-            }
+        let exists = this.Users.check(this.formInscriptionViewer.value.mailViewer.replace('@', '%40').replace('.', 'x'));
+        if (!exists) {
+            exists = this.Users.check(this.formInscriptionViewer.value.pseudoVew);
         }
-        if(this.id !== 999999){
-            this.IsPseudoAndMailViewerUnique = false;
-            console.log('false');
+        if (exists) {
+            this._user$.subscribe(
+                u => {
+                    sessionStorage.setItem('test', JSON.stringify(u));
+                    this.user = u;
+                },
+                (err) => {
+                    console.log('erreur' + err);
+                }
+            );
         }
-        else{
-            this.IsPseudoAndMailViewerUnique = true;
-            console.log('true');
-        }
-        if(this.formInscriptionViewer.value.mdpVew === this.formInscriptionViewer.value.mdpValidationVew){
-            this.IsMdpAndCheckedMdpViewer = true;
-        }
-        else {
-            this.IsMdpAndCheckedMdpViewer = false;
-        }
-        if(this.formInscriptionViewer.valid && this.IsPseudoAndMailViewerUnique === true && this.IsMdpAndCheckedMdpViewer === true){
+        console.log('est-ce qu\'il existe?');
+        console.log(exists);
+        // this.getAllOnPage();
+        // for (let i = 0; i < this.user.length; i++) {
+        //     if (this.user[i].Pseudo === this.formInscriptionViewer.value.pseudoVew ||
+        //         this.user[i].Email === this.formInscriptionViewer.value.mailViewer) {
+        //         this.maxId = i;
+        //     }
+        // }
+        // if (this.maxId !== 999999) {
+        //     this.IsPseudoAndMailViewerUnique = false;
+        //     console.log('false');
+        // }
+        // else{
+        //     this.IsPseudoAndMailViewerUnique = true;
+        //     console.log('true');
+        // }
+        // if(this.formInscriptionViewer.value.mdpVew === this.formInscriptionViewer.value.mdpValidationVew){
+        //     this.IsMdpAndCheckedMdpViewer = true;
+        // }
+        // else {
+        //     this.IsMdpAndCheckedMdpViewer = false;
+        // }
+        if (this.formInscriptionViewer.valid && !exists && this.IsMdpAndCheckedMdpViewer === true) {
             this.submittedInscriptionViewer = true;
             console.log('Inscription ok');
             console.log(this.IsPseudoAndMailViewerUnique);
-            this.u = new User(
-            );
+            this.u = new User();
             this.u.FirstName = this.formInscriptionViewer.value.prenom;
             this.u.LastName = this.formInscriptionViewer.value.nom;
             this.u.Pseudo = this.formInscriptionViewer.value.pseudo;
@@ -361,21 +372,15 @@ export class ChoixComponent implements OnInit {
             this.Users.insert(this.u).subscribe(
                 () => {
                     console.log('Enregistrement fait');
-
                 },
-
                 (error) => {
-
                     console.log('erreur ' + error);
-
                 }
             );
 
             // console.log(this.u);
             // this.Users.insert(this.u);
-        }
-        // stop here if form is invalid
-        else {
+        } else {
             this.submittedInscriptionViewer = false;
         }
     }
@@ -390,6 +395,19 @@ export class ChoixComponent implements OnInit {
         //         console.log('erreur' + err);
         //     }
         // );
+    }
+
+    getAllOnPage() {
+        this._user$ = this.Users.getAll();
+        this._user$.subscribe(
+            u => {
+                sessionStorage.setItem('test', JSON.stringify(u));
+                this.user = u;
+            },
+            (err) => {
+                console.log('erreur' + err);
+            }
+        );
     }
 
     blueOver() {

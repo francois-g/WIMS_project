@@ -26,6 +26,18 @@ namespace WebApplication1
                 routeTemplate: "api/{controller}/login/{login}",
                 defaults: new { controller = "User", action = "GetWithLogin" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "GroupedPricesApi",
+                routeTemplate: "api/{controller}/order/{value}",
+                defaults: new { controller = "PriceToWin", action = "OrderBy" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "CheckUsersExistingApi",
+                routeTemplate: "api/{controller}/usercheck/{value1}/{value2}",
+                defaults: new { controller = "User", action = "CheckIfExists" }
+            );
         }
     }
 }

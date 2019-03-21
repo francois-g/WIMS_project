@@ -1,12 +1,11 @@
 <app-nav></app-nav>
-<<<<<<< HEAD
-<iframe width="100%" height="100%" src="https://www.youtube.com/embed/fWhMuR0KACk?autoplay=1&controls=0&loop=1&showinfo=0&start=17&end=20" frameborder="0"></iframe>
-=======
-<iframe src="https://www.youtube.com/watch?v=fWhMuR0KACk" height="100%" width="100%">
-</iframe>
->>>>>>> ca21c92552d8b9f59711aa6d59a5210291f83b18
-<div class="container-fluid d-flex flex-column align-items-center">
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center all">
     <img class="logo-title" src="../../assets/images/wimslogo.png">
     <div class="title-head">Welcome in My Stream</div>
+    <p>Vous avez toujours rêvé de pouvoir jouer avec votre streamer préféré? Wims est le premier site qui vous permet de le faire.</p>
+    <div class="d-flex mb-5 mt-5">
+        <a [routerLink]="['/Choice']" class="btn btn-warning mr-5">Connexion/Inscription</a>
+        <a [routerLink]="['/A propos']" class="btn connexion ml-3">En savoir plus</a>
+    </div>
 </div>
 <app-footer></app-footer>

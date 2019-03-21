@@ -9,16 +9,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using WebApplication1.Authenticators;
 using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Controllers
 {
     [EnableCors("*", "*", "*")]
+    //[Authorize(Roles = "Admin")]
     public class GameController : ApiController
     {
         GameRepository repo = new GameRepository();
 
+        //[AllowAnonymous]
         public IEnumerable<Game> Get()
         {
             return this.repo.getAll();
@@ -86,6 +89,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "gameDom")]
+        [Authorize(Roles = "Admin, Streamer")]
         public void Post([FromBody]Game g)
         {
             this.repo.add(g);
@@ -113,6 +118,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "gameDom")]
+        [Authorize(Roles = "Admin")]
         public void Put(int id, [FromBody]Game g)
         {
             this.repo.update(id, g);
@@ -154,7 +161,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
-
+        [TokenAuthenticator(Domain: "gameDom")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             this.repo.delete(id, "Game");

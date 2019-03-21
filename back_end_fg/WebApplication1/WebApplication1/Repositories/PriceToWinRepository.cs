@@ -88,6 +88,40 @@ namespace WebApplication1.Repositories
             return price;
         }
 
+        public IEnumerable<PriceToWin> getOrdered(string value)
+        {
+            using (SqlConnection c = new SqlConnection())
+            {
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                //c.ConnectionString = @"Data Source=TFNSSC07\SQLEXPRESS;Initial Catalog=WIMS_Database;Integrated Security=True;";
+                using (SqlCommand cmd = c.CreateCommand())
+                {
+                    cmd.CommandText = "Select * FROM PriceToWin ORDER BY " + value;
+                    c.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            PriceToWin price = new PriceToWin();
+                            price.Id = (int)reader[0];
+                            price.Twitcher = uRepo.getById((int)reader[1]);
+                            //price.Twitcher.Id = (int)reader[1];
+                            price.OfferEnd = (DateTime)reader[2];
+                            price.Game = gRepo.getById((int)reader[3]);
+                            //price.Game.Id = (int)reader[3];
+                            price.AuctionStartValue = (int)reader[4];
+                            price.Description = (reader[5] is DBNull) ? null : (string)reader[5];
+                            price.Active = (bool)reader[6];
+                            listFromDB.Add(price);
+                        }
+                    }
+                    c.Close();
+                }
+            }
+
+            return listFromDB;
+        }
+
         public void add(PriceToWin p)
         {
             using (SqlConnection c = new SqlConnection())

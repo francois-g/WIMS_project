@@ -8,16 +8,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using WebApplication1.Authenticators;
 using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Controllers
 {
     [EnableCors("*", "*", "*")]
+    //[Authorize(Roles = "Admin")]
     public class UserController : ApiController
     {
         UserRepository repo = new UserRepository();
 
+        //[AllowAnonymous]
         public IEnumerable<WimsUser> Get()
         {
             return this.repo.getAll();
@@ -61,7 +64,7 @@ namespace WebApplication1.Controllers
             //return listFromDB;
             #endregion
         }
-
+        
         public WimsUser Get(int id)
         {
             return this.repo.getById(id);
@@ -111,6 +114,15 @@ namespace WebApplication1.Controllers
             return this.repo.getByLogin(login);
         }
 
+        [HttpGet]
+        public bool CheckIfExists(string value1, string value2)
+        {
+            return this.repo.checkExisting(value1, value2);
+        }
+
+        //only not authenticated users, manage this on the front app
+        [TokenAuthenticator(Domain: "userDom")]
+        [Authorize(Roles = "Admin, visitor")]
         public void Post([FromBody]WimsUser u)
         {
             this.repo.add(u);
@@ -178,6 +190,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "userDom")]
+        [Authorize(Roles = "Admin, Viewer, Streamer")]
         public void Put(int id, [FromBody]WimsUser u)
         {
             this.repo.update(id, u);
@@ -244,7 +258,9 @@ namespace WebApplication1.Controllers
             //    listFromDB.Add(u);
             #endregion
         }
-
+        
+        [TokenAuthenticator(Domain: "userDom")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             this.repo.delete(id, "WimsUser");

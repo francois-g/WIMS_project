@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { HomeComponent } from './home/home.component';
     FooterComponent,
     ProfileComponent,
     HomeComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

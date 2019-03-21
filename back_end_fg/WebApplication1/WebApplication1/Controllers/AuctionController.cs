@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using WebApplication1.Authenticators;
 using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
@@ -58,6 +59,7 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "auctionDom")]
         public Auction Get(int id)
         {
             return this.repo.getById(id);
@@ -98,6 +100,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "auctionDom")]
+        [Authorize(Roles = "Admin, Viewer, Streamer")]
         public void Post([FromBody]Auction auc)
         {
             this.repo.add(auc);
@@ -215,6 +219,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "auctionDom")]
+        [Authorize(Roles = "Admin")]
         public void Put(int id, [FromBody]Auction auc)
         {
             this.repo.update(id, auc);
@@ -266,6 +272,8 @@ namespace WebApplication1.Controllers
             #endregion
         }
 
+        [TokenAuthenticator(Domain: "auctionDom")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             this.repo.delete(id, "Auction");

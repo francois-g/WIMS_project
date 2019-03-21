@@ -1,8 +1,20 @@
 .menu{
-  background-color: orange;
+
+  background-color: #FF9558;
   width: 100%;
 }
 #logo{
-    max-width: 6%;
+    max-width: 4%;
+}
+a{
+    color: white;
+}
+
+
+.button-search {
+    background-color: Transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
 }
 

@@ -80,6 +80,10 @@ export class PricetowinService {
         return this._httpClient.post<PriceToWin>(this.url, value);
     }
 
+    orderBy(value: string): Observable<PriceToWin[]> {
+        return this._httpClient.get<PriceToWin[]>(this.url + '/order/' + value);
+    }
+
 
     //
     // getOffers() {

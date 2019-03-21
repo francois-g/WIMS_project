@@ -16,8 +16,8 @@ export class User {
     private conditionAccepted: number;
     private currencyId: number;
     private currency: Currency;
-    private avatar: string = '';
-    private active: boolean = true;
+    private avatar = '';
+    private active = true;
     private role: number;
 
     get Id(): number {
