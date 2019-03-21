@@ -38,6 +38,12 @@ namespace WebApplication1
                 routeTemplate: "api/{controller}/usercheck/{value1}/{value2}",
                 defaults: new { controller = "User", action = "CheckIfExists" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "TokenReceiving",
+                routeTemplate: "api/{controller}/token/{value1}/{value2}",
+                defaults: new { controller = "User", action = "BuildToken" }
+            );
         }
     }
 }
