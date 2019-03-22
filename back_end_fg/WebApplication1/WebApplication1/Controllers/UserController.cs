@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using WebApplication1.Authenticators;
+using WebApplication1.Models;
 using WebApplication1.Repositories;
 using WimsApiMKI.Models;
 
@@ -123,11 +124,16 @@ namespace WebApplication1.Controllers
             return this.repo.checkExisting(value1, value2);
         }
 
+        [Route("api/user/token")]
         [HttpPost]
+<<<<<<< HEAD
         
         public string BuildToken(string value1, string value2)
+=======
+        public string BuildToken([FromBody]TokenModel t)
+>>>>>>> 59a633869c3b8d28184836499800a3ef6197fb1d
         {
-            return this.repo.createToken(value1, value2);
+            return this.repo.createToken(t);
         }
 
         //only not authenticated users, manage this on the front app

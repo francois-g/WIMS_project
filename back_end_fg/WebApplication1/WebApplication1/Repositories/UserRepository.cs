@@ -11,6 +11,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http;
 using Microsoft.IdentityModel.Tokens;
+using WebApplication1.Models;
 using WimsApiMKI.Models;
 
 namespace WebApplication1.Repositories
@@ -167,7 +168,7 @@ namespace WebApplication1.Repositories
             return false;
         }
 
-        public string createToken(string value1, string value2)
+        public string createToken(TokenModel t)
         {
             string key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
             
@@ -187,8 +188,8 @@ namespace WebApplication1.Repositories
                 {
                     cmd.CommandText = "SELECT * From WimsUser Where Pseudo = @pseudo AND Pswd = @pswd";
 
-                    cmd.Parameters.AddWithValue("@pseudo", value1);
-                    cmd.Parameters.AddWithValue("@pswd", value2);
+                    cmd.Parameters.AddWithValue("@pseudo", t.Pseudo);
+                    cmd.Parameters.AddWithValue("@pswd", t.Password);
 
                     c.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())

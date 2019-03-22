@@ -14,9 +14,13 @@ export class UserService {
 
     private _url = 'http://localhost:50946/api/user';
     // private _url = 'http://mini.techni.local/badges';
+<<<<<<< HEAD
     private _token: {
 
     };
+=======
+    private _token: {};
+>>>>>>> 59a633869c3b8d28184836499800a3ef6197fb1d
 
     get url(): string {
         return this._url;
@@ -49,18 +53,24 @@ export class UserService {
         return this._httpClient.get<boolean>(this.url + '/usercheck/' + value1 + '/' + value2);
     }
 
+<<<<<<< HEAD
     getToken(value1: string, value2: string): Observable<string> {
         console.log('service' , [value1, value2]);
         return this._httpClient.post<string>(this.url + '/token/' , value1 + '/' + value2, {headers: {   "Accept": "application/json",
 
                 "Content-Type": "application/x-www-form-urlencoded"}} );
 
+=======
+    getToken(value: object): Observable<string> {
+        return this._httpClient.post<string>(this.url + '/token', value);
+>>>>>>> 59a633869c3b8d28184836499800a3ef6197fb1d
     }
 
     update(value: User): Observable<User> {
         return this._httpClient.put<User>(this.url + '/' + 1, value);
     }
+
     getByPseudo(value: string): Observable<User[]> {
-        return this._httpClient.get<User[]>(this.url + '/login/' + value);
+            return this._httpClient.get<User[]>(this.url + '/login/' + value);
     }
 }
