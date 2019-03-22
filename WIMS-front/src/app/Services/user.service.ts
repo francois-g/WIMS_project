@@ -13,10 +13,7 @@ export class UserService {
 
     private _url = 'http://localhost:50946/api/user';
     // private _url = 'http://mini.techni.local/badges';
-    private _token: {
-        pseudo: string,
-        password: string
-    };
+    private _token: {};
 
     get url(): string {
         return this._url;
@@ -49,14 +46,15 @@ export class UserService {
         return this._httpClient.get<boolean>(this.url + '/usercheck/' + value1 + '/' + value2);
     }
 
-    postToken(value1: string, value2: string): object {
-        return this._httpClient.post<object>(this.url + '/token/' + value1 + '/' + value2);
+    getToken(value: object): Observable<string> {
+        return this._httpClient.post<string>(this.url + '/token', value);
     }
 
     update(value: User): Observable<User> {
         return this._httpClient.put<User>(this.url + '/' + 1, value);
     }
+
     getByPseudo(value: string): Observable<User[]> {
-        return this._httpClient.get<User[]>(this.url + '/login/' + value);
+            return this._httpClient.get<User[]>(this.url + '/login/' + value);
     }
 }

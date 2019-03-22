@@ -8,9 +8,7 @@ import {PricetowinService} from '../Services/pricetowin.service';
 import {Router} from '@angular/router';
 import {Currency} from '../Observables/Currency';
 import * as $ from 'jquery';
-import {Role} from '../Observables/Role';
-import {isUndefined} from 'util';
-
+import * as JWT from 'jwt-decode';
 
 @Component({
     selector: 'app-choix',
@@ -18,6 +16,7 @@ import {isUndefined} from 'util';
     styleUrls: ['./choix.component.css']
 })
 export class ChoixComponent implements OnInit {
+
 
     IsPseudoStreamer;
     IsMdpStreamer;
@@ -30,6 +29,7 @@ export class ChoixComponent implements OnInit {
     private u: User;
     private _user$: Observable<User[]>;
     private _user: User[];
+    private _tokenString$: Observable<string>;
     panelOpenState = false;
     streamer;
     viewer;
@@ -92,6 +92,14 @@ export class ChoixComponent implements OnInit {
 
     set user(value: User[]) {
         this._user = value;
+    }
+
+    get tokenString$(): Observable<string> {
+        return this._tokenString$;
+    }
+
+    set tokenString$(value: Observable<string>) {
+        this._tokenString$ = value;
     }
 
     get formConnexionStreamer(): FormGroup {
@@ -231,11 +239,19 @@ export class ChoixComponent implements OnInit {
 
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
-            this._user$ = this.Users.getByPseudo(this.formConnexionStreamer.value.pseudoStreamer);
-            this._user$.subscribe(
-                u => {
-                    sessionStorage.setItem('test', JSON.stringify(u));
-                    this.user = u;
+            let tokenString: string;
+            const tokenObj = {
+                'Pseudo': this.formConnexionStreamer.value.pseudoStreamer,
+                'Password': this.formConnexionStreamer.value.mdpStreamer
+            }
+            this._tokenString$ = this.Users.getToken(tokenObj);
+            this._tokenString$.subscribe(
+                t => {
+                    sessionStorage.setItem('test', JWT(t));
+                    tokenString = t;
+                    console.log(tokenString);
+                    console.log(JWT(t));
+                    window.location.href = 'http://localhost:4200/AllOffers';
                 },
                 (err) => {
                     console.log('erreur' + err);
@@ -450,6 +466,10 @@ export class ChoixComponent implements OnInit {
         if ($('#orangeblue').hasClass('iconSmall')) {
             $('#orangeblue').toggleClass('iconSmall iconBig');
         }
+        $('#viewer').toggleClass('resizeTitle viewerTitle');
+        if ($('#streamer').hasClass('resizeTitle')) {
+            $('#streamer').toggleClass('resizeTitle streamerTitle');
+        }
         this.viewer = value;
         this.streamer = 0;
     }
@@ -460,6 +480,10 @@ export class ChoixComponent implements OnInit {
         $('#buttonViewer').attr('enabled', 'enabled');
         if ($('#blueorange').hasClass('iconSmall')) {
             $('#blueorange').toggleClass('iconSmall iconBig');
+        }
+        $('#streamer').toggleClass('resizeTitle streamerTitle');
+        if ($('#viewer').hasClass('resizeTitle')) {
+            $('#viewer').toggleClass('resizeTitle viewerTitle');
         }
         this.streamer = value;
         this.viewer = 0;

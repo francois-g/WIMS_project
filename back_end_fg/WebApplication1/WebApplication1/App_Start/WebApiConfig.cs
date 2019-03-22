@@ -41,7 +41,7 @@ namespace WebApplication1
 
             config.Routes.MapHttpRoute(
                 name: "TokenReceiving",
-                routeTemplate: "api/{controller}/token/{value1}/{value2}",
+                routeTemplate: "api/{controller}/token/",
                 defaults: new { controller = "User", action = "BuildToken" }
             );
         }

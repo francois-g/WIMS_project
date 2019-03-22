@@ -8,12 +8,12 @@
           <div id="orangeblue" class="d-flex justify-content-center align-items-center iconBig">
             <img class="logo" src="../../assets/images/manette.png">
           </div>
-          <p class="streamerViewer mt-2" id="streamer">STREAMER</p>
+          <p class="streamerTitle mt-2" id="streamer">STREAMER</p>
         </button>
       </div>
       <!--Formulaire de Connexion-->
       <div *ngIf="streamer === 1">
-        <form [formGroup]="formConnexionStreamer" (ngSubmit)="onSubmitConnexionStreamer()">
+        <form [formGroup]="formConnexionStreamer" (ngSubmit)="onSubmitConnexionStreamer()" id="formConnexionS">
           <div class="alert alert-danger col-lg-12" *ngIf="formConnexionStreamer.controls['pseudoStreamer'].invalid && (formConnexionStreamer.controls['pseudoStreamer'].errors
             && submittedConnectionStreamer === false) || IsMdpStreamer === false">
             Le pseudo ou le mot de passe n'est pas correct
@@ -133,13 +133,13 @@ formInscriptionStreamer.controls['pseudoTwitch'].invalid || formInscriptionStrea
           <div id="blueorange" class="d-flex justify-content-center align-items-center iconBig">
             <img class="logo" src="../../assets/images/screenEmpty.png">
           </div>
-          <p class="streamerViewer mt-2" id="viewer">VIEWER</p>
+          <p class="viewerTitle mt-2" id="viewer">VIEWER</p>
         </button>
       </div>
 
       <!--Formulaire de connexion-->
       <div *ngIf="viewer === 1">
-        <form [formGroup]="formConnexionViewer" (ngSubmit)="onSubmitConnexionViewer()">
+        <form [formGroup]="formConnexionViewer" (ngSubmit)="onSubmitConnexionViewer()" id="formConnexionV">
           <div class="alert alert-danger col-lg-12" *ngIf="formConnexionViewer.controls['pseudoViewer'].invalid && (formConnexionViewer.controls['pseudoViewer'].errors
             && submittedConnectionViewer === false) || formConnexionViewer.controls['mdpViewer'].invalid && (formConnexionViewer.controls['mdpViewer'].errors
             && submittedConnectionViewer === false)">

@@ -16,6 +16,7 @@
     background-color: orange;
     /*border-radius: 100%;*/
 }
+
 #blueorange{
     /*height: 200px;*/
     /*width: 200px;*/
@@ -23,6 +24,11 @@
     transition: all 0.5s linear 0s;
     background-color: blue;
     /*border-radius: 100%;*/
+}
+
+#viewer, #streamer, #formConnexionS, #formConnexionV {
+    -webkit-transition: all 0.5s linear 0s;
+    transition: all 0.5s linear 0s;
 }
 
 .iconBig{
@@ -41,13 +47,13 @@
     max-width: 150px;
 }
 
-.streamerViewer{
+.streamerTitle, .viewerTitle{
     font-size: 5em;
     font-weight: bold;
 }
 
 .resizeTitle{
-    font-size: 8em;
+    font-size: 7em;
 }
 
 .resizeIcon{
