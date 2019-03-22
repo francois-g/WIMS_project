@@ -10,6 +10,7 @@ import {User} from '../Observables/User';
 import {Game} from '../Observables/Game';
 import {DataService} from '../Services/data.service';
 import {isUndefined} from 'util';
+import * as JWT from 'jwt-decode';
 
 @Component({
     selector: 'app-all-offers',
@@ -178,6 +179,9 @@ export class AllOffersComponent implements OnInit {
     }
 
     ngOnInit() {
+        let token = sessionStorage.getItem('test');
+        let tokenDecode = JWT(token);
+        console.log(tokenDecode);
         this.offer = [];
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(

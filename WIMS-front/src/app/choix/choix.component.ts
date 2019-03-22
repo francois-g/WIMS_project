@@ -8,14 +8,11 @@ import {PricetowinService} from '../Services/pricetowin.service';
 import {Router} from '@angular/router';
 import {Currency} from '../Observables/Currency';
 import * as $ from 'jquery';
-<<<<<<< HEAD
 import {Role} from '../Observables/Role';
 import {isUndefined} from 'util';
-import * as jwt_decode from 'jwt-decode';
 import {stringify} from 'querystring';
-=======
 import * as JWT from 'jwt-decode';
->>>>>>> 59a633869c3b8d28184836499800a3ef6197fb1d
+
 
 @Component({
     selector: 'app-choix',
@@ -248,15 +245,7 @@ export class ChoixComponent implements OnInit {
 
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
-<<<<<<< HEAD
-            this.token = this.Users.getToken(this.formConnexionStreamer.value.pseudoStreamer , this.formConnexionStreamer.value.mdpStreamer);
-            console.log(this.formConnexionStreamer.value.mdpStreamer);
-            this.token.subscribe(
-                t => {
-                    sessionStorage.setItem('test', t.toString());
-                    this.tokenString = t;
-                    console.log(this.tokenString);
-=======
+
             let tokenString: string;
             const tokenObj = {
                 'Pseudo': this.formConnexionStreamer.value.pseudoStreamer,
@@ -265,12 +254,10 @@ export class ChoixComponent implements OnInit {
             this._tokenString$ = this.Users.getToken(tokenObj);
             this._tokenString$.subscribe(
                 t => {
-                    sessionStorage.setItem('test', JWT(t));
+                    sessionStorage.setItem('test', t);
                     tokenString = t;
                     console.log(tokenString);
-                    console.log(JWT(t));
                     window.location.href = 'http://localhost:4200/AllOffers';
->>>>>>> 59a633869c3b8d28184836499800a3ef6197fb1d
                 },
                 (err) => {
                     console.log('erreur');
