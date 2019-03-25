@@ -44,6 +44,12 @@ namespace WebApplication1
                 routeTemplate: "api/{controller}/token/",
                 defaults: new { controller = "User", action = "BuildToken" }
             );
+
+            config.Routes.MapHttpRoute(
+               name: "BalanceReceiving",
+               routeTemplate: "api/{controller}/balance/{id}",
+               defaults: new { controller = "User", action = "GetBalance" }
+           );
         }
     }
 }

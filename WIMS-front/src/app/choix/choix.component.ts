@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../Services/user.service';
 import {Observable} from 'rxjs';
-import {PriceToWin} from '../Observables/PriceToWin';
 import {User} from '../Observables/User';
-import {PricetowinService} from '../Services/pricetowin.service';
 import {Router} from '@angular/router';
 import {Currency} from '../Observables/Currency';
 import * as $ from 'jquery';
@@ -233,24 +231,20 @@ export class ChoixComponent implements OnInit {
         });
     }
 
-    getUsers(): void {
-        this.users = this.Users.getAll();
-    }
-
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
             let tokenString: string;
             const tokenObj = {
                 'Pseudo': this.formConnexionStreamer.value.pseudoStreamer,
                 'Password': this.formConnexionStreamer.value.mdpStreamer
-            }
+            };
             this._tokenString$ = this.Users.getToken(tokenObj);
             this._tokenString$.subscribe(
                 t => {
-                    sessionStorage.setItem('test', JWT(t));
+                    sessionStorage.setItem('currentUser', t);
                     tokenString = t;
                     console.log(tokenString);
-                    console.log(JWT(t));
+                    console.log(t);
                     window.location.href = 'http://localhost:4200/AllOffers';
                 },
                 (err) => {
@@ -261,80 +255,93 @@ export class ChoixComponent implements OnInit {
             this.submittedConnectionStreamer = false;
         }
     }
-    onSubmitInscriptionStreamer() {
-        console.log(this.user);
-        for (let i = 0; i < this.user.length; i++) {
-            if (this.user[i].Pseudo === this.formInscriptionStreamer.value.pseudo ||
-                this.user[i].Email === this.formInscriptionStreamer.value.mail) {
-                this.maxId = i;
-            }
-        }
-        if (this.maxId !== 999999) {
-            this.IsPseudoAndMailStreamerUnique = false;
-            console.log('false');
-        } else {
-            this.IsPseudoAndMailStreamerUnique = true;
-            console.log('true');
-        }
-        if (this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation) {
-            this.IsMdpAndCheckedMdpStreamer = true;
-        } else {
-            this.IsMdpAndCheckedMdpStreamer = false;
-        }
-        if (this.formInscriptionStreamer.valid && this.IsPseudoAndMailStreamerUnique === true && this.IsMdpAndCheckedMdpStreamer === true) {
-            this.submittedInscriptionStreamer = true;
-            console.log('Inscription ok');
-            this.u = new User();
-            this.u.FirstName = this.formInscriptionStreamer.value.prenom;
-            this.u.LastName = this.formInscriptionStreamer.value.nom;
-            this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
-            this.u.Pswd = this.formInscriptionStreamer.value.mdp;
-            this.u.Email = this.formInscriptionStreamer.value.mail;
-            this.u.Role = 2;
-            this.u.Currency = new Currency(1);
-            console.log(this.u);
-            this.Users.insert(this.u).subscribe(
-                () => {
-
-                    console.log('Enregistrement fait');
-
-                },
-
-                (error) => {
-
-                    console.log('erreur ' + error);
-
-                }
-            );
-
-            // console.log(this.u);
-            // this.Users.insert(this.u);
-        } else {
-            this.submittedInscriptionStreamer = false;
-        }
-    }
 
     onSubmitConnexionViewer() {
-        for (let i = 0; i < this.user.length; i++) {
-            if (this.formConnexionViewer.valid) {
-                if (this.user[i].Pseudo === this.formConnexionViewer.value.pseudoViewer) {
-                    console.log('Pseudo correct');
-                    this.ident = i;
-                    i = this.user.length;
-                    if (this.user[this.ident].Pswd === this.formConnexionViewer.value.mdpViewer) {
-                        console.log('mdp correct, Connexion ok');
-                        this.submittedConnectionViewer = true;
-                        this.router.navigate(['AllOffers']);
-                    } else {
-                        console.log('Mauvais mot de passe');
-                    }
-                } else {
-                    console.log('Pseudo faux');
+        if (this.formConnexionViewer.valid) {
+            let tokenString: string;
+            const tokenObj = {
+                'Pseudo': this.formConnexionViewer.value.pseudoViewer,
+                'Password': this.formConnexionViewer.value.mdpViewer
+            };
+            this._tokenString$ = this.Users.getToken(tokenObj);
+            this._tokenString$.subscribe(
+                t => {
+                    sessionStorage.setItem('currentUser', t);
+                    tokenString = t;
+                    console.log(tokenString);
+                    console.log(t);
+                    window.location.href = 'http://localhost:4200/AllOffers';
+                },
+                (err) => {
+                    console.log('erreur' + err);
                 }
-            } else {
-                this.submittedConnectionViewer = false;
-            }
+            );
+        } else {
+            this.submittedConnectionViewer = false;
         }
+        // for (let i = 0; i < this.user.length; i++) {
+        //     if (this.formConnexionViewer.valid) {
+        //         if (this.user[i].Pseudo === this.formConnexionViewer.value.pseudoViewer) {
+        //             console.log('Pseudo correct');
+        //             this.ident = i;
+        //             i = this.user.length;
+        //             if (this.user[this.ident].Pswd === this.formConnexionViewer.value.mdpViewer) {
+        //                 console.log('mdp correct, Connexion ok');
+        //                 this.submittedConnectionViewer = true;
+        //                 this.router.navigate(['AllOffers']);
+        //             } else {
+        //                 console.log('Mauvais mot de passe');
+        //             }
+        //         } else {
+        //             console.log('Pseudo faux');
+        //         }
+        //     } else {
+        //         this.submittedConnectionViewer = false;
+        //     }
+        // }
+    }
+
+    onSubmitInscriptionStreamer() {
+        let exists: boolean;
+        this.Users.check(this.formInscriptionStreamer.value.pseudoStreamer, this.formInscriptionStreamer.value.mail.replace('@', '%40').replace('.', 'x')).subscribe(
+            data => {
+                exists = data;
+                console.log(data);
+                console.log(exists);
+                if (this.formInscriptionStreamer.value.mdp === this.formInscriptionStreamer.value.mdpValidation) {
+                    this.IsMdpAndCheckedMdpStreamer = true;
+                } else {
+                    this.IsMdpAndCheckedMdpStreamer = false;
+                }
+                if (this.formInscriptionStreamer.valid && !exists && this.IsMdpAndCheckedMdpStreamer === true) {
+                    this.submittedInscriptionStreamer = true;
+                    console.log('Inscription ok');
+                    this.u = new User();
+                    this.u.FirstName = this.formInscriptionStreamer.value.prenom;
+                    this.u.LastName = this.formInscriptionStreamer.value.nom;
+                    this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
+                    this.u.Pswd = this.formInscriptionStreamer.value.mdp;
+                    this.u.Email = this.formInscriptionStreamer.value.mail;
+                    this.u.Role = 1;
+                    this.u.Currency = new Currency(1);
+                    console.log(this.u);
+                    this.Users.insert(this.u).subscribe(
+                        () => {
+                            console.log('Enregistrement fait');
+                        },
+                        (error) => {
+                            console.log('erreur ' + error);
+                        }
+                    );
+                } else {
+                    this.submittedInscriptionStreamer = false;
+                    console.log('teub');
+                }
+            },
+            (err) => {
+                console.log(JSON.stringify(err));
+            }
+        );
     }
 
     onSubmitInscriptionViewer() {
@@ -463,31 +470,49 @@ export class ChoixComponent implements OnInit {
         $('#buttonViewer').attr('disabled', 'disabled');
         $('#buttonStreamer').removeAttr('disabled');
         $('#buttonStreamer').attr('enabled', 'enabled');
+
         if ($('#orangeblue').hasClass('iconSmall')) {
             $('#orangeblue').toggleClass('iconSmall iconBig');
         }
+
         $('#viewer').toggleClass('resizeTitle viewerTitle');
         if ($('#streamer').hasClass('resizeTitle')) {
             $('#streamer').toggleClass('resizeTitle streamerTitle');
         }
+
+        $('#img-screen').toggleClass('logo-screen logo-screen-resize');
+        if ($('#img-manette').hasClass('logo-manette-resize')) {
+            $('#img-manette').toggleClass('logo-manette-resize logo-manette');
+        }
+
         this.viewer = value;
         this.streamer = 0;
     }
+
     formStreamer(value) {
         $('#orangeblue').toggleClass('iconSmall iconBig');
         $('#buttonStreamer').attr('disabled', 'disabled');
         $('#buttonViewer').removeAttr('disabled');
         $('#buttonViewer').attr('enabled', 'enabled');
+
         if ($('#blueorange').hasClass('iconSmall')) {
             $('#blueorange').toggleClass('iconSmall iconBig');
         }
+
         $('#streamer').toggleClass('resizeTitle streamerTitle');
         if ($('#viewer').hasClass('resizeTitle')) {
             $('#viewer').toggleClass('resizeTitle viewerTitle');
         }
+
+        $('#img-manette').toggleClass('logo-manette logo-manette-resize');
+        if ($('#img-screen').hasClass('logo-screen-resize')) {
+            $('#img-screen').toggleClass('logo-screen-resize logo-screen');
+        }
+
         this.streamer = value;
         this.viewer = 0;
     }
+
     streamerInscription(value) {
         this.streamer = value;
     }

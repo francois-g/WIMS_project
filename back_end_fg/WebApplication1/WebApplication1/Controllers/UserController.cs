@@ -119,6 +119,12 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        public int GetBalance(int id)
+        {
+            return this.repo.getBalance(id);
+        }
+
+        [HttpGet]
         public bool CheckIfExists(string value1, string value2)
         {
             return this.repo.checkExisting(value1, value2);

@@ -10,6 +10,14 @@ a{
     color: white;
 }
 
+.navbar-right {
+    color: white
+}
+
+.fa-coins {
+    color: gold;
+    margin-right: 5px;
+}
 
 .button-search {
     background-color: Transparent;

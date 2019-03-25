@@ -116,6 +116,23 @@ namespace WebApplication1.Repositories
             return user;
         }
 
+        public int getBalance(int id)
+        {
+            int balanceToReturn = new int();
+
+            using (SqlConnection c = new SqlConnection())
+            {
+                c.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionStringID].ConnectionString;
+                SqlCommand cmd = new SqlCommand("Select Balance FROM WimsUser WHERE Id = " + id, c);
+
+                c.Open();
+                balanceToReturn = (int)cmd.ExecuteScalar();
+                c.Close();
+            }
+
+            return balanceToReturn;
+        }
+
         public bool checkExisting(string value1, string value2)
         {
             using (SqlConnection c = new SqlConnection())
@@ -197,19 +214,19 @@ namespace WebApplication1.Repositories
                         while (reader.Read())
                         {
                             payload.Add("Id", (int)reader[0]);
-                            payload.Add("Firstname", (string)reader[1].ToString().Trim());
-                            payload.Add("Lastname", (string)reader[2].ToString().Trim());
+                            //payload.Add("Firstname", (string)reader[1].ToString().Trim());
+                            //payload.Add("Lastname", (string)reader[2].ToString().Trim());
                             payload.Add("pseudo", (string)reader[3].ToString().Trim());
                             payload.Add("password", (string)reader[4].ToString().Trim());
-                            payload.Add("Email", (string)reader[5].ToString().Trim());
-                            payload.Add("TwitchLink", (reader[6] is DBNull) ? null : (string)reader[6]);
-                            payload.Add("PseudoTwitch", (reader[7] is DBNull) ? null : (string)reader[7]);
-                            payload.Add("Balance", (int)reader[8]);
-                            payload.Add("ConditionAccepted", (bool)reader[9]);
-                            payload.Add("CurrencyId", (reader[10] is DBNull) ? null : (int?)reader[10]);
-                            payload.Add("Avatar", (reader[11] is DBNull) ? null : (string)reader[11].ToString().Trim());
+                            //payload.Add("Email", (string)reader[5].ToString().Trim());
+                            //payload.Add("TwitchLink", (reader[6] is DBNull) ? null : (string)reader[6]);
+                            //payload.Add("PseudoTwitch", (reader[7] is DBNull) ? null : (string)reader[7]);
+                            //payload.Add("Balance", (int)reader[8]);
+                            //payload.Add("ConditionAccepted", (bool)reader[9]);
+                            //payload.Add("CurrencyId", (reader[10] is DBNull) ? null : (int?)reader[10]);
+                            //payload.Add("Avatar", (reader[11] is DBNull) ? null : (string)reader[11].ToString().Trim());
                             payload.Add("RoleId", (int)reader[12]);
-                            payload.Add("Active", (bool)reader[13]);
+                            //payload.Add("Active", (bool)reader[13]);
                         }
                     }
                     c.Close();

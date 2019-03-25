@@ -3,6 +3,9 @@ import {Observable} from 'rxjs';
 import {PricetowinService} from '../Services/pricetowin.service';
 import {PriceToWin} from '../Observables/PriceToWin';
 import {DataService} from '../Services/data.service';
+import {User} from '../Observables/User';
+import * as JWT from 'jwt-decode';
+import {UserService} from '../Services/user.service';
 
 @Component({
     selector: 'app-nav',
@@ -15,6 +18,8 @@ export class NavComponent implements OnInit {
     private _inputText: string;
     private _offersQueried: PriceToWin[];
     private _offersQueried$: Observable<PriceToWin[]>;
+    private _currentBalance: number;
+    private _currentUser: User;
 
     get searchIsOpen(): boolean {
         return this._searchIsOpen;
@@ -48,11 +53,36 @@ export class NavComponent implements OnInit {
         this._offersQueried$ = value;
     }
 
+    get currentUser(): User {
+        return this._currentUser;
+    }
 
-    constructor(private Offers: PricetowinService, private data: DataService) { }
+    set currentUser(value: User) {
+        this._currentUser = value;
+    }
+
+    get currentBalance(): number {
+        return this._currentBalance;
+    }
+
+    set currentBalance(value: number) {
+        this._currentBalance = value;
+    }
+
+    constructor(private Offers: PricetowinService, private data: DataService, private Users: UserService) { }
 
     ngOnInit() {
         this.searchIsOpen = false;
+        this.currentUser = JWT(sessionStorage.getItem('currentUser'));
+        this.Users.getBalance(this.currentUser.Id)
+            .subscribe(
+                t => {
+                    this.currentBalance = t;
+                },
+                (err) => {
+                    console.log('erreur' + err);
+                }
+        );
     }
 
     openSearchBar() {

@@ -6,7 +6,7 @@
       <div *ngIf="streamer !== 2">
         <button id="buttonStreamer" class="btn d-flex flex-column align-items-center" (click)="formStreamer(1)">
           <div id="orangeblue" class="d-flex justify-content-center align-items-center iconBig">
-            <img class="logo" src="../../assets/images/manette.png">
+            <img id="img-manette" class="logo-manette" src="../../assets/images/manette.png">
           </div>
           <p class="streamerTitle mt-2" id="streamer">STREAMER</p>
         </button>
@@ -131,7 +131,7 @@ formInscriptionStreamer.controls['pseudoTwitch'].invalid || formInscriptionStrea
       <div *ngIf="viewer !== 2">
         <button id="buttonViewer" class="btn d-flex flex-column align-items-center" (click)="formViewer(1)">
           <div id="blueorange" class="d-flex justify-content-center align-items-center iconBig">
-            <img class="logo" src="../../assets/images/screenEmpty.png">
+            <img id="img-screen" class="logo-screen" src="../../assets/images/screenEmpty.png">
           </div>
           <p class="viewerTitle mt-2" id="viewer">VIEWER</p>
         </button>

@@ -54,6 +54,10 @@ export class UserService {
         return this._httpClient.put<User>(this.url + '/' + 1, value);
     }
 
+    getBalance(value: number): Observable<number> {
+        return this._httpClient.get<number>(this.url + '/balance/' + value);
+    }
+
     getByPseudo(value: string): Observable<User[]> {
             return this._httpClient.get<User[]>(this.url + '/login/' + value);
     }
