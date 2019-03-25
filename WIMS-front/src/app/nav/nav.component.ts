@@ -6,6 +6,7 @@ import {DataService} from '../Services/data.service';
 import {User} from '../Observables/User';
 import * as JWT from 'jwt-decode';
 import {UserService} from '../Services/user.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-nav',
@@ -20,6 +21,7 @@ export class NavComponent implements OnInit {
     private _offersQueried$: Observable<PriceToWin[]>;
     private _currentBalance: number;
     private _currentUser: User;
+    private _btnProf: boolean;
 
     get searchIsOpen(): boolean {
         return this._searchIsOpen;
@@ -69,11 +71,20 @@ export class NavComponent implements OnInit {
         this._currentBalance = value;
     }
 
+    get btnProf(): boolean {
+        return this._btnProf;
+    }
+
+    set btnProf(value: boolean) {
+        this._btnProf = value;
+    }
+
     constructor(private Offers: PricetowinService, private data: DataService, private Users: UserService) { }
 
     ngOnInit() {
         this.searchIsOpen = false;
         this.currentUser = JWT(sessionStorage.getItem('currentUser'));
+        console.log(this.currentUser);
         this.Users.getBalance(this.currentUser.Id)
             .subscribe(
                 t => {
@@ -107,5 +118,15 @@ export class NavComponent implements OnInit {
         });
         console.log(result);
         this.data.changeOffers(result);
+    }
+
+    dropDown() {
+        this.btnProf === true ? this.btnProf = false : this.btnProf = true;
+        console.log(this.btnProf);
+    }
+
+    deconnect() {
+        sessionStorage.clear();
+        window.location.href = '/home';
     }
 }

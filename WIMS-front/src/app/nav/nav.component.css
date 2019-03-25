@@ -6,8 +6,10 @@
 #logo{
     max-width: 4%;
 }
-a{
+
+a, nav-link{
     color: white;
+    cursor: pointer;
 }
 
 .navbar-right {
@@ -19,10 +21,14 @@ a{
     margin-right: 5px;
 }
 
-.button-search {
+.button-search, .button-profile {
     background-color: Transparent;
     border: none;
     cursor: pointer;
     color: white;
+}
+
+#form-search {
+    margin-left: 2em;
 }
 

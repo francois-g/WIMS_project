@@ -7,6 +7,7 @@ import {Game} from '../Observables/Game';
 import {User} from '../Observables/User';
 import {Currency} from '../Observables/Currency';
 import {Twitcher} from '../Observables/Twitcher';
+import * as JWT from 'jwt-decode';
 
 
 @Component({
@@ -127,11 +128,12 @@ ngOnInit(): void {
                 this.formOffre.value.description,
             );
             this.u.Game = new Game(this.formOffre.value.gameName);
-            this.u.Twitcher = new Twitcher(2);
+            let currentU = new User();
+            currentU = JWT(sessionStorage.getItem('currentUser'));
+            this.u.Twitcher = new Twitcher(currentU.Id);
             console.log(this.u);
             this.Offers.insert(this.u).subscribe(
                 () => {
-
                     console.log('Enregistrement fait');
 
                 },
