@@ -18,7 +18,7 @@ export class User {
     private currency: Currency;
     private avatar = '';
     private active = true;
-    private role: number;
+    private roleId: number;
 
     get Id(): number {
         return this.id;
@@ -123,12 +123,12 @@ export class User {
         this.active = value;
     }
 
-    get Role(): number {
-        return this.role;
+    get RoleId(): number {
+        return this.roleId;
     }
 
-    set Role(value: number) {
-        this.role = value;
+    set RoleId(value: number) {
+        this.roleId = value;
     }
 
 }
