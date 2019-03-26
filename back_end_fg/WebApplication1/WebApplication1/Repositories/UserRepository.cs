@@ -206,7 +206,7 @@ namespace WebApplication1.Repositories
                     cmd.CommandText = "SELECT * From WimsUser Where Pseudo = @pseudo AND Pswd = @pswd";
 
                     cmd.Parameters.AddWithValue("@pseudo", t.Pseudo);
-                    cmd.Parameters.AddWithValue("@pswd", t.Password);
+                    cmd.Parameters.AddWithValue("@pswd", t.Pswd);
 
                     c.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())

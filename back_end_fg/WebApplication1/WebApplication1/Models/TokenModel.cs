@@ -8,7 +8,7 @@ namespace WebApplication1.Models
     public class TokenModel
     {
         private string pseudo;
-        private string password;
+        private string pswd;
 
         public string Pseudo
         {
@@ -16,10 +16,10 @@ namespace WebApplication1.Models
             set { pseudo = value; }
         }
 
-        public string Password
+        public string Pswd
         {
-            get { return password; }
-            set { password = value; }
+            get { return pswd; }
+            set { pswd = value; }
         }
 
     }
