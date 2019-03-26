@@ -25,12 +25,11 @@ u;
         Pseudo: string,
         Pswd: string,
         Email: string,
-        Avatar: string,
     };
-    get outputProfile(): { FirstName: string; LastName: string; Pseudo: string; Pswd: string; Email: string; Avatar: string;} {
+    get outputProfile(): { FirstName: string; LastName: string; Pseudo: string; Pswd: string; Email: string;} {
         return this._outputProfile;
     }
-    set outputProfile(value: { FirstName: string; LastName: string; Pseudo: string; Pswd: string; Email: string; Avatar: string; }) {
+    set outputProfile(value: { FirstName: string; LastName: string; Pseudo: string; Pswd: string; Email: string; }) {
         this._outputProfile = value;
     }
     constructor(private builder: FormBuilder, private Users: UserService) {
@@ -55,16 +54,16 @@ u;
                 Validators.required,
             ]
             ],
-            'Avatar': ['', [
-                Validators.required,
-            ]
-            ],
         });
     }
     onSubmitProfile() {
         // if (this.formProfile.valid) {
         this.u = new User();
         this.u.FirstName = this.formProfile.value.FirstName;
+        this.u.LastName = this.formProfile.value.LastName;
+        this.u.Pseudo = this.formProfile.value.Pseudo;
+        this.u.Pswd = this.formProfile.value.Pswd;
+        this.u.Email = this.formProfile.value.Email;
         console.log(this.formProfile.value.FirstName);
         this.Users.update(this.u).subscribe(
             () => {
