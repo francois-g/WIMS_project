@@ -309,7 +309,7 @@ export class AllOffersComponent implements OnInit {
                 }
             );
         } else {
-            alert('Vérifiez que votre solde soit suffisant et que vous soyez bien au dessus de la dernière offre');
+            alert('Vérifiez que votre solde soit suffisant et que votre offre soit suppérieur à celle actuellement existante');
         }
         // console.log(this.tableAuctions);
     }
