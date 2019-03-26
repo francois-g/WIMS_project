@@ -6,7 +6,6 @@ import {DataService} from '../Services/data.service';
 import {User} from '../Observables/User';
 import * as JWT from 'jwt-decode';
 import {UserService} from '../Services/user.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-nav',
