@@ -15,6 +15,8 @@ export class UserService {
     // private _url = 'http://mini.techni.local/badges';
     private _token: {};
 
+    private header = new HttpHeaders().append('Authorization', 'Bearer ' + sessionStorage.getItem('currentUser'));
+
     get url(): string {
         return this._url;
     }
@@ -31,34 +33,34 @@ export class UserService {
     }
 
     getAll(): Observable<User[]> {
-        return this._httpClient.get<User[]>(this.url);
+        return this._httpClient.get<User[]>(this.url, { headers : this.header });
     }
 
     getById(value: number): Observable<User> {
-        return this._httpClient.get<User>(this.url + '/' + value);
+        return this._httpClient.get<User>(this.url + '/' + value, { headers : this.header });
     }
 
     insert(value: object): Observable<User> {
-        return this._httpClient.post<User>(this.url, value);
+        return this._httpClient.post<User>(this.url, value, { headers : this.header });
     }
 
     check(value1: string, value2: string): Observable<boolean> {
-        return this._httpClient.get<boolean>(this.url + '/usercheck/' + value1 + '/' + value2);
+        return this._httpClient.get<boolean>(this.url + '/usercheck/' + value1 + '/' + value2, { headers : this.header });
     }
 
     getToken(value: object): Observable<string> {
-        return this._httpClient.post<string>(this.url + '/token', value);
+        return this._httpClient.post<string>(this.url + '/token', value, { headers : this.header });
     }
 
     update(value: User): Observable<User> {
-        return this._httpClient.put<User>(this.url + '/' + 1, value);
+        return this._httpClient.put<User>(this.url + '/' + 1, value, { headers : this.header });
     }
 
     getBalance(value: number): Observable<number> {
-        return this._httpClient.get<number>(this.url + '/balance/' + value);
+        return this._httpClient.get<number>(this.url + '/balance/' + value, { headers : this.header });
     }
 
     getByPseudo(value: string): Observable<User[]> {
-            return this._httpClient.get<User[]>(this.url + '/login/' + value);
+            return this._httpClient.get<User[]>(this.url + '/login/' + value, { headers : this.header });
     }
 }

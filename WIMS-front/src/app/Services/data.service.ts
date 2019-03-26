@@ -5,6 +5,7 @@ import {PriceToWin} from '../Observables/PriceToWin';
     providedIn: 'root'
 })
 export class DataService {
+
     private _currentPrintedOffers: PriceToWin[];
 
     constructor() {

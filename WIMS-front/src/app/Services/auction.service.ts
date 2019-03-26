@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Game} from '../Observables/Game';
 import {Auction} from '../Observables/Auction';
@@ -9,54 +9,11 @@ import {Auction} from '../Observables/Auction';
     providedIn: 'root'
 })
 export class AuctionService {
-    // Auctions = [
-    //     {
-    //         Id: 1,
-    //         UserId: 1,
-    //         CurrentAuction: 300,
-    //         AuctionDate: '07/03/2019',
-    //         AuctionValidation: true,
-    //         OfferId: 1,
-    //     },
-    //     {
-    //         Id: 2,
-    //         UserId: 1,
-    //         CurrentAuction: 600,
-    //         AuctionDate: '07/03/2019',
-    //         AuctionValidation: true,
-    //         OfferId: 4,
-    //     },
-    //     {
-    //         Id: 3,
-    //         UserId: 2,
-    //         CurrentAuction: 500,
-    //         AuctionDate: '07/03/2019',
-    //         AuctionValidation: true,
-    //         OfferId: 3,
-    //     },
-    //     {
-    //         Id: 4,
-    //         UserId: 2,
-    //         CurrentAuction: 500,
-    //         AuctionDate: '07/03/2019',
-    //         AuctionValidation: true,
-    //         OfferId: 4,
-    //     },
-    //     {
-    //         Id: 5,
-    //         UserId: 2,
-    //         CurrentAuction: 500,
-    //         AuctionDate: '07/03/2019',
-    //         AuctionValidation: true,
-    //         OfferId: 2,
-    //     },
-    // ];
-    // getAuctions() {
-    //     return this.Auctions;
-    // }
+
     private _url = 'http://localhost:50946/api/auction';
     // private _url = 'http://mini.techni.local/badges';
 
+    private header = new HttpHeaders().append('Authorization', 'Bearer ' + sessionStorage.getItem('currentUser'));
 
     get url(): string {
         return this._url;
@@ -66,14 +23,14 @@ export class AuctionService {
     }
 
     getAll(): Observable<Auction[]> {
-        return this._httpClient.get<Auction[]>(this.url);
+        return this._httpClient.get<Auction[]>(this.url, { headers : this.header });
     }
 
     getById(value: number): Observable<Auction[]> {
-        return this._httpClient.get<Auction[]>(this.url + '/' + value);
+        return this._httpClient.get<Auction[]>(this.url + '/' + value, { headers : this.header });
     }
 
     insert(value: object): Observable<Auction[]> {
-        return this._httpClient.post<Auction[]>(this.url, value);
+        return this._httpClient.post<Auction[]>(this.url, value, { headers : this.header });
     }
 }

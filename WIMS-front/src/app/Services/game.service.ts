@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PriceToWin} from '../Observables/PriceToWin';
 import {Game} from '../Observables/Game';
@@ -8,38 +8,11 @@ import {Game} from '../Observables/Game';
   providedIn: 'root'
 })
 export class GameService {
-    // Games = [
-    //     {
-    //         Id: 1,
-    //         GameName: 'Fortnite',
-    //         GameImg: 'FortniteImg',
-    //     },
-    //     {
-    //         Id: 2,
-    //         GameName: 'Lol',
-    //         GameImg: 'LolImg',
-    //     },
-    //     {
-    //         Id: 3,
-    //         GameName: 'Apex',
-    //         GameImg: 'ApexImg',
-    //     },
-    //     {
-    //         Id: 4,
-    //         GameName: 'Fifa',
-    //         GameImg: 'FifaImg',
-    //     },
-    // ];
-    // getGames() {
-    //     return this.Games;
-    // }
-    // getById(Id: number) {
-    //     return this.Games[Id].GameImg;
-    // }
 
     private _url = 'http://localhost:50946/api/game';
     // private _url = 'http://mini.techni.local/badges';
 
+    private header = new HttpHeaders().append('Authorization', 'Bearer ' + sessionStorage.getItem('currentUser'));
 
     get url(): string {
         return this._url;
@@ -49,14 +22,14 @@ export class GameService {
     }
 
     getAll(): Observable<Game[]> {
-        return this._httpClient.get<Game[]>(this.url);
+        return this._httpClient.get<Game[]>(this.url, { headers : this.header });
     }
 
     getById(value: number): Observable<Game[]> {
-        return this._httpClient.get<Game[]>(this.url + '/' + value);
+        return this._httpClient.get<Game[]>(this.url + '/' + value, { headers : this.header });
     }
 
     insert(value: object): Observable<Game> {
-        return this._httpClient.post<Game>(this.url, value);
+        return this._httpClient.post<Game>(this.url, value, { headers : this.header });
     }
 }
