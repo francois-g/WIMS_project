@@ -362,7 +362,7 @@ namespace WebApplication1.Repositories
 
                 cmd.Parameters.Add("@Role", SqlDbType.Int);
                 //cmd.Parameters["@Role"].Value = (int)u.Role.Id;
-                cmd.Parameters["@Role"].Value = (u.RoleId != 0) ? userToModify.RoleId : (int)u.RoleId;
+                cmd.Parameters["@Role"].Value = (u.RoleId == 0) ? userToModify.RoleId : (int)u.RoleId;
 
                 c.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();

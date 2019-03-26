@@ -35,15 +35,15 @@ export class ProfileComponent implements OnInit {
     }
     constructor(private builder: FormBuilder, private Users: UserService) {
         this.formProfile = this.builder.group({
-            'FirstName': ['', [
+            'FirstName': [, [
                 Validators.required,
             ]
             ],
-            'LastName': ['', [
+            'LastName': [, [
                 Validators.required,
             ]
             ],
-            'Pseudo': ['', [
+            'Pseudo': [, [
                 Validators.required,
             ]
             ],
@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
         console.log(this.formProfile.value.FirstName);
         this.Users.update(this.u).subscribe(
             () => {
-                   console.log('coucou' + this.u);
+                   console.log('coucou' + JSON.stringify(this.u));
                 },
                 (err) => {
                     console.log('erreur' + JSON.stringify(err));
@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
         // }
     }
   ngOnInit() {
-      
+
 
   }
 
