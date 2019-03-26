@@ -179,9 +179,6 @@ export class AllOffersComponent implements OnInit {
     }
 
     ngOnInit() {
-        let token = sessionStorage.getItem('test');
-        let tokenDecode = JWT(token);
-        console.log(tokenDecode);
         this.offer = [];
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(
