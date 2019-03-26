@@ -19,6 +19,7 @@ import {UserService} from '../Services/user.service';
     styleUrls: ['./all-offers.component.css']
 })
 export class AllOffersComponent implements OnInit {
+
     submittedNewEnchere;
     avatar;
 
@@ -36,6 +37,9 @@ export class AllOffersComponent implements OnInit {
         newAuction: Auction,
     };
     private _postedAuction: Auction;
+    private _currentUser: User;
+    private _currentBalance: number;
+    private _bestUser: string;
 
     tableAuctions = [];
 
@@ -138,6 +142,30 @@ export class AllOffersComponent implements OnInit {
         this._postedAuction = value;
     }
 
+    get currentUser(): User {
+        return this._currentUser;
+    }
+
+    set currentUser(value: User) {
+        this._currentUser = value;
+    }
+
+    get currentBalance(): number {
+        return this._currentBalance;
+    }
+
+    set currentBalance(value: number) {
+        this._currentBalance = value;
+    }
+
+    get bestUser(): string {
+        return this._bestUser;
+    }
+
+    set bestUser(value: string) {
+        this._bestUser = value;
+    }
+
     constructor(private Users: UserService, private builder: FormBuilder, private Offers: PricetowinService, private data: DataService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'auctionValue': ['', [
@@ -217,41 +245,40 @@ export class AllOffersComponent implements OnInit {
 
         this.editMode = false;
 
-
-            if (sessionStorage.getItem('currentUser') != null) {
-                this.currentUser = JWT(sessionStorage.getItem('currentUser'));
-                console.log(this.currentUser);
-                this.Users.getBalance(this.currentUser.Id)
-                    .subscribe(
-                        t => {
-                            this.currentBalance = t;
-                        },
-                        (err) => {
-                            console.log('erreur' + err);
-                        }
-                    );
-            }
-
+        if (sessionStorage.getItem('_currentUser') != null) {
+            this.currentUser = JWT(sessionStorage.getItem('_currentUser'));
+            console.log(this.currentUser);
+            this.Users.getBalance(this.currentUser.Id)
+                .subscribe(
+                    t => {
+                        this.currentBalance = t;
+                    },
+                    (err) => {
+                        console.log('erreur' + err);
+                    }
+                );
+        }
     }
 
     // getBestAuction(value is Column Id in PriceToWin)
     getBestAuction(IdOfPrice: number) {
         if (this.auction !== undefined) {
             let tabOfFilteredAuctions: Auction[];
-            // console.log(this.auction);
+
             // on ne prend les enchères qu'avec un IdPrice égal au paramètre de la fonction
             tabOfFilteredAuctions = this.auction.filter(a => a.IdPrice === IdOfPrice);
-            // console.log('filtré');
-            // console.log(tabOfFilteredAuctions);
 
             // on a un tableau de valeurs, de nombres. Il va devenir le map du tableau filtré précédemment, en retournant uniquement la CurrentAuction
             this.tabOfValues = tabOfFilteredAuctions.map(a => {
                 return a.CurrentAuction;
             });
-            // console.log('juste les valeurs');
-            // console.log(this.tabOfValues);
 
-            // on trouve le maximum
+            let userPseudos = tabOfFilteredAuctions.map(a => {
+                return a.User.Pseudo;
+            });
+
+            this.bestUser = userPseudos[userPseudos.length - 1];
+
             let max = 0;
             this.tabOfValues.map(v => {
                 if (v > max) {
@@ -259,12 +286,6 @@ export class AllOffersComponent implements OnInit {
                 }
             });
 
-            // if (max === 0) {
-            //     this.Offers[IdOfPrice].AuctionStartValue = max;
-            // }
-
-            // console.log('maximum');
-            // console.log(max);
             // et on le retourne
             return max;
         }
@@ -280,12 +301,10 @@ export class AllOffersComponent implements OnInit {
         document.getElementById('descToEdit-' + value).remove();
         // console.log('c\'est bon' + this.editMode(value));
     }
-    currentUser;
-    currentBalance;
 
     encherir(value: number) {
         let u = new User();
-        u = JWT(sessionStorage.getItem('currentUser'));
+        u = JWT(sessionStorage.getItem('_currentUser'));
         let uId = u.Id;
         console.log(uId);
         // document.getElementById('buttonAuction');
