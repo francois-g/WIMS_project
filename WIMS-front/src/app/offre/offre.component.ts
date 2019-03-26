@@ -142,7 +142,6 @@ ngOnInit(): void {
             let currentU = new User();
             currentU = JWT(sessionStorage.getItem('currentUser'));
             this.p.Twitcher = new Twitcher(currentU.Id);
-            console.log(this.p);
             this.Offers.insert(this.p).subscribe(
                 () => {
                     console.log('Enregistrement fait');

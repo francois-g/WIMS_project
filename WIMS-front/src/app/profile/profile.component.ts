@@ -67,10 +67,10 @@ u;
         console.log(this.formProfile.value.FirstName);
         this.Users.update(this.u).subscribe(
             () => {
-                   console.log(this.u);
+                   console.log('coucou' + this.u);
                 },
                 (err) => {
-                    console.log('erreur' + err);
+                    console.log('erreur' + JSON.stringify(err));
                 }
             );
         // }
