@@ -322,7 +322,7 @@ export class ChoixComponent implements OnInit {
                     this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
                     this.u.Pswd = this.formInscriptionStreamer.value.mdp;
                     this.u.Email = this.formInscriptionStreamer.value.mail;
-                    this.u.Role = 1;
+                    this.u.Role = 2;
                     this.u.Currency = new Currency(1);
                     console.log(this.u);
                     this.Users.insert(this.u).subscribe(
@@ -335,7 +335,7 @@ export class ChoixComponent implements OnInit {
                     );
                 } else {
                     this.submittedInscriptionStreamer = false;
-                    console.log('teub');
+                    console.log('formulaire invalide');
                 }
             },
             (err) => {

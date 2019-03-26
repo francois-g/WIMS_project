@@ -7,7 +7,7 @@
     max-width: 4%;
 }
 
-a, nav-link{
+a{
     color: white;
     cursor: pointer;
 }
