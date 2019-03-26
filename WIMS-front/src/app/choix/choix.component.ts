@@ -244,8 +244,9 @@ export class ChoixComponent implements OnInit {
                     sessionStorage.setItem('currentUser', t);
                     tokenString = t;
                     console.log(tokenString);
-                    console.log(t);
-                    window.location.href = 'http://localhost:4200/AllOffers';
+                    if (tokenString !== 'invalid dude') {
+                        window.location.href = 'http://localhost:4200/AllOffers';
+                    }
                 },
                 (err) => {
                     console.log('erreur' + err);
@@ -269,8 +270,9 @@ export class ChoixComponent implements OnInit {
                     sessionStorage.setItem('currentUser', t);
                     tokenString = t;
                     console.log(tokenString);
-                    console.log(t);
-                    window.location.href = 'http://localhost:4200/AllOffers';
+                    if (tokenString !== 'invalid dude') {
+                        window.location.href = 'http://localhost:4200/AllOffers';
+                    }
                 },
                 (err) => {
                     console.log('erreur' + err);
