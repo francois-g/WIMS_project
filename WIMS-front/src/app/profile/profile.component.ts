@@ -4,6 +4,7 @@ import {UserService} from '../Services/user.service';
 import {User} from '../Observables/User';
 import {Observable} from 'rxjs';
 import * as JWT from 'jwt-decode';
+import {log} from 'util';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,15 @@ import * as JWT from 'jwt-decode';
 })
 export class ProfileComponent implements OnInit {
     u;
+    private _userCurrent = new User();
+
+    get userCurrent(): User {
+        return this._userCurrent;
+    }
+
+    set userCurrent(value: User) {
+        this._userCurrent = value;
+    }
 
     private _formProfile: FormGroup;
     get formProfile(): FormGroup{
@@ -35,7 +45,7 @@ export class ProfileComponent implements OnInit {
     }
     constructor(private builder: FormBuilder, private Users: UserService) {
         this.formProfile = this.builder.group({
-            'FirstName': ['', [
+            'FirstName': [this.userCurrent.FirstName, [
                 Validators.required,
             ]
             ],
@@ -80,9 +90,19 @@ export class ProfileComponent implements OnInit {
         //     this.submittedConnectionStreamer = false;
         // }
     }
-  ngOnInit() {
-      
 
+  ngOnInit() {
+        this.userCurrent = JWT(sessionStorage.getItem('currentUser'));
+        console.log(this.userCurrent.Id);
+        this.Users.getById(this.userCurrent.Id)
+            .subscribe(
+                u =>{
+                    this.userCurrent = u;
+                },
+                (err) =>{
+                    console.log('error' + JSON.stringify(err));
+                }
+            )
   }
 
 }
