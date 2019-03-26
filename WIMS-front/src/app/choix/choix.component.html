@@ -15,7 +15,7 @@
       <div *ngIf="streamer === 1">
         <form [formGroup]="formConnexionStreamer" (ngSubmit)="onSubmitConnexionStreamer()" id="formConnexionS">
           <div class="alert alert-danger col-lg-12" *ngIf="formConnexionStreamer.controls['pseudoStreamer'].invalid && (formConnexionStreamer.controls['pseudoStreamer'].errors
-            && submittedConnectionStreamer === false) || IsMdpStreamer === false">
+            && submittedConnectionStreamer === false) || IsMdpStreamer === false || pswdIncorrect === true">
             Le pseudo ou le mot de passe n'est pas correct
           </div>
           <div class="d-flex flex-column form-group">

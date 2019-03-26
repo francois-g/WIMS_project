@@ -138,24 +138,6 @@ export class OffreComponent implements OnInit {
             this.finMinute = '0' + this.formOffre.value.minuteFin.toString();
         } else {
             this.finMinute = this.formOffre.value.minuteFin.toString();
-<<<<<<< HEAD
-            this.dateHeure = this.date + 'T' + this.dateHeure + ':' + this.finMinute + ':00';
-            console.log(this.formOffre.value.Fin);
-
-            this.p = new PriceToWin(
-                this.dateHeure,
-                this.formOffre.value.startValue,
-                this.formOffre.value.description,
-            );
-            this.p.Game = new Game(this.formOffre.value.gameName);
-            let currentU = new User();
-            currentU = JWT(sessionStorage.getItem('currentUser'));
-            this.p.Twitcher = new Twitcher(currentU.Id);
-            this.Offers.insert(this.p).subscribe(
-                () => {
-                    console.log('Enregistrement fait');
-
-=======
         }
 
         this.date = this.formOffre.value.dateFin.toString();
@@ -177,7 +159,6 @@ export class OffreComponent implements OnInit {
         this.Offers.insert(this.p).subscribe(
             () => {
                 console.log('Enregistrement fait');
->>>>>>> 7a887435bf66487e7c86f4dc082d3be55329e495
                 },
             (err) => {
                 console.log('erreur ' + err);

@@ -22,6 +22,7 @@ export class ChoixComponent implements OnInit {
     IsPseudoAndMailStreamerUnique;
     IsMdpAndCheckedMdpStreamer;
     IsMdpAndCheckedMdpViewer;
+    pswdIncorrect;
     maxId = 999999;
     ident;
     private u: User;
@@ -246,6 +247,9 @@ export class ChoixComponent implements OnInit {
                     console.log(tokenString);
                     if (tokenString !== 'invalid dude') {
                         window.location.href = 'http://localhost:4200/AllOffers';
+                    }
+                    else if(tokenString === 'invalid dude'){
+                       this.pswdIncorrect = true;
                     }
                 },
                 (err) => {

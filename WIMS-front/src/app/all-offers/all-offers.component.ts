@@ -266,8 +266,10 @@ export class AllOffersComponent implements OnInit {
 
     encherir(value: number) {
 
-        const u = new User();
-        u.Id = 2;
+        let u = new User();
+        u = JWT(sessionStorage.getItem('currentUser'));
+        let uId = u.Id;
+        console.log(uId);
         // document.getElementById('buttonAuction');
         this.postedAuction = new Auction (
             u,
@@ -284,7 +286,7 @@ export class AllOffersComponent implements OnInit {
                     window.location.reload();
                 },
                 (err) => {
-                    console.log('erreur' + err);
+                    console.log('erreur' + JSON.stringify(err));
                 }
             );
         } else {
