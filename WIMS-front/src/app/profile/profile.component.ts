@@ -81,18 +81,7 @@ export class ProfileComponent implements OnInit {
         // }
     }
   ngOnInit() {
-      let currentU = new User();
-      currentU = JWT(sessionStorage.getItem('currentUser'));
-      let id = currentU.Id;
-      console.log(id);
-        this.Users.getById(id).subscribe(
-            t => {
-                console.log(t);
-            },
-            (err) => {
-                console.log('erreur' + JSON.stringify(err));
-            }
-        )
+      
 
   }
 
