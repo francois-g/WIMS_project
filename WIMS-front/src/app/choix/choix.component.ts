@@ -6,11 +6,7 @@ import {User} from '../Observables/User';
 import {Router} from '@angular/router';
 import {Currency} from '../Observables/Currency';
 import * as $ from 'jquery';
-import {Role} from '../Observables/Role';
-import {isUndefined} from 'util';
-import {stringify} from 'querystring';
 import * as JWT from 'jwt-decode';
-
 
 @Component({
     selector: 'app-choix',
@@ -235,18 +231,8 @@ export class ChoixComponent implements OnInit {
         });
     }
 
-<<<<<<< HEAD
-=======
-    getUsers(): void {
-        this.users = this.Users.getAll();
-    }
-    token: Observable<string>;
-    tokenString: string;
-
->>>>>>> b355fd4ea6ef11d1fd2d1857a79e8b626503b2c0
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
-
             let tokenString: string;
             const tokenObj = {
                 'Pseudo': this.formConnexionStreamer.value.pseudoStreamer,
@@ -255,21 +241,14 @@ export class ChoixComponent implements OnInit {
             this._tokenString$ = this.Users.getToken(tokenObj);
             this._tokenString$.subscribe(
                 t => {
-<<<<<<< HEAD
                     sessionStorage.setItem('currentUser', t);
                     tokenString = t;
                     console.log(tokenString);
                     console.log(t);
-=======
-                    sessionStorage.setItem('test', t);
-                    tokenString = t;
-                    console.log(tokenString);
->>>>>>> b355fd4ea6ef11d1fd2d1857a79e8b626503b2c0
                     window.location.href = 'http://localhost:4200/AllOffers';
                 },
                 (err) => {
-                    console.log('erreur');
-                    console.log(err);
+                    console.log('erreur' + err);
                 }
             );
         } else {
@@ -343,11 +322,7 @@ export class ChoixComponent implements OnInit {
                     this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
                     this.u.Pswd = this.formInscriptionStreamer.value.mdp;
                     this.u.Email = this.formInscriptionStreamer.value.mail;
-<<<<<<< HEAD
-                    this.u.Role = 2;
-=======
                     this.u.RoleId = 2;
->>>>>>> cb8b6469535fb60c0a7b16667191f212524da012
                     this.u.Currency = new Currency(1);
                     console.log(this.u);
                     this.Users.insert(this.u).subscribe(
@@ -369,7 +344,7 @@ export class ChoixComponent implements OnInit {
                     );
                 } else {
                     this.submittedInscriptionStreamer = false;
-                    console.log('formulaire invalide');
+                    console.log('teub');
                 }
             },
             (err) => {
