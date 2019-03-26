@@ -245,8 +245,8 @@ export class AllOffersComponent implements OnInit {
 
         this.editMode = false;
 
-        if (sessionStorage.getItem('_currentUser') != null) {
-            this.currentUser = JWT(sessionStorage.getItem('_currentUser'));
+        if (sessionStorage.getItem('currentUser') != null) {
+            this.currentUser = JWT(sessionStorage.getItem('currentUser'));
             console.log(this.currentUser);
             this.Users.getBalance(this.currentUser.Id)
                 .subscribe(
@@ -304,7 +304,7 @@ export class AllOffersComponent implements OnInit {
 
     encherir(value: number) {
         let u = new User();
-        u = JWT(sessionStorage.getItem('_currentUser'));
+        u = JWT(sessionStorage.getItem('currentUser'));
         let uId = u.Id;
         console.log(uId);
         // document.getElementById('buttonAuction');
