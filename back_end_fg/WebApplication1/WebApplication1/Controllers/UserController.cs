@@ -68,7 +68,8 @@ namespace WebApplication1.Controllers
             //return listFromDB;
             #endregion
         }
-        
+        [TokenAuthenticator(Domain: "userDom")]
+        [Authorize(Roles = "Admin, Viewer, Streamer")]
         public WimsUser Get(int id)
         {
             return this.repo.getById(id);

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../Services/user.service';
 import {User} from '../Observables/User';
 import {Observable} from 'rxjs';
+import * as JWT from 'jwt-decode';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-u;
+    u;
 
     private _formProfile: FormGroup;
     get formProfile(): FormGroup{
@@ -80,6 +81,18 @@ u;
         // }
     }
   ngOnInit() {
+      let currentU = new User();
+      currentU = JWT(sessionStorage.getItem('currentUser'));
+      let id = currentU.Id;
+      console.log(id);
+        this.Users.getById(id).subscribe(
+            () => {
+                console.log('coucou');
+            },
+            (err) => {
+                console.log('erreur' + JSON.stringify(err));
+            }
+        )
 
   }
 
