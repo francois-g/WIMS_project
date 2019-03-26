@@ -115,21 +115,30 @@ export class OffreComponent implements OnInit {
             ]]
         });
     }
-ngOnInit(): void {
-    for (let i = 0; i < 24; i++) {
-        this.hours[i] = i;
+
+    ngOnInit(): void {
+        for (let i = 0; i < 24; i++) {
+            this.hours[i] = i;
+        }
+        for (let i = 0; i < 61; i++) {
+            this.minutes[i] = i;
+        }
     }
-    for (let i = 0; i < 61; i++) {
-        this.minutes[i] = i;
-    }
-}
+
     onSubmitOffre() {
         // if (this.formOffre.valid) {
-            this.submittedOffre = true;
+        this.submittedOffre = true;
 
-            this.date = this.formOffre.value.dateFin.toString();
+        if (this.formOffre.value.Fin < 10) {
+            this.dateHeure = '0' + this.formOffre.value.Fin.toString();
+        } else {
             this.dateHeure = this.formOffre.value.Fin.toString();
+        }
+        if (this.formOffre.value.minuteFin < 10) {
+            this.finMinute = '0' + this.formOffre.value.minuteFin.toString();
+        } else {
             this.finMinute = this.formOffre.value.minuteFin.toString();
+<<<<<<< HEAD
             this.dateHeure = this.date + 'T' + this.dateHeure + ':' + this.finMinute + ':00';
             console.log(this.formOffre.value.Fin);
 
@@ -146,12 +155,40 @@ ngOnInit(): void {
                 () => {
                     console.log('Enregistrement fait');
 
+=======
+        }
+
+        this.date = this.formOffre.value.dateFin.toString();
+
+        this.dateHeure = this.date + 'T' + this.dateHeure + ':' + this.finMinute + ':00';
+
+        console.log(this.formOffre.value.Fin);
+        console.log(this.dateHeure);
+
+        this.p = new PriceToWin(
+            this.dateHeure,
+            this.formOffre.value.startValue,
+            this.formOffre.value.description,
+        );
+        this.p.Game = new Game(this.formOffre.value.gameName);
+        let currentU = new User();
+        currentU = JWT(sessionStorage.getItem('currentUser'));
+        this.p.Twitcher = new Twitcher(currentU.Id);
+        this.Offers.insert(this.p).subscribe(
+            () => {
+                console.log('Enregistrement fait');
+>>>>>>> 7a887435bf66487e7c86f4dc082d3be55329e495
                 },
-            )}
+            (err) => {
+                console.log('erreur ' + err);
+            }
+        );
         // stop here if form is invalid
         // else {
         //     this.submittedOffre = false;
         //     console.log('false');
         // }
     // }
+    }
 }
+
