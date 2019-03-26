@@ -29,7 +29,7 @@ namespace WimsApiMKI.Models
         public WimsUser()
         {
             Currency = new Currency();
-            RoleId = 1;
+            //RoleId = 1;
         }
 
         #region GetSet

@@ -236,7 +236,7 @@ export class ChoixComponent implements OnInit {
             let tokenString: string;
             const tokenObj = {
                 'Pseudo': this.formConnexionStreamer.value.pseudoStreamer,
-                'Password': this.formConnexionStreamer.value.mdpStreamer
+                'Pswd': this.formConnexionStreamer.value.mdpStreamer
             };
             this._tokenString$ = this.Users.getToken(tokenObj);
             this._tokenString$.subscribe(
@@ -261,7 +261,7 @@ export class ChoixComponent implements OnInit {
             let tokenString: string;
             const tokenObj = {
                 'Pseudo': this.formConnexionViewer.value.pseudoViewer,
-                'Password': this.formConnexionViewer.value.mdpViewer
+                'Pswd': this.formConnexionViewer.value.mdpViewer
             };
             this._tokenString$ = this.Users.getToken(tokenObj);
             this._tokenString$.subscribe(
@@ -322,12 +322,21 @@ export class ChoixComponent implements OnInit {
                     this.u.Pseudo = this.formInscriptionStreamer.value.pseudo;
                     this.u.Pswd = this.formInscriptionStreamer.value.mdp;
                     this.u.Email = this.formInscriptionStreamer.value.mail;
-                    this.u.Role = 1;
+                    this.u.RoleId = 2;
                     this.u.Currency = new Currency(1);
                     console.log(this.u);
                     this.Users.insert(this.u).subscribe(
                         () => {
                             console.log('Enregistrement fait');
+                            this.Users.getToken(this.u).subscribe(
+                                t => {
+                                    sessionStorage.setItem('currentUser', t);
+                                    window.location.href = '/AllOffers';
+                                },
+                                (err) => {
+                                    console.log('erreur' + err);
+                                }
+                            );
                         },
                         (error) => {
                             console.log('erreur ' + error);
@@ -365,7 +374,7 @@ export class ChoixComponent implements OnInit {
                     this.u.Pseudo = this.formInscriptionViewer.value.pseudoVew;
                     this.u.Pswd = this.formInscriptionViewer.value.mdpVew;
                     this.u.Email = this.formInscriptionViewer.value.mailViewer;
-                    this.u.Role = 1;
+                    this.u.RoleId = 1;
                     this.u.Currency = new Currency(1);
                     console.log(this.u);
                     this.Users.insert(this.u).subscribe(
