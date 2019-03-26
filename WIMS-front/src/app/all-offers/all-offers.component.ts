@@ -11,6 +11,7 @@ import {Game} from '../Observables/Game';
 import {DataService} from '../Services/data.service';
 import {isUndefined} from 'util';
 import * as JWT from 'jwt-decode';
+import {UserService} from '../Services/user.service';
 
 @Component({
     selector: 'app-all-offers',
@@ -137,7 +138,7 @@ export class AllOffersComponent implements OnInit {
         this._postedAuction = value;
     }
 
-    constructor(private builder: FormBuilder, private Offers: PricetowinService, private data: DataService, private Games: GameService, private Auctions: AuctionService) {
+    constructor(private Users: UserService, private builder: FormBuilder, private Offers: PricetowinService, private data: DataService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'auctionValue': ['', [
                 Validators.required,
@@ -215,6 +216,22 @@ export class AllOffersComponent implements OnInit {
         );
 
         this.editMode = false;
+
+
+            if (sessionStorage.getItem('currentUser') != null) {
+                this.currentUser = JWT(sessionStorage.getItem('currentUser'));
+                console.log(this.currentUser);
+                this.Users.getBalance(this.currentUser.Id)
+                    .subscribe(
+                        t => {
+                            this.currentBalance = t;
+                        },
+                        (err) => {
+                            console.log('erreur' + err);
+                        }
+                    );
+            }
+
     }
 
     // getBestAuction(value is Column Id in PriceToWin)
@@ -263,9 +280,10 @@ export class AllOffersComponent implements OnInit {
         document.getElementById('descToEdit-' + value).remove();
         // console.log('c\'est bon' + this.editMode(value));
     }
+    currentUser;
+    currentBalance;
 
     encherir(value: number) {
-
         let u = new User();
         u = JWT(sessionStorage.getItem('currentUser'));
         let uId = u.Id;
@@ -278,7 +296,8 @@ export class AllOffersComponent implements OnInit {
         );
 
         this._auction$ = this.Auctions.insert(this.postedAuction);
-        if (this.formNewAuction.value.auctionValue > this.getBestAuction(value)) {
+
+        if (this.formNewAuction.value.auctionValue > this.getBestAuction(value) && this.currentBalance > this.formNewAuction.value.auctionValue) {
             this._auction$.subscribe(
                 () => {
                     console.log(this.postedAuction);
@@ -290,7 +309,7 @@ export class AllOffersComponent implements OnInit {
                 }
             );
         } else {
-            alert('radin !!!! c\'est trop bas');
+            alert('Vérifiez que votre solde soit suffisant et que vous soyez bien au dessus de la dernière offre');
         }
         // console.log(this.tableAuctions);
     }
