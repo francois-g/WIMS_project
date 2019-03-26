@@ -6,7 +6,11 @@ import {User} from '../Observables/User';
 import {Router} from '@angular/router';
 import {Currency} from '../Observables/Currency';
 import * as $ from 'jquery';
+import {Role} from '../Observables/Role';
+import {isUndefined} from 'util';
+import {stringify} from 'querystring';
 import * as JWT from 'jwt-decode';
+
 
 @Component({
     selector: 'app-choix',
@@ -231,8 +235,18 @@ export class ChoixComponent implements OnInit {
         });
     }
 
+<<<<<<< HEAD
+=======
+    getUsers(): void {
+        this.users = this.Users.getAll();
+    }
+    token: Observable<string>;
+    tokenString: string;
+
+>>>>>>> b355fd4ea6ef11d1fd2d1857a79e8b626503b2c0
     onSubmitConnexionStreamer() {
         if (this.formConnexionStreamer.valid) {
+
             let tokenString: string;
             const tokenObj = {
                 'Pseudo': this.formConnexionStreamer.value.pseudoStreamer,
@@ -241,14 +255,21 @@ export class ChoixComponent implements OnInit {
             this._tokenString$ = this.Users.getToken(tokenObj);
             this._tokenString$.subscribe(
                 t => {
+<<<<<<< HEAD
                     sessionStorage.setItem('currentUser', t);
                     tokenString = t;
                     console.log(tokenString);
                     console.log(t);
+=======
+                    sessionStorage.setItem('test', t);
+                    tokenString = t;
+                    console.log(tokenString);
+>>>>>>> b355fd4ea6ef11d1fd2d1857a79e8b626503b2c0
                     window.location.href = 'http://localhost:4200/AllOffers';
                 },
                 (err) => {
-                    console.log('erreur' + err);
+                    console.log('erreur');
+                    console.log(err);
                 }
             );
         } else {

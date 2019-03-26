@@ -132,6 +132,7 @@ namespace WebApplication1.Controllers
 
         [Route("api/user/token")]
         [HttpPost]
+
         public string BuildToken([FromBody]TokenModel t)
         {
             return this.repo.createToken(t);

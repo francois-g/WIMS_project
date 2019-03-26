@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../Observables/User';
 import {tokenKey} from '@angular/core/src/view';
+import {Encoding} from 'tslint/lib/utils';
 
 
 
@@ -13,7 +14,9 @@ export class UserService {
 
     private _url = 'http://localhost:50946/api/user';
     // private _url = 'http://mini.techni.local/badges';
-    private _token: {};
+    private _token: {
+
+    };
 
     get url(): string {
         return this._url;
