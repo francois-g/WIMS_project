@@ -14,7 +14,7 @@
             <li *ngIf="this.currentUser == undefined" class="nav-item">
                 <a [routerLink]="['/Choice']" class="nav-link">Se connecter</a>
             </li>
-            <li *ngIf="this.currentUser != undefined" class="nav-item">
+            <li *ngIf="this.currentUser != undefined && this.currentUser.RoleId === 2" class="nav-item">
                 <a [routerLink]="['/Offer']" class="nav-link">Poster une offre</a>
             </li>
             <li class="nav-item">
@@ -29,7 +29,7 @@
         </ul>
 
         <div class="navbar-right form-inline">
-            <i class="fas fa-coins"></i>
+            <i *ngIf="this.currentBalance != null" class="fas fa-coins"></i>
             {{currentBalance}}
             <form id="form-search">
                 <input *ngIf="searchIsOpen" type="text" placeholder="Rechercher une offre par streamer" id="search-input" [(ngModel)]="inputText" name="input">
