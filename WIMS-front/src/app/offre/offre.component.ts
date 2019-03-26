@@ -16,6 +16,7 @@ import * as JWT from 'jwt-decode';
     styleUrls: ['./offre.component.css']
 })
 export class OffreComponent implements OnInit {
+
     hours = [];
     minutes = [];
     submittedOffre;
@@ -24,12 +25,12 @@ export class OffreComponent implements OnInit {
     minute;
     dateHeure: string;
     finMinute;
-    u;
     private _formOffre: FormGroup;
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
     private _game$: Observable<Game[]>;
     private _game: Game[];
+    private _p: PriceToWin;
 
     set offer$(value: Observable<PriceToWin[]>) {
         this._offer$ = value;
@@ -63,6 +64,15 @@ export class OffreComponent implements OnInit {
     set formOffre(value : FormGroup){
         this._formOffre = value;
     }
+
+    get p(): PriceToWin {
+        return this._p;
+    }
+
+    set p(value: PriceToWin) {
+        this._p = value;
+    }
+
     private _outputOffre: {
         gameName: number,
         description: string,
@@ -77,6 +87,7 @@ export class OffreComponent implements OnInit {
     set outputOffre(value: { gameName: number; description: string; startValue: number; dateFin: Date; Fin: number; minuteFin: number }) {
         this._outputOffre = value;
     }
+
     constructor(private builder: FormBuilder, private Offers: PricetowinService) {
         this.formOffre = this.builder.group({
             'gameName': ['', [
@@ -122,17 +133,17 @@ ngOnInit(): void {
             this.dateHeure = this.date + 'T' + this.dateHeure + ':' + this.finMinute + ':00';
             console.log(this.formOffre.value.Fin);
 
-            this.u = new PriceToWin(
+            this.p = new PriceToWin(
                 this.dateHeure,
                 this.formOffre.value.startValue,
                 this.formOffre.value.description,
             );
-            this.u.Game = new Game(this.formOffre.value.gameName);
+            this.p.Game = new Game(this.formOffre.value.gameName);
             let currentU = new User();
             currentU = JWT(sessionStorage.getItem('currentUser'));
-            this.u.Twitcher = new Twitcher(currentU.Id);
-            console.log(this.u);
-            this.Offers.insert(this.u).subscribe(
+            this.p.Twitcher = new Twitcher(currentU.Id);
+            console.log(this.p);
+            this.Offers.insert(this.p).subscribe(
                 () => {
                     console.log('Enregistrement fait');
 
