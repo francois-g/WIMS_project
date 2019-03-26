@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     }
     constructor(private builder: FormBuilder, private Users: UserService) {
         this.formProfile = this.builder.group({
-            'FirstName': [this.userCurrent.FirstName, [
+            'FirstName': ['', [
                 Validators.required,
             ]
             ],
@@ -70,12 +70,23 @@ export class ProfileComponent implements OnInit {
     onSubmitProfile() {
         // if (this.formProfile.valid) {
         this.u = new User();
-        this.u.FirstName = this.formProfile.value.FirstName;
-        this.u.LastName = this.formProfile.value.LastName;
-        this.u.Pseudo = this.formProfile.value.Pseudo;
-        this.u.Pswd = this.formProfile.value.Pswd;
-        this.u.Email = this.formProfile.value.Email;
+        if (this.formProfile.value.FirstName !== '') {
+            this.u.FirstName = this.formProfile.value.FirstName;
+        }
+        if (this.formProfile.value.LastName !== '') {
+            this.u.LastName = this.formProfile.value.LastName;
+        }
+        if (this.formProfile.value.Pseudo !== '') {
+            this.u.Pseudo = this.formProfile.value.Pseudo;
+        }
+        if (this.formProfile.value.Pswd !== '') {
+            this.u.Pswd = this.formProfile.value.Pswd;
+        }
+        if (this.formProfile.value.Email !== '') {
+            this.u.Email = this.formProfile.value.Email;
+        }
         console.log(this.formProfile.value.FirstName);
+        console.log(this.u);
         this.Users.update(this.u).subscribe(
             () => {
                    console.log('coucou' + this.u);
@@ -96,13 +107,13 @@ export class ProfileComponent implements OnInit {
         console.log(this.userCurrent.Id);
         this.Users.getById(this.userCurrent.Id)
             .subscribe(
-                u =>{
+                u => {
                     this.userCurrent = u;
                 },
-                (err) =>{
+                (err) => {
                     console.log('error' + JSON.stringify(err));
                 }
-            )
+            );
   }
 
 }

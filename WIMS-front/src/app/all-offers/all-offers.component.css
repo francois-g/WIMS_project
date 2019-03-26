@@ -25,3 +25,9 @@
     background-color: orange;
     padding: 0 70px;
 }
+
+.thin {
+    color: black;
+    font-weight: normal;
+    font-size: 20px;
+}

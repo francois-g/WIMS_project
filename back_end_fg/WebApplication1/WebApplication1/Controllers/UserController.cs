@@ -68,8 +68,18 @@ namespace WebApplication1.Controllers
             //return listFromDB;
             #endregion
         }
+
+        [HttpGet]
+        [Route("api/user/balance/{id}")]
+        public int GetBalance(int id)
+        {
+            return this.repo.getBalance(id);
+        }
+
         [TokenAuthenticator(Domain: "userDom")]
         [Authorize(Roles = "Admin, Viewer, Streamer")]
+        [HttpGet]
+        [Route("api/user/{id}")]
         public WimsUser Get(int id)
         {
             return this.repo.getById(id);
@@ -113,16 +123,10 @@ namespace WebApplication1.Controllers
             //    return user;
             #endregion
         }
-
+        
         public WimsUser GetWithLogin(string login)
         {
             return this.repo.getByLogin(login);
-        }
-
-        [HttpGet]
-        public int GetBalance(int id)
-        {
-            return this.repo.getBalance(id);
         }
 
         [HttpGet]

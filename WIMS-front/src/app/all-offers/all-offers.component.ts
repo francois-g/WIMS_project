@@ -245,8 +245,8 @@ export class AllOffersComponent implements OnInit {
 
         this.editMode = false;
 
-        if (sessionStorage.getItem('_currentUser') != null) {
-            this.currentUser = JWT(sessionStorage.getItem('_currentUser'));
+        if (sessionStorage.getItem('currentUser') != null) {
+            this.currentUser = JWT(sessionStorage.getItem('currentUser'));
             console.log(this.currentUser);
             this.Users.getBalance(this.currentUser.Id)
                 .subscribe(
@@ -304,19 +304,18 @@ export class AllOffersComponent implements OnInit {
 
     encherir(value: number) {
         let u = new User();
-        u = JWT(sessionStorage.getItem('_currentUser'));
+        u = JWT(sessionStorage.getItem('currentUser'));
         let uId = u.Id;
         console.log(uId);
-        // document.getElementById('buttonAuction');
+
         this.postedAuction = new Auction (
             u,
             this.formNewAuction.value.auctionValue,
             value
         );
 
-        this._auction$ = this.Auctions.insert(this.postedAuction);
-
         if (this.formNewAuction.value.auctionValue > this.getBestAuction(value) && this.currentBalance > this.formNewAuction.value.auctionValue) {
+            this._auction$ = this.Auctions.insert(this.postedAuction);
             this._auction$.subscribe(
                 () => {
                     console.log(this.postedAuction);

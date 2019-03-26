@@ -25,7 +25,11 @@
                     <button class="btn btn-warning" id="submitDesc" *ngIf="this.editMode == true && editableId == o.Id" (click)="editModeOff(o.Id)"><i class="fa fa-check"></i></button>
 
                     <p *ngIf="getBestAuction(o.Id) == 0" class="printBest">{{o.AuctionStartValue}}</p>
-                    <p *ngIf="getBestAuction(o.Id) != 0" class="printBest">{{getBestAuction(o.Id)}} {{this.bestUser}} </p>
+
+                    <div *ngIf="getBestAuction(o.Id) != 0">
+                        <p class="thin">Meilleur enchérisseur : {{this.bestUser}}</p>
+                        <p class="printBest text-center">{{getBestAuction(o.Id)}}</p>
+                    </div>
                 </mat-card-content>
 
                 <mat-card-actions class="d-flex justify-content-center">

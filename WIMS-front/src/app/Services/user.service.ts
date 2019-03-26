@@ -40,6 +40,7 @@ export class UserService {
     }
 
     getById(value: number): Observable<User> {
+        // return this._httpClient.get<User>(this.url + '/' + value, { headers : this.header });
         return this._httpClient.get<User>(this.url + '/' + value, { headers : this.header });
     }
 
