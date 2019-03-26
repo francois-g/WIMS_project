@@ -83,17 +83,19 @@ export class NavComponent implements OnInit {
 
     ngOnInit() {
         this.searchIsOpen = false;
-        this.currentUser = JWT(sessionStorage.getItem('currentUser'));
-        console.log(this.currentUser);
-        this.Users.getBalance(this.currentUser.Id)
-            .subscribe(
-                t => {
-                    this.currentBalance = t;
-                },
-                (err) => {
-                    console.log('erreur' + err);
-                }
-        );
+        if (sessionStorage.getItem('currentUser') != null) {
+            this.currentUser = JWT(sessionStorage.getItem('currentUser'));
+            console.log(this.currentUser);
+            this.Users.getBalance(this.currentUser.Id)
+                .subscribe(
+                    t => {
+                        this.currentBalance = t;
+                    },
+                    (err) => {
+                        console.log('erreur' + err);
+                    }
+                );
+        }
     }
 
     openSearchBar() {
