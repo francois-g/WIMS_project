@@ -2,8 +2,21 @@
 <div class="container all">
     <form class="mt-5 d-flex flex-column" [formGroup]="formProfile" (ngSubmit)="onSubmitProfile()">
         <!--<label for="sujet">Objet:</label>-->
-        <label for="FirstName">Prénom</label>
-        <input class="col-lg-3" type="text" id="FirstName" [formControl]="formProfile.controls['FirstName']">
+        <div id="firstName">Prénom
+            <div *ngIf="this.openInp === false">{{this.userCurrent.FirstName}}
+                <button type="button" (click)="openInput()">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+            <div *ngIf="this.openInp === true">
+                <input class="col-lg-3" type="text" id="yo" [formControl]="formProfile.controls['FirstName']" placeholder="{{this.userCurrent.FirstName}}">
+                <button type="button" (click)="closeInput()">
+                    <i class="fa fa-check"></i>
+                </button>
+            </div>
+
+        </div>
+
         <label for="LastName">Nom</label>
         <input class="col-lg-3" type="text" id="LastName" [formControl]="formProfile.controls['LastName']">
         <label for="Pseudo">Pseudo</label>

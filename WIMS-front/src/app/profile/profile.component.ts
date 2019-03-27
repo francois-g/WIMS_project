@@ -7,13 +7,22 @@ import * as JWT from 'jwt-decode';
 import {log} from 'util';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+    get openInp(): boolean {
+        return this._openInp;
+    }
+
+    set openInp(value: boolean) {
+        this._openInp = value;
+    }
+
     u;
     private _userCurrent = new User();
+    private _openInp: boolean;
 
     get userCurrent(): User {
         return this._userCurrent;
@@ -24,10 +33,11 @@ export class ProfileComponent implements OnInit {
     }
 
     private _formProfile: FormGroup;
-    get formProfile(): FormGroup{
+
+    get formProfile(): FormGroup {
         return this._formProfile;
     }
-    set formProfile(value : FormGroup){
+    set formProfile(value: FormGroup) {
         this._formProfile = value;
     }
     private _outputProfile: {
@@ -89,12 +99,12 @@ export class ProfileComponent implements OnInit {
         console.log(this.u);
         this.Users.update(this.userCurrent.Id, this.u).subscribe(
             () => {
-                   console.log('coucou' + this.u);
-                },
-                (err) => {
-                    console.log('erreur' + JSON.stringify(err));
-                }
-            );
+                console.log('coucou' + this.u);
+            },
+            (err) => {
+                console.log('erreur' + JSON.stringify(err));
+            }
+        );
         // }
         // stop here if form is invalid
         // else {
@@ -102,18 +112,28 @@ export class ProfileComponent implements OnInit {
         // }
     }
 
-  ngOnInit() {
+    ngOnInit() {
+        this.openInp = false;
         this.userCurrent = JWT(sessionStorage.getItem('currentUser'));
+        console.log(this.userCurrent);
         console.log(this.userCurrent.Id);
         this.Users.getById(this.userCurrent.Id)
             .subscribe(
                 u => {
+                    console.log(u);
                     this.userCurrent = u;
                 },
                 (err) => {
                     console.log('error' + JSON.stringify(err));
                 }
             );
-  }
+    }
 
+    openInput() {
+        this.openInp = true;
+    }
+
+    closeInput() {
+        this.openInp = false;
+    }
 }
