@@ -8,7 +8,7 @@
 
 <div class="row">
         <div class="mt-5 col-lg-4 "  *ngFor="let o of offer">
-            <mat-card class="ml-3 mr-3 mb-5">
+            <mat-card class="ml-3 mr-3">
                 <div class="d-flex justify-content-center">
                     <img src="{{o.Game.GameImage}}">
                 </div>
@@ -27,13 +27,15 @@
                     <p *ngIf="getBestAuction(o.Id) == 0" class="printBest">{{o.AuctionStartValue}}</p>
 
                     <div *ngIf="getBestAuction(o.Id) != 0">
-                        <p class="thin">Meilleur enchérisseur : {{this.bestUser}}</p>
+                        <p class="text-center">Temps restant avant la fin de l'enchère: </p>
+                        <p class="text-center">{{o.RestantTotal}}</p>
+                        <p class="thin">Meilleur enchérisseur : {{bestUser}}</p>
                         <p class="printBest text-center">{{getBestAuction(o.Id)}}</p>
                     </div>
                 </mat-card-content>
 
                 <mat-card-actions class="d-flex justify-content-center">
-                    <form class="mt-5 d-flex flex-column justify-content-center align-items-center" [formGroup]="formNewAuction" (ngSubmit)="encherir(o.Id)">
+                    <form class="d-flex flex-column justify-content-center align-items-center" [formGroup]="formNewAuction" (ngSubmit)="encherir(o.Id)">
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default btn-number" data-type="minus" >

@@ -16,7 +16,14 @@ export class PriceToWin {
         private description: string,
 
     ) {}
+    private restantTotal: any;
+    get RestantTotal(): any {
+        return this.restantTotal;
+    }
 
+    set RestantTotal(value: any) {
+        this.restantTotal = value;
+    }
     get Id(): number {
         return this.id;
     }

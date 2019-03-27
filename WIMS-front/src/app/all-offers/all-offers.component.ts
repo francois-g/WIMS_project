@@ -271,6 +271,7 @@ export class AllOffersComponent implements OnInit {
         this.stay = this.daysFull + ' jours '  + this.hoursFull + ' h ' + this.minutesFull;
         return this.stay;
     }
+    restantTotal;
     ngOnInit() {
         // this.lastAuction = new Auction();
         this.notAllowedAuctioner = [];
@@ -284,16 +285,15 @@ export class AllOffersComponent implements OnInit {
                     this.notAllowedAuctioner[one.Id - 1] = one.Twitcher.Pseudo;
                     if (Date.parse(one.OfferEnd) > Date.now()) {
                         this.offer.push(one);
-                        console.log('notAllowed' + this.notAllowedAuctioner);
                         let today = Date.now();
                         let end =  Date.parse(one.OfferEnd);
                         let restant = end - today;
-                        let restantTotal = this.timeConversion(restant);
-                        console.log(restantTotal);
+                        one.RestantTotal = this.timeConversion(restant);
+                        console.log(one.RestantTotal);
+                        console.log('notAllowed' + this.notAllowedAuctioner);
                         this.data.changeOffers(this.offer);
                     }
                 });
-
             },
             (err) => {
                 console.log('erreur' + err);
@@ -328,7 +328,16 @@ export class AllOffersComponent implements OnInit {
                 );
         }
     }
-
+    getTime(id){
+        if(this.offer[id] !== undefined){
+            let today = Date.now();
+            let end =  Date.parse(this.offer[id].OfferEnd);
+            let restant = end - today;
+            this.restantTotal = this.timeConversion(restant);
+            console.log(this.restantTotal);
+            return this.restantTotal;
+        }
+    }
     // getBestAuction(value is Column Id in PriceToWin)
     getBestAuction(IdOfPrice: number) {
         if (this.auction !== undefined) {

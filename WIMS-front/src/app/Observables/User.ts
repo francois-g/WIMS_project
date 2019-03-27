@@ -20,6 +20,7 @@ export class User {
     private avatar = '';
     private active = true;
     private roleId: number;
+
     get Id(): number {
         return this.id;
     }
