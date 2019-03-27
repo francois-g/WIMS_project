@@ -216,8 +216,8 @@ namespace WebApplication1.Repositories
                             payload.Add("Id", (int)reader[0]);
                             //payload.Add("Firstname", (string)reader[1].ToString().Trim());
                             //payload.Add("Lastname", (string)reader[2].ToString().Trim());
-                            payload.Add("pseudo", (string)reader[3].ToString().Trim());
-                            payload.Add("password", (string)reader[4].ToString().Trim());
+                            payload.Add("Pseudo", (string)reader[3].ToString().Trim());
+                            payload.Add("Password", (string)reader[4].ToString().Trim());
                             //payload.Add("Email", (string)reader[5].ToString().Trim());
                             //payload.Add("TwitchLink", (reader[6] is DBNull) ? null : (string)reader[6]);
                             //payload.Add("PseudoTwitch", (reader[7] is DBNull) ? null : (string)reader[7]);

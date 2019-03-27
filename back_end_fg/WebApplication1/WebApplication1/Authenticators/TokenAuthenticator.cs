@@ -50,8 +50,8 @@ namespace WebApplication1.Authenticators
                 {
                     string token = requestMessage.Headers.Authorization.Parameter.ToString();
                     var jwt = new JwtSecurityToken(token);
-                    string user = jwt.Claims.First(c => c.Type == "pseudo").Value.ToString().Trim();
-                    string pwd = jwt.Claims.First(c => c.Type == "password").Value.ToString().Trim();
+                    string user = jwt.Claims.First(c => c.Type == "Pseudo").Value.ToString().Trim();
+                    string pwd = jwt.Claims.First(c => c.Type == "Password").Value.ToString().Trim();
 
                     using (SqlConnection c = new SqlConnection())
                     {

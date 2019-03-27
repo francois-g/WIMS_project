@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
         }
         console.log(this.formProfile.value.FirstName);
         console.log(this.u);
-        this.Users.update(this.u).subscribe(
+        this.Users.update(this.userCurrent.Id, this.u).subscribe(
             () => {
                    console.log('coucou' + this.u);
                 },

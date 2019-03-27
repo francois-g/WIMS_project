@@ -13,6 +13,7 @@ export class User {
     private email: string;
     private twitchLink: string = '';
     private pseudoTwitch: string = '';
+    private balance: number;
     private conditionAccepted: number;
     private currencyId: number;
     private currency: Currency;
@@ -81,6 +82,14 @@ export class User {
 
     set PseudoTwitch(value: string) {
         this.pseudoTwitch = value;
+    }
+
+    get Balance(): number {
+        return this.balance;
+    }
+
+    set Balance(value: number) {
+        this.balance = value;
     }
 
     get ConditionAccepted(): number {

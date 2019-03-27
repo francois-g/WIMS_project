@@ -215,6 +215,8 @@ namespace WebApplication1.Controllers
 
         [TokenAuthenticator(Domain: "userDom")]
         [Authorize(Roles = "Admin, Viewer, Streamer")]
+        [HttpPut]
+        [Route("api/user/{id}")]
         public void Put(int id, [FromBody]WimsUser u)
         {
             this.repo.update(id, u);

@@ -40,6 +40,8 @@ export class AllOffersComponent implements OnInit {
     private _currentUser: User;
     private _currentBalance: number;
     private _bestUser: string;
+    private _tabBestByOffer: string[];
+    private _notAllowedAuctioner: string[];
 
     tableAuctions = [];
 
@@ -166,6 +168,22 @@ export class AllOffersComponent implements OnInit {
         this._bestUser = value;
     }
 
+    get tabBestByOffer(): string[] {
+        return this._tabBestByOffer;
+    }
+
+    set tabBestByOffer(value: string[]) {
+        this._tabBestByOffer = value;
+    }
+
+    get notAllowedAuctioner(): string[] {
+        return this._notAllowedAuctioner;
+    }
+
+    set notAllowedAuctioner(value: string[]) {
+        this._notAllowedAuctioner = value;
+    }
+
     constructor(private Users: UserService, private builder: FormBuilder, private Offers: PricetowinService, private data: DataService, private Games: GameService, private Auctions: AuctionService) {
         this.formNewAuction = this.builder.group({
             'auctionValue': ['', [
@@ -208,13 +226,17 @@ export class AllOffersComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.notAllowedAuctioner = [];
+        this.tabBestByOffer = [];
         this.offer = [];
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(
             o => {
                 o.forEach(one => {
+                    this.notAllowedAuctioner[one.Id - 1] = one.Twitcher.Pseudo;
                     if (Date.parse(one.OfferEnd) > Date.now()) {
                         this.offer.push(one);
+                        console.log('notAllowed' + this.notAllowedAuctioner);
                     }
                 });
                 this.data.changeOffers(this.offer);
@@ -225,18 +247,11 @@ export class AllOffersComponent implements OnInit {
         );
 
         this.avatar = document.getElementsByClassName('avatar');
-        // console.log('offres');
-        // console.log(this.Offers);
-        // console.log(this.offer);
 
         this._auction$ = this.Auctions.getAll();
         this._auction$.subscribe(
             a => {
                 this.auction = a;
-                // console.log('get all');
-                // console.log(this.auction);
-                // console.log('service ');
-                // console.log(this.Auctions);
             },
             (err) => {
                 console.log('erreur' + err);
@@ -279,6 +294,8 @@ export class AllOffersComponent implements OnInit {
 
             this.bestUser = userPseudos[userPseudos.length - 1];
 
+            this.tabBestByOffer[IdOfPrice - 1] = this.bestUser;
+
             let max = 0;
             this.tabOfValues.map(v => {
                 if (v > max) {
@@ -314,18 +331,43 @@ export class AllOffersComponent implements OnInit {
             value
         );
 
-        if (this.formNewAuction.value.auctionValue > this.getBestAuction(value) && this.currentBalance > this.formNewAuction.value.auctionValue) {
+        // console.log(u.Pseudo);
+
+        // console.log('oh ' + this.notAllowedAuctioner[value - 1]);
+
+
+        if (this.formNewAuction.value.auctionValue > this.getBestAuction(value)
+            && this.currentBalance > this.formNewAuction.value.auctionValue
+            && this.bestUser !== u.Pseudo
+            && this.notAllowedAuctioner[value - 1] !== u.Pseudo)
+        {
+            let newUserOnlyBalance = new User();
+            newUserOnlyBalance.Balance = this.currentBalance - this.formNewAuction.value.auctionValue;
+
             this._auction$ = this.Auctions.insert(this.postedAuction);
             this._auction$.subscribe(
                 () => {
                     console.log(this.postedAuction);
                     console.log('enregistrement fait');
-                    window.location.reload();
+                    this.Users.update(u.Id, newUserOnlyBalance)
+                        .subscribe (
+                            () => {
+                                console.log('balance changée');
+                                window.location.reload();
+                            },
+                            (err) => {
+                                console.log('erreur ' + err);
+                            }
+                        );
                 },
                 (err) => {
                     console.log('erreur' + JSON.stringify(err));
                 }
             );
+        } else if (this.bestUser === u.Pseudo) {
+            alert('Vous êtes déjà le meilleur enchérisseur');
+        } else if (this.notAllowedAuctioner[value - 1] === u.Pseudo) {
+            alert('Ben, cette offre est à vous !');
         } else {
             alert('Vérifiez que votre solde soit suffisant et que vous soyez bien au dessus de la dernière offre');
         }
