@@ -9,8 +9,8 @@ namespace WimsApiMKI.Models
     public class WimsUser
     {
         private int _id;
-        private string _firstname;
-        private string _lastname;
+        private string _firstName;
+        private string _lastName;
         private string _pseudo;
         private string _pswd;
         private string _email;
@@ -39,16 +39,16 @@ namespace WimsApiMKI.Models
             set { _id = value; }
         }
 
-        public string Firstname
+        public string FirstName
         {
-            get { return _firstname; }
-            set { _firstname = value; }
+            get { return _firstName; }
+            set { _firstName = value; }
         }
 
-        public string Lastname
+        public string LastName
         {
-            get { return _lastname; }
-            set { _lastname = value; }
+            get { return _lastName; }
+            set { _lastName = value; }
         }
         
         public string Pseudo

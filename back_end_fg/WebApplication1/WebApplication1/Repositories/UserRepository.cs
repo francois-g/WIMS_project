@@ -42,8 +42,8 @@ namespace WebApplication1.Repositories
                         {
                             WimsUser user = new WimsUser();
                             user.Id = (int)reader[0];
-                            user.Firstname = (string)reader[1].ToString().Trim();
-                            user.Lastname = (string)reader[2].ToString().Trim();
+                            user.FirstName = (string)reader[1].ToString().Trim();
+                            user.LastName = (string)reader[2].ToString().Trim();
                             user.Pseudo = (string)reader[3].ToString().Trim();
                             user.Pswd = (string)reader[4].ToString().Trim();
                             user.Email = (string)reader[5].ToString().Trim();
@@ -90,8 +90,8 @@ namespace WebApplication1.Repositories
                     while (reader.Read())
                     {
                         user.Id = (int)reader[0];
-                        user.Firstname = (string)reader[1].ToString().Trim();
-                        user.Lastname = (string)reader[2].ToString().Trim();
+                        user.FirstName = (string)reader[1].ToString().Trim();
+                        user.LastName = (string)reader[2].ToString().Trim();
                         user.Pseudo = (string)reader[3].ToString().Trim();
                         user.Pswd = (string)reader[4].ToString().Trim();
                         user.Email = (string)reader[5].ToString().Trim();
@@ -150,8 +150,8 @@ namespace WebApplication1.Repositories
                         {
                             WimsUser user = new WimsUser();
                             user.Id = (int)reader[0];
-                            user.Firstname = (string)reader[1].ToString().Trim();
-                            user.Lastname = (string)reader[2].ToString().Trim();
+                            user.FirstName = (string)reader[1].ToString().Trim();
+                            user.LastName = (string)reader[2].ToString().Trim();
                             user.Pseudo = (string)reader[3].ToString().Trim();
                             user.Pswd = (string)reader[4].ToString().Trim();
                             user.Email = (string)reader[5].ToString().Trim();
@@ -261,10 +261,10 @@ namespace WebApplication1.Repositories
                 #region paramètres add user avec objet posté
 
                 cmd.Parameters.Add("@FirstName", SqlDbType.Text);
-                cmd.Parameters["@FirstName"].Value = (string)u.Firstname;
+                cmd.Parameters["@FirstName"].Value = (string)u.FirstName;
 
                 cmd.Parameters.Add("@LastName", SqlDbType.Text);
-                cmd.Parameters["@LastName"].Value = (string)u.Lastname;
+                cmd.Parameters["@LastName"].Value = (string)u.LastName;
 
                 cmd.Parameters.Add("@Pseudo", SqlDbType.Text);
                 cmd.Parameters["@Pseudo"].Value = (string)u.Pseudo;
@@ -325,10 +325,10 @@ namespace WebApplication1.Repositories
                 u.Id = id;
 
                 cmd.Parameters.Add("@FirstName", SqlDbType.Text);
-                cmd.Parameters["@FirstName"].Value = (u.Firstname is null) ? userToModify.Firstname : (string)u.Firstname;
+                cmd.Parameters["@FirstName"].Value = (u.FirstName is null) ? userToModify.FirstName : (string)u.FirstName;
 
                 cmd.Parameters.Add("@LastName", SqlDbType.Text);
-                cmd.Parameters["@LastName"].Value = (u.Lastname is null) ? userToModify.Lastname : (string)u.Lastname;
+                cmd.Parameters["@LastName"].Value = (u.LastName is null) ? userToModify.LastName : (string)u.LastName;
 
                 cmd.Parameters.Add("@Pseudo", SqlDbType.Text);
                 cmd.Parameters["@Pseudo"].Value = (u.Pseudo is null) ? userToModify.Pseudo : (string)u.Pseudo;
@@ -390,8 +390,8 @@ namespace WebApplication1.Repositories
                     while (reader.Read())
                     {
                         user.Id = (int)reader[0];
-                        user.Firstname = (string)reader[1].ToString().Trim();
-                        user.Lastname = (string)reader[2].ToString().Trim();
+                        user.FirstName = (string)reader[1].ToString().Trim();
+                        user.LastName = (string)reader[2].ToString().Trim();
                         user.Pseudo = (string)reader[3].ToString().Trim();
                         user.Pswd = (string)reader[4].ToString().Trim();
                         user.Email = (string)reader[5].ToString().Trim();
