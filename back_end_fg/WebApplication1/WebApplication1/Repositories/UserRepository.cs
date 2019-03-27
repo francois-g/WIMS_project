@@ -133,7 +133,7 @@ namespace WebApplication1.Repositories
             return balanceToReturn;
         }
 
-        public bool checkExisting(string value1, string value2)
+        public bool checkExisting(UserCheckModel u)
         {
             using (SqlConnection c = new SqlConnection())
             {
@@ -174,9 +174,9 @@ namespace WebApplication1.Repositories
                 }
             }
 
-            foreach(WimsUser u in listFromDB)
+            foreach(WimsUser w in listFromDB)
             {
-                if(u.Pseudo == value1 || u.Email.Replace(".", "x") == value2)
+                if(w.Pseudo == u.Pseudo || w.Email == u.Email)
                 {
                     return true;
                 }

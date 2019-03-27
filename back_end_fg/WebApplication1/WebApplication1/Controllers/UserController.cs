@@ -129,15 +129,15 @@ namespace WebApplication1.Controllers
             return this.repo.getByLogin(login);
         }
 
-        [HttpGet]
-        public bool CheckIfExists(string value1, string value2)
+        [HttpPost]
+        [Route("api/user/usercheck")]
+        public bool CheckIfExists([FromBody]UserCheckModel u)
         {
-            return this.repo.checkExisting(value1, value2);
+            return this.repo.checkExisting(u);
         }
 
         [Route("api/user/token")]
         [HttpPost]
-
         public string BuildToken([FromBody]TokenModel t)
         {
             return this.repo.createToken(t);
@@ -146,6 +146,7 @@ namespace WebApplication1.Controllers
         //only not authenticated users, manage this on the front app
         [TokenAuthenticator(Domain: "userDom")]
         [Authorize(Roles = "Admin, visitor")]
+        [HttpPost]
         public void Post([FromBody]WimsUser u)
         {
             this.repo.add(u);
