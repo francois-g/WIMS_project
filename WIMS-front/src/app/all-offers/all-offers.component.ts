@@ -19,7 +19,6 @@ import {UserService} from '../Services/user.service';
     styleUrls: ['./all-offers.component.css']
 })
 export class AllOffersComponent implements OnInit {
-
     submittedNewEnchere;
     avatar;
 
@@ -41,7 +40,10 @@ export class AllOffersComponent implements OnInit {
     private _currentBalance: number;
     private _bestUser: string;
     private _tabBestByOffer: string[];
+    private _bestUserId: number;
+    private _tabBestIdByOffer: number[];
     private _notAllowedAuctioner: string[];
+    private _lastAuction: Auction;
 
     tableAuctions = [];
 
@@ -176,12 +178,36 @@ export class AllOffersComponent implements OnInit {
         this._tabBestByOffer = value;
     }
 
+    get bestUserId(): number {
+        return this._bestUserId;
+    }
+
+    set bestUserId(value: number) {
+        this._bestUserId = value;
+    }
+
+    get tabBestIdByOffer(): number[] {
+        return this._tabBestIdByOffer;
+    }
+
+    set tabBestIdByOffer(value: number[]) {
+        this._tabBestIdByOffer = value;
+    }
+
     get notAllowedAuctioner(): string[] {
         return this._notAllowedAuctioner;
     }
 
     set notAllowedAuctioner(value: string[]) {
         this._notAllowedAuctioner = value;
+    }
+
+    get lastAuction(): Auction {
+        return this._lastAuction;
+    }
+
+    set lastAuction(value: Auction) {
+        this._lastAuction = value;
     }
 
     constructor(private Users: UserService, private builder: FormBuilder, private Offers: PricetowinService, private data: DataService, private Games: GameService, private Auctions: AuctionService) {
@@ -226,8 +252,10 @@ export class AllOffersComponent implements OnInit {
     }
 
     ngOnInit() {
+        // this.lastAuction = new Auction();
         this.notAllowedAuctioner = [];
         this.tabBestByOffer = [];
+        this.tabBestIdByOffer = [];
         this.offer = [];
         this._offer$ = this.Offers.getAll();
         this._offer$.subscribe(
@@ -292,9 +320,15 @@ export class AllOffersComponent implements OnInit {
                 return a.User.Pseudo;
             });
 
+            let userIds = tabOfFilteredAuctions.map(a => {
+                return a.User.Id;
+            });
+
             this.bestUser = userPseudos[userPseudos.length - 1];
+            this.bestUserId = userIds[userIds.length - 1];
 
             this.tabBestByOffer[IdOfPrice - 1] = this.bestUser;
+            this.tabBestIdByOffer[IdOfPrice - 1] = this.bestUserId;
 
             let max = 0;
             this.tabOfValues.map(v => {
@@ -342,18 +376,46 @@ export class AllOffersComponent implements OnInit {
             && this.notAllowedAuctioner[value - 1] !== u.Pseudo)
         {
             let newUserOnlyBalance = new User();
-            newUserOnlyBalance.Balance = this.currentBalance - this.formNewAuction.value.auctionValue;
+            let n = new User();
+            n.Id = this.bestUserId;
+
+            this.lastAuction = new Auction(
+                n,
+                this.getBestAuction(value),
+                value
+            );
 
             this._auction$ = this.Auctions.insert(this.postedAuction);
             this._auction$.subscribe(
                 () => {
-                    console.log(this.postedAuction);
+                    newUserOnlyBalance.Balance = this.currentBalance - this.formNewAuction.value.auctionValue;
+                    // console.log(this.postedAuction);
                     console.log('enregistrement fait');
                     this.Users.update(u.Id, newUserOnlyBalance)
                         .subscribe (
                             () => {
+                                this.Users.getById(this.lastAuction.User.Id)
+                                    .subscribe(
+                                        lastU => {
+                                            let p = new User();
+                                            p.Balance = lastU.Balance + this.getBestAuction(value);
+                                            this.Users.update(this.lastAuction.User.Id, p)
+                                                .subscribe(
+                                                    () => {
+                                                        console.log('dernier récupère son solde');
+                                                        window.location.reload();
+                                                    },
+                                                    (err) => {
+                                                        console.log('erreur subscribe update ' + err);
+                                                    }
+                                                );
+                                        },
+                                        (err) => {
+                                            console.log('erreur subscribe getById ' + err);
+                                        }
+                                    );
                                 console.log('balance changée');
-                                window.location.reload();
+                                // window.location.reload();
                             },
                             (err) => {
                                 console.log('erreur ' + err);
@@ -364,6 +426,7 @@ export class AllOffersComponent implements OnInit {
                     console.log('erreur' + JSON.stringify(err));
                 }
             );
+
         } else if (this.bestUser === u.Pseudo) {
             alert('Vous êtes déjà le meilleur enchérisseur');
         } else if (this.notAllowedAuctioner[value - 1] === u.Pseudo) {
@@ -373,6 +436,7 @@ export class AllOffersComponent implements OnInit {
         }
         // console.log(this.tableAuctions);
     }
+
     onSubmitNewEnchere() {
 
         if (this.formNewAuction.valid) {
