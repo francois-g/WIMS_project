@@ -40,6 +40,7 @@ export class UserService {
     }
 
     getById(value: number): Observable<User> {
+        // return this._httpClient.get<User>(this.url + '/' + value, { headers : this.header });
         return this._httpClient.get<User>(this.url + '/' + value, { headers : this.header });
     }
 
@@ -55,8 +56,8 @@ export class UserService {
         return this._httpClient.post<string>(this.url + '/token', value, { headers : this.header });
     }
 
-    update(value: User): Observable<User> {
-        return this._httpClient.put<User>(this.url + '/' + 1, value, { headers : this.header });
+    update(id: number, value: User): Observable<User> {
+        return this._httpClient.put<User>(this.url + '/' + id, value, { headers : this.header });
     }
 
     getBalance(value: number): Observable<number> {
