@@ -225,22 +225,24 @@ export class AllOffersComponent implements OnInit {
                 });
         }
     }
-    seconds;
+    minutesFull;
     minutes;
+    hoursFull;
     hours;
+    daysFull;
     days;
     stay;
     timeConversion(millisec) {
+        this.days = (millisec / (1000 * 60 * 60 * 24))%1;
+        this.daysFull = (millisec / (1000 * 60 * 60 * 24)) - this.days;
 
-        this.seconds = (millisec / 1000).toFixed(1);
+        this.hours = (24 * this.days)%1;
+        this.hoursFull = (24 * this.days) - this.hours;
 
-        this.minutes = (millisec / (1000 * 60)).toFixed(1);
+        this.minutes = (60 * this.hours)%1;
+        this.minutesFull = (60 * this.hours) - this.minutes;
 
-        this.hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-
-        this.days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
-
-        this.stay = this.days + 'jours' + this.hours + 'heures';
+        this.stay = this.daysFull + ' jours '  + this.hoursFull + ' h ' + this.minutesFull;
         return this.stay;
     }
     ngOnInit() {
@@ -255,18 +257,15 @@ export class AllOffersComponent implements OnInit {
                     if (Date.parse(one.OfferEnd) > Date.now()) {
                         this.offer.push(one);
                         console.log('notAllowed' + this.notAllowedAuctioner);
+                        let today = Date.now();
+                        let end =  Date.parse(one.OfferEnd);
+                        let restant = end - today;
+                        let restantTotal = this.timeConversion(restant);
+                        console.log(restantTotal);
+                        this.data.changeOffers(this.offer);
                     }
                 });
-                console.log(this.offer[0].OfferEnd);
-                let today = Date.now();
-                let end =  Date.parse(this.offer[0].OfferEnd);
-                let restant = end - today;
-                let restantG = this.timeConversion(restant);
-                let calcul = 130%60;
-                let calculJuste = 130 - calcul;
-                let reponse = calculJuste / 60;
-                console.log(reponse);
-                this.data.changeOffers(this.offer);
+
             },
             (err) => {
                 console.log('erreur' + err);
