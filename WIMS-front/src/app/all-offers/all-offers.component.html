@@ -19,7 +19,7 @@
                 </mat-card-header>
                 <mat-card-content class="d-flex flex-column align-items-center" >
                     <p *ngIf="this.editMode == false || editableId != o.Id" id="descOffer-{{o.Id}}">{{o.Description}}</p>
-                    <button class="btn btn-warning" *ngIf="this.editMode == false" (click)="modifyDesc(o.Id)"><i class="fas fa-pencil-alt"></i></button>
+                    <!--<button class="btn btn-warning" *ngIf="this.editMode == false" (click)="modifyDesc(o.Id)"><i class="fas fa-pencil-alt"></i></button>-->
 
                     <input *ngIf="this.editMode == true && editableId == o.Id" id="descToEdit-{{o.Id}}" value="{{o.Description}}">
                     <button class="btn btn-warning" id="submitDesc" *ngIf="this.editMode == true && editableId == o.Id" (click)="editModeOff(o.Id)"><i class="fa fa-check"></i></button>

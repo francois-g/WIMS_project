@@ -22,6 +22,7 @@ export class AllOffersComponent implements OnInit {
 
     submittedNewEnchere;
     avatar;
+    offreTab = [];
 
     private _offer$: Observable<PriceToWin[]>;
     private _offer: PriceToWin[];
@@ -206,7 +207,24 @@ export class AllOffersComponent implements OnInit {
                 });
         }
     }
+    seconds;
+    minutes;
+    hours;
+    days;
+    stay;
+    timeConversion(millisec) {
 
+        this.seconds = (millisec / 1000).toFixed(1);
+
+        this.minutes = (millisec / (1000 * 60)).toFixed(1);
+
+        this.hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+
+        this.days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+        this.stay = this.days + 'jours' + this.hours + 'heures';
+        return this.stay;
+    }
     ngOnInit() {
         this.offer = [];
         this._offer$ = this.Offers.getAll();
@@ -217,6 +235,15 @@ export class AllOffersComponent implements OnInit {
                         this.offer.push(one);
                     }
                 });
+                console.log(this.offer[0].OfferEnd);
+                let today = Date.now();
+                let end =  Date.parse(this.offer[0].OfferEnd);
+                let restant = end - today;
+                let restantG = this.timeConversion(restant);
+                let calcul = 130%60;
+                let calculJuste = 130 - calcul;
+                let reponse = calculJuste / 60;
+                console.log(reponse);
                 this.data.changeOffers(this.offer);
             },
             (err) => {
