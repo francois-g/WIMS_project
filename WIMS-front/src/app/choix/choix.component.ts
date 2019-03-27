@@ -248,7 +248,7 @@ export class ChoixComponent implements OnInit {
                     if (tokenString !== 'invalid dude') {
                         window.location.href = 'http://localhost:4200/AllOffers';
                     }
-                    else if(tokenString === 'invalid dude'){
+                    else if (tokenString === 'invalid dude') {
                        this.pswdIncorrect = true;
                     }
                 },
@@ -309,7 +309,10 @@ export class ChoixComponent implements OnInit {
 
     onSubmitInscriptionStreamer() {
         let exists: boolean;
-        this.Users.check(this.formInscriptionStreamer.value.pseudoStreamer, this.formInscriptionStreamer.value.mail.replace('@', '%40').replace('.', 'x')).subscribe(
+        let userToCheck = new User();
+        userToCheck.Pseudo = this.formInscriptionStreamer.value.pseudoStreamer;
+        userToCheck.Email = this.formInscriptionStreamer.value.mail;
+        this.Users.check(userToCheck).subscribe(
             data => {
                 exists = data;
                 console.log(data);
@@ -361,45 +364,56 @@ export class ChoixComponent implements OnInit {
 
     onSubmitInscriptionViewer() {
         let exists: boolean;
-        this.Users.check(this.formInscriptionViewer.value.pseudoVew, this.formInscriptionViewer.value.mailViewer.replace('@', '%40').replace('.', 'x')).subscribe(
-            data => {
-                exists = data;
-                console.log(data);
-                console.log(exists);
-                if (this.formInscriptionViewer.value.mdpVew === this.formInscriptionViewer.value.mdpValidationVew) {
-                    this.IsMdpAndCheckedMdpViewer = true;
-                } else {
-                    this.IsMdpAndCheckedMdpViewer = false;
+        let currentUser = new User();
+        currentUser = JWT(sessionStorage.getItem('currentUser'));
+        let userToCheck = new User();
+        userToCheck.Pseudo = this.formInscriptionViewer.value.pseudoVew;
+        userToCheck.Email = this.formInscriptionViewer.value.mailViewer;
+        if (currentUser === null || currentUser.RoleId === 3) {
+            this.Users.check(userToCheck).subscribe(
+                data => {
+                    exists = data;
+                    console.log(data);
+                    console.log(exists);
+                    if (this.formInscriptionViewer.value.mdpVew === this.formInscriptionViewer.value.mdpValidationVew) {
+                        this.IsMdpAndCheckedMdpViewer = true;
+                    } else {
+                        this.IsMdpAndCheckedMdpViewer = false;
+                    }
+                    if (this.formInscriptionViewer.valid && !exists && this.IsMdpAndCheckedMdpViewer === true) {
+                        this.submittedInscriptionViewer = true;
+                        console.log('Inscription ok');
+                        this.u = new User();
+                        this.u.FirstName = this.formInscriptionViewer.value.prenomViewer;
+                        this.u.LastName = this.formInscriptionViewer.value.nomViewer;
+                        this.u.Pseudo = this.formInscriptionViewer.value.pseudoVew;
+                        this.u.Pswd = this.formInscriptionViewer.value.mdpVew;
+                        this.u.Email = this.formInscriptionViewer.value.mailViewer;
+                        this.u.RoleId = 1;
+                        this.u.Currency = new Currency(1);
+                        console.log(this.u);
+                        this.Users.insert(this.u).subscribe(
+                            () => {
+                                console.log('Enregistrement fait');
+                            },
+                            (error) => {
+                                console.log('erreur ' + error);
+                            }
+                        );
+                    } else if (exists) {
+                        alert('ca existe');
+                    } else {
+                        this.submittedInscriptionViewer = false;
+                        console.log('teub');
+                    }
+                },
+                (err) => {
+                    console.log(JSON.stringify(err));
                 }
-                if (this.formInscriptionViewer.valid && !exists && this.IsMdpAndCheckedMdpViewer === true) {
-                    this.submittedInscriptionViewer = true;
-                    console.log('Inscription ok');
-                    this.u = new User();
-                    this.u.FirstName = this.formInscriptionViewer.value.prenomViewer;
-                    this.u.LastName = this.formInscriptionViewer.value.nomViewer;
-                    this.u.Pseudo = this.formInscriptionViewer.value.pseudoVew;
-                    this.u.Pswd = this.formInscriptionViewer.value.mdpVew;
-                    this.u.Email = this.formInscriptionViewer.value.mailViewer;
-                    this.u.RoleId = 1;
-                    this.u.Currency = new Currency(1);
-                    console.log(this.u);
-                    this.Users.insert(this.u).subscribe(
-                        () => {
-                            console.log('Enregistrement fait');
-                        },
-                        (error) => {
-                            console.log('erreur ' + error);
-                        }
-                    );
-                } else {
-                    this.submittedInscriptionViewer = false;
-                    console.log('teub');
-                }
-            },
-            (err) => {
-                console.log(JSON.stringify(err));
-            }
-        );
+            );
+        } else if (currentUser.RoleId === 3) {
+            alert('Vous ne pouvez inscrire personne en étant connecté');
+        }
 
         // if (exists) {
         //     this._user$ = this.Users.insert()
