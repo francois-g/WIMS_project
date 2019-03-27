@@ -447,6 +447,8 @@ export class AllOffersComponent implements OnInit {
                                         },
                                         (err) => {
                                             console.log('erreur subscribe getById ' + err);
+                                            console.log(this.lastAuction.User.Id);
+                                            console.log(this.lastAuction);
                                         }
                                     );
                                 console.log('balance changée');
