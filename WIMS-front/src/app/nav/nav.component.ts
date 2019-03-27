@@ -6,7 +6,6 @@ import {DataService} from '../Services/data.service';
 import {User} from '../Observables/User';
 import * as JWT from 'jwt-decode';
 import {UserService} from '../Services/user.service';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-nav',
@@ -102,11 +101,7 @@ export class NavComponent implements OnInit {
         this._offersQueried$ = this.Offers.getAll();
         this._offersQueried$.subscribe(
             tab => {
-                tab.forEach(o => {
-                    if (o.OfferEnd > Date.now().toString()) {
-                        this.offersQueried.push(o);
-                    }
-                });
+                this.offersQueried = tab;
             },
             (err) => {
                 console.log('erreur ' + err);
@@ -118,7 +113,13 @@ export class NavComponent implements OnInit {
     searchQuery() {
         this.inputText = ((document.getElementById('search-input') as HTMLInputElement).value);
         console.log(this.inputText);
-        const result = this.offersQueried.filter(o => o.Twitcher.Pseudo.includes(this.inputText));
+        let tabQueried = [];
+        this.offersQueried.forEach( o => {
+            if (o.OfferEnd <= Date.now().toString()) {
+                tabQueried.push(o);
+            }
+        });
+        const result = tabQueried.filter(o => o.Twitcher.Pseudo.includes(this.inputText));
         result.forEach(i => {
             console.log(i.Twitcher.Pseudo);
         });
