@@ -131,7 +131,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [Route("api/user/usercheck")]
-        public bool CheckIfExists([FromBody]WimsUser u)
+        public bool CheckIfExists([FromBody]UserCheckModel u)
         {
             return this.repo.checkExisting(u);
         }

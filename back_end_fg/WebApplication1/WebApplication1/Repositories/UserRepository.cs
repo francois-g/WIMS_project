@@ -133,7 +133,7 @@ namespace WebApplication1.Repositories
             return balanceToReturn;
         }
 
-        public bool checkExisting(WimsUser u)
+        public bool checkExisting(UserCheckModel u)
         {
             using (SqlConnection c = new SqlConnection())
             {

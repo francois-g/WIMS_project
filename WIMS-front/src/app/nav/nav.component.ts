@@ -6,6 +6,7 @@ import {DataService} from '../Services/data.service';
 import {User} from '../Observables/User';
 import * as JWT from 'jwt-decode';
 import {UserService} from '../Services/user.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-nav',
@@ -101,7 +102,11 @@ export class NavComponent implements OnInit {
         this._offersQueried$ = this.Offers.getAll();
         this._offersQueried$.subscribe(
             tab => {
-                this.offersQueried = tab;
+                tab.forEach(o => {
+                    if (o.OfferEnd > Date.now().toString()) {
+                        this.offersQueried.push(o);
+                    }
+                });
             },
             (err) => {
                 console.log('erreur ' + err);

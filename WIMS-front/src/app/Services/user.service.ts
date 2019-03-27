@@ -49,7 +49,7 @@ export class UserService {
         return this._httpClient.post<User>(this.url, value, { headers : this.headerPost });
     }
 
-    check(value: User): Observable<boolean> {
+    check(value: object): Observable<boolean> {
         return this._httpClient.post<boolean>(this.url + '/usercheck', value, { headers : this.header });
     }
 
