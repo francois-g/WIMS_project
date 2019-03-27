@@ -36,17 +36,15 @@
                 <button *ngIf="!searchIsOpen" class="button-search" (click)="openSearchBar()"><i class="fas fa-search"></i></button>
                 <button *ngIf="searchIsOpen" id="search-button" class="button-search" type="submit" (click)="searchQuery()"><i class="fas fa-search"></i></button>
             </form>
-
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type="button">Action</button>
-                    <button class="dropdown-item" type="button">Another action</button>
-                    <button class="dropdown-item" type="button">Something else here</button>
-                </div>
+            <div *ngIf="this.currentUser != undefined">
+                <button mat-button [matMenuTriggerFor]="menu" class="btn fa fa-user"></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item [routerLink]="['/Profile']">Profil</button>
+                    <button mat-menu-item (click)="deconnect()">Se déconnecter</button>
+                </mat-menu>
             </div>
+
+
         </div>
     </div>
 </nav>
