@@ -19,6 +19,7 @@ export class UserService {
     };
 
     private header = new HttpHeaders().append('Authorization', 'Bearer ' + sessionStorage.getItem('currentUser'));
+    private headerPost = new HttpHeaders().append('Authorization', '');
 
     get url(): string {
         return this._url;
@@ -45,11 +46,11 @@ export class UserService {
     }
 
     insert(value: object): Observable<User> {
-        return this._httpClient.post<User>(this.url, value, { headers : this.header });
+        return this._httpClient.post<User>(this.url, value, { headers : this.headerPost });
     }
 
-    check(value1: string, value2: string): Observable<boolean> {
-        return this._httpClient.get<boolean>(this.url + '/usercheck/' + value1 + '/' + value2, { headers : this.header });
+    check(value: object): Observable<boolean> {
+        return this._httpClient.post<boolean>(this.url + '/usercheck', value, { headers : this.header });
     }
 
     getToken(value: object): Observable<string> {

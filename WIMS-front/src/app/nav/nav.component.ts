@@ -113,12 +113,18 @@ export class NavComponent implements OnInit {
     searchQuery() {
         this.inputText = ((document.getElementById('search-input') as HTMLInputElement).value);
         console.log(this.inputText);
+        let finalTab = [];
         const result = this.offersQueried.filter(o => o.Twitcher.Pseudo.includes(this.inputText));
-        result.forEach(i => {
-            console.log(i.Twitcher.Pseudo);
+        result.forEach(o => {
+            // console.log(o.Twitcher.Pseudo);
+            if (Date.parse(o.OfferEnd) > Date.now())
+            {
+                finalTab.push(o);
+            }
         });
         console.log(result);
-        this.data.changeOffers(result);
+        // this.data.changeOffers(result);
+        this.data.changeOffers(finalTab);
     }
 
     dropDown() {
