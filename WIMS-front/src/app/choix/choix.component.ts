@@ -317,7 +317,7 @@ export class ChoixComponent implements OnInit {
         };
         console.log(currentUser.Id);
         console.log(userToCheck);
-        if (currentUser.Id === undefined || currentUser.RoleId === 3) {
+        if (currentUser.Id === undefined || currentUser.RoleId === 3 || sessionStorage.getItem('currentUser') === 'invalid dude') {
             this.Users.check(userToCheck).subscribe(
                 data => {
                     exists = data;
@@ -383,7 +383,7 @@ export class ChoixComponent implements OnInit {
         };
         console.log(currentUser.Id);
         console.log(userToCheck);
-        if (currentUser.Id === undefined || currentUser.RoleId === 3) {
+        if (currentUser.Id === undefined || currentUser.RoleId === 3 || sessionStorage.getItem('currentUser') === 'invalid dude') {
             this.Users.check(userToCheck).subscribe(
                 data => {
                     exists = data;
@@ -431,16 +431,10 @@ export class ChoixComponent implements OnInit {
 
     }
     ngOnInit() {
-        // this._user$ = this.Users.getAll();
-        // this._user$.subscribe(
-        //     u => {
-        //         sessionStorage.setItem("test", JSON.stringify(u))
-        //         this.user = u;
-        //     },
-        //     (err) => {
-        //         console.log('erreur' + err);
-        //     }
-        // );
+        if (sessionStorage.getItem('currentUser') === 'invalid dude')
+        {
+            sessionStorage.clear();
+        }
     }
 
     getAllOnPage() {
